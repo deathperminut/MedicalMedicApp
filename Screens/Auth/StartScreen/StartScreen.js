@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity} from 'react-native';
+import { View, Text, ImageBackground, Image, TouchableOpacity} from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 import icon from '../../../assets/Splash/Logotipo-Medical-Color.svg'
+import styles from './StartScreenStyle';
 
 export default function StartScreen(props) {
   let {navigation}=props
