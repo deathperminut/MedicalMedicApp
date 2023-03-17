@@ -7,24 +7,15 @@ const Pantalla = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.background}>
-        <View style={styles.iconContainer}>
-          <SvgUri></SvgUri>
+    <ImageBackground
+      source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')}
+      style={styles.imageBackground}>
+      <View style={styles.overlay}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Bienvenido a Medical</Text>
         </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Texto de la pantalla</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Pantalla2')}>
-            <Text style={styles.buttonText}>Botón 1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Pantalla3')}>
-            <Text style={styles.buttonText}>Botón 2</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </View>
+      </View>
+    </ImageBackground>
   );
 };
 
