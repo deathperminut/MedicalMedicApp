@@ -1,50 +1,74 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function BeginScreen() {
+
+const Pantalla = () => {
+  const navigation = useNavigation();
+
   return (
-    <ImageBackground
-      source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')}
-      style={styles.imageBackground}>
-      <View style={styles.overlay}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Bienvenido a Medical</Text>
+    <View style={styles.container}>
+      <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.background}>
+        <View style={styles.iconContainer}>
+          <SvgUri></SvgUri>
         </View>
-      </View>
-    </ImageBackground>
-
-  )
-}
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Texto de la pantalla</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Pantalla2')}>
+            <Text style={styles.buttonText}>Botón 1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Pantalla3')}>
+            <Text style={styles.buttonText}>Botón 2</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    imageBackground: {
-      flex: 1,
-      resizeMode: 'cover',
-      justifyContent: 'center',
-    },
-    overlay: {
-      ...StyleSheet.absoluteFillObject,
-      backgroundColor: 'rgba(126, 114, 209, 0.8)', // El último número es la opacidad (0-1)
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: 16,
-      width: '100%',
-      maxWidth: 500, // Ajusta este valor según tu preferencia
-    },
-    title: { 
-      fontSize: 30.36,
-      fontFamily: 'Montserrat-SemiBold',
-      textAlign: 'center',
-      color: '#FFF',
-      paddingLeft:60,
-      paddingRight:60, 
-    },
-    iconContainer: {
-      marginRight: 10,
-    },
-  });
+  container: {
+    flex: 1,
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#fff',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    marginVertical: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+});
+
+export default Pantalla;

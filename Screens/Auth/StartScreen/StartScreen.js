@@ -1,36 +1,77 @@
-import { View, Text,Button } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity} from 'react-native';
+import { SvgUri } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
+import icon from '../../../assets/Splash/Logotipo-Medical-Color.svg'
 
 export default function StartScreen(props) {
-
- console.log(props);
- let {navigation}=props;
-
- let [variable,setVariable]=React.useState(0);
-
- let variable_1=0
-
- /* USEEFFECT */
-
- React.useEffect(()=>{
-  console.log("HOLA MUNDO")
- },[variable])
-
- let GoToBegin=()=>{
-
-    navigation.navigate('Begin');
-
- }
-
+  let {navigation}=props
   return (
-    <View>
-      <Text>{variable}</Text>
-      <Text>{variable_1}</Text>
-      <Button onPress={GoToBegin} title={'Go To Begin'}></Button>
-      <Button onPress={()=>{setVariable(variable+1)}} title={'Count'}></Button>
-      <Button onPress={()=>{variable_1=variable_1+1;
-        console.log(variable_1)
-      }} title={'Count'}></Button>
+    <View style={styles.container}>
+      <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
+        <View style={styles.iconContainer}>
+          <SvgUri uri={icon}/>
+        </View>
+        <View style={styles.tittleContainer}>
+          <Text style={styles.title}>Bienvenido a Medical Home Care</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Begin')}>
+            <Text style={styles.buttonText}>BeginScreen</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Begin')}>
+            <Text style={styles.buttonText}>BeginScreen</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
+
   )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    imageBackground: {
+      flex: 1,
+      resizeMode: 'cover',
+      justifyContent: 'center',
+    },
+    tittleContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      width: '100%',
+    },
+    title: { 
+      fontSize: 30.36,
+      fontFamily: 'Montserrat-SemiBold',
+      textAlign: 'center',
+      color: '#FFF',
+      paddingLeft:60,
+      paddingRight:60, 
+    },
+    iconContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    buttonContainer: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    button: {
+      backgroundColor: '#fff',
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 20,
+      marginVertical: 10,
+    },
+    buttonText: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: '#000',
+    },
+  });
