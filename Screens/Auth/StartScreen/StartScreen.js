@@ -1,45 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity, FlatList} from 'react-native';
 import { SvgUri } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
-import icon from '../../../assets/Splash/Logotipo-Medical-Color.svg'
+import LogoMedicalWhite from '../../../Shared/Icons/LogoMedicalWhite';
 import styles from './StartScreenStyle';
+import Globalstyles from '../../../Shared/Icons/GlobalStyles';
+
 
 export default function StartScreen(props) {
+
+
   let {navigation}=props
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
-        <View style={styles.iconContainer}>
-          <SvgUri uri={icon}/>
-        </View>
-        <View style={styles.tittleContainer}>
-          <Text style={styles.title}>Bienvenido a Medical Home Care</Text>
-        </View>
-        <View style={styles.cardContainer}>
-          <FlatList data={cardData} renderItem={({ item }) => (
-          <View style={styles.card}>
-            <Text style={styles.cardDescription}>{item.description}</Text>
-            <View style={styles.cardIndicator}></View>
-          </View>
-            )}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}/>
-        </View>
-        <View style={styles.buttonContainerWrapper}>
-          <View style={styles.buttonContainerIn}>
-            <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Begin')}>
-              <Text style={styles.buttonText}>Ingresar</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonContainerUp}>
-            <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('Begin')}>
-              <Text style={styles.buttonText}>Registrarse</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
+      <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}></ImageBackground>
+      <View style={styles.MainContainer}>
+          <LogoMedicalWhite width='100' height="100" style={styles.iconContainer}></LogoMedicalWhite>
+          <Text style={Globalstyles.Semibold}>Bienvenido a</Text>
+          <Text style={Globalstyles.bold}>Medical Home Care</Text>
+      </View>
     </View>
 
   )

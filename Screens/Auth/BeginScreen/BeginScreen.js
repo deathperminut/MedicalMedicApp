@@ -7,15 +7,9 @@ const Pantalla = () => {
   const navigation = useNavigation();
 
   return (
-    <ImageBackground
-      source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')}
-      style={styles.imageBackground}>
-      <View style={styles.overlay}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Bienvenido a Medical</Text>
+        <View>
+          <Text>Bienvenido a Medical</Text>
         </View>
-      </View>
-    </ImageBackground>
   );
 };
 
