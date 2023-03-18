@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native';
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
   },
   imageBackground: {
     flex: 1,
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     width: '100%',
-    paddingTop:200,
+    paddingTop:150,
     marginVertical:10,
   },
   title: { 
@@ -36,9 +38,10 @@ const styles = StyleSheet.create({
   buttonContainerWrapper: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     width: '100%',
-    paddingVertical:40,
+    paddingBottom:40,
+
   },
   buttonContainerIn: {
     flex: 1,
@@ -47,6 +50,7 @@ const styles = StyleSheet.create({
     justifyContent:'flex-end',
     alignItems: 'flex-end',
     width:'100%',
+    marginBottom:20,
     
   },
   buttonContainerUp: {
@@ -55,7 +59,6 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'flex-end',
     alignItems: 'flex-end',
-    paddingBottom: 0,
     width:'100%',
     
   },
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 12.59,
     fontWeight: 'bold',
     color: '#FFF',
-    marginLeft:10,
+    marginLeft:40,
   },
 
   //flatlist
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
   },
   cardDescription: {
     fontSize: 13,
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-SemiBold',
     color: '#FFF',
     marginBottom: 5,
   },
