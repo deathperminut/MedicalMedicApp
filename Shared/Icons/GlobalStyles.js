@@ -10,6 +10,18 @@ const Globalstyles = StyleSheet.create({
   },
   Medium:{
     fontFamily:'Montserrat-Medium'
+  },
+  white:{
+    color:'#FFF'
+  },
+  Title:{
+   fontSize:27
+  },
+  SubTitle:{
+    fontSize:27
+  },
+  text:{
+    fontSize:13
   }
 });
 export default Globalstyles;

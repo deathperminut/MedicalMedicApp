@@ -38,10 +38,45 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     alignItems:'center',
     position:'absolute',
-    paddingTop:'45%'
+    paddingTop:'45%',
+    paddingLeft:'10%',
+    paddingRight:'10%'
+  },
+  PointersContainer:{
+    height:'10%',
+    flexDirection:'row',
+    justifyContent:'center',
+  },
+  Pointer_1:{
+    height:8,
+    marginRight:10,
+    width:30,
+    borderRadius:5,
+    backgroundColor:'#E6B3FF',
+    flexDirection:'row',
+    justifyContent:'center',
+  },
+  Pointer_2:{
+    height:8,
+    width:8,
+    marginRight:10,
+    borderRadius:5,
+    backgroundColor:'#FFC47A',
+    flexDirection:'row',
+    justifyContent:'center',
+  },
+
+  Pointer_3:{
+    height:8,
+    width:8,
+    borderRadius:5,
+    backgroundColor:'#92D0FF',
+    flexDirection:'row',
+    justifyContent:'center',
   },
   iconContainer:{
-    marginBottom:'20%'
+    flexDirection:'row',
+    marginBottom:'30%',
   },
   //buttons
   buttonContainerWrapper: {
@@ -53,48 +88,49 @@ const styles = StyleSheet.create({
 
   },
   buttonContainerIn: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // flexDirection:'column',
-    // justifyContent:'flex-end',
-    // alignItems: 'flex-end',
-    // width:'100%',
-    // marginBottom:20,
+
+     justifyContent: 'center',
+     flexDirection:'column',
+     justifyContent:'flex-end',
+     alignItems: 'flex-end',
+     width:'100%',
+     marginBottom:20,
     
   },
   buttonContainerUp: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // flexDirection:'column',
-    // justifyContent:'flex-end',
-    // alignItems: 'flex-end',
-    // width:'100%',
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection:'column',
+    justifyContent:'flex-end',
+    alignItems: 'flex-end',
+    width:'100%',
     
   },
   buttonIn: {
-    // backgroundColor: '#642B80',
-    // borderRadius: 50,
-    // borderTopRightRadius: 0,
-    // borderBottomRightRadius: 0,
-    // width: 200,
+    backgroundColor: '#642B80',
+    paddingVertical: 20,
+    borderRadius: 50,
+    paddingHorizontal:30,
+    width: 300,
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:25
   },
   buttonUp: {
     backgroundColor: 'transparent',
-    borderColor:'#F19420',
+    borderColor:'#FFF',
     borderWidth:1,
     paddingVertical: 20,
     borderRadius: 50,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
     paddingHorizontal:30,
-    width: '60%',
+    justifyContent:'center',
+    alignItems:'center',
+    width: 300,
     
   },
   buttonText: {
     fontSize: 12.59,
-    fontWeight: 'bold',
     color: '#FFF',
-    marginLeft:40,
   },
 
   //flatlist
