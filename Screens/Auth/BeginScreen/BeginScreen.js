@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './BeginScreenStyle';
 
 
-const Pantalla = () => {
+const BeginScreen = () => {
   const navigation = useNavigation();
 
   return (
@@ -16,4 +16,4 @@ const Pantalla = () => {
 };
 
 
-export default Pantalla;
+export default BeginScreen;
