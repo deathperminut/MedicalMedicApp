@@ -8,8 +8,9 @@ import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 
 export default function StartScreen(props) {
 
-
+  
   let {navigation}=props
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}></ImageBackground>
