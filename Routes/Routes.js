@@ -14,7 +14,7 @@ export default function Routes() {
  const Stack = createNativeStackNavigator();
 
   return (
-    <Stack.Navigator  initialRouteName="Start">
+    <Stack.Navigator  initialRouteName="Begin">
         <Stack.Screen name="Start" component={StartScreen} options={{header:()=>null}}/>
         <Stack.Screen name="Begin" component={BeginScreen} options={{header:()=>null}}/>
     </Stack.Navigator>
