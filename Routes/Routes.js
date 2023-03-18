@@ -14,8 +14,8 @@ export default function Routes() {
 
   return (
     <Stack.Navigator  initialRouteName="Start">
-        <Stack.Screen name="Start" component={StartScreen}/>
-        <Stack.Screen name="Begin" component={BeginScreen}/>
+        <Stack.Screen name="Start" component={StartScreen} options={{ header: () => null }}/>
+        <Stack.Screen name="Begin" component={BeginScreen} options={{ header: () => null }}/>
     </Stack.Navigator>
   )
 }
