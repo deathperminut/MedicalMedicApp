@@ -9,12 +9,15 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
+  //tittle
   tittleContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16,
     width: '100%',
+    paddingTop:200,
+    marginVertical:10,
   },
   title: { 
     fontSize: 30.36,
@@ -29,21 +32,87 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonContainer: {
+  //buttons
+  buttonContainerWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingVertical:40,
+  },
+  buttonContainerIn: {
     flex: 1,
     justifyContent: 'center',
+    flexDirection:'column',
+    justifyContent:'flex-end',
+    alignItems: 'flex-end',
+    width:'100%',
+    
   },
-  button: {
-    backgroundColor: '#fff',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    marginVertical: 10,
+  buttonContainerUp: {
+    flex: 1,
+    justifyContent: 'center',
+    flexDirection:'column',
+    justifyContent:'flex-end',
+    alignItems: 'flex-end',
+    paddingBottom: 0,
+    width:'100%',
+    
+  },
+  buttonIn: {
+    backgroundColor: '#642B80',
+    paddingVertical: 20,
+    borderRadius: 50,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    paddingHorizontal:30,
+    width: '60%',
+  },
+  buttonUp: {
+    backgroundColor: 'transparent',
+    borderColor:'#F19420',
+    borderWidth:1,
+    paddingVertical: 20,
+    borderRadius: 50,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    paddingHorizontal:30,
+    width: '60%',
+    
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 12.59,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#FFF',
+    marginLeft:10,
   },
+
+  //flatlist
+  cardContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 50,
+    width: '100%',
+  },
+  card: {
+    padding: 16,
+    marginHorizontal: 8,
+    width: 270,
+  },
+  cardDescription: {
+    fontSize: 13,
+    fontFamily: 'Montserrat-Regular',
+    color: '#FFF',
+    marginBottom: 5,
+  },
+  cardIndicator: {
+    backgroundColor: '#CCC',
+    width: 20,
+    height: 4,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginTop: 10,
+  },  
 });
 export default styles;
