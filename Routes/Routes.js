@@ -7,6 +7,7 @@ import StartScreen from '../Screens/Auth/StartScreen/StartScreen';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import Login from '../Screens/Auth/Login/Login';
 import RegisterPatient from '../Screens/Auth/Register/RegisterPatient/RegisterPatient';
+import Lobby from '../Screens/MainApp/Lobby/Lobby';
 
 export default function Routes() {
  
@@ -15,10 +16,11 @@ export default function Routes() {
  const Stack = createNativeStackNavigator();
 
   return (
-    <Stack.Navigator  initialRouteName="Start">
+    <Stack.Navigator  initialRouteName="Begin">
         <Stack.Screen name="Start" component={StartScreen} options={{header:()=>null}}/>
         <Stack.Screen name="Begin" component={BeginScreen} options={{header:()=>null}}/>
         <Stack.Screen name="Login" component={Login} options={{header:()=>null}}/>
+        <Stack.Screen name="Lobby" component={Lobby} options={{header:()=>null}}/>
         <Stack.Screen name="RegisterPatient" component={RegisterPatient} options={{header:()=>null}}/>
     </Stack.Navigator>
   )
