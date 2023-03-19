@@ -81,6 +81,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  whiteBox: {
+    position:'absolute',
+    width: '130%',
+    height: 500,
+    backgroundColor: 'white',
+    top:'90%',
+    borderTopLeftRadius:70
+  }
 });
 
 export default styles;
