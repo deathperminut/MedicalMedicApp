@@ -110,25 +110,25 @@ export default function Lobby(props) {
           <ScrollView horizontal={true} style={{width:'100%',maxHeight:120}} showsHorizontalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'row'}}>
               <View style={{maxHeight:100,flexDirection:'row'}}>
-                <View style={styles.options}>
+                <TouchableOpacity style={styles.options}>
                   <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                       <ContactIcon style={{width:15,height:15}}></ContactIcon>
                   </View>
                   <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
-                </View>
-                <View style={styles.options}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.options}>
                   <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                       <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
                   </View>
                   <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
                   <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
-                </View>
-                <View style={styles.options}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.options} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
                   <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                       <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
                   </View>
                   <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Beneficiarios</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>

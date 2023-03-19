@@ -13,7 +13,7 @@ export default function RegisterBeneficients(props) {
   return (
     <View style={styles.container}>
       <View style={styles.IconContainer}>
-        <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
+        <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Lobby')}></Icon>
       </View>
 
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
@@ -23,16 +23,8 @@ export default function RegisterBeneficients(props) {
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro Beneficiario</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-               <View style={{...styles.CameraIconContainer}}>
-                    <Icon
-                      name='camera-alt'
-                      size={40}
-                      color='#FFF'
-                    />
-               </View>
-            </View>
+        <ScrollView showsVerticalScrollIndicator={false} style={{width:'100%'}}>
+
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
               <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Email' leftIcon={
                     <Icon

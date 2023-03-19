@@ -45,11 +45,11 @@ export default function Particular(props) {
 
         <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Title, ...{marginTop:'0%'}}}>Medical Home Care</Text>
         <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Medium, ...{marginTop:'5%'},...{paddingHorizontal:'10%'}}}>Decir que es cada cosa particular suscrito y eps para que sepan que escojer</Text>
-        <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Lobby')}>
             <Icon name="chevron-left" type="font-awesome" size={20} color="#fff" />
           </TouchableOpacity>
           <View >
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Lobby')}>
           
             <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
             <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>
