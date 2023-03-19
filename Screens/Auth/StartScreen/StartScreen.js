@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ImageBackground, Image, TouchableOpacity, FlatList, Button} from 'react-native';
-import { SvgUri } from 'react-native-svg';
+import React from 'react';
+import { View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import LogoMedicalWhite from '../../../Shared/Icons/LogoMedicalWhite';
 import styles from './StartScreenStyle';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
@@ -8,7 +7,7 @@ import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 
 export default function StartScreen(props) {
 
-  
+
   let {navigation}=props
 
   return (

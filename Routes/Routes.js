@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BeginScreen from '../Screens/Auth/BeginScreen/BeginScreen';
 import StartScreen from '../Screens/Auth/StartScreen/StartScreen';
 import { Header } from 'react-native/Libraries/NewAppScreen';
+import DataServiceScreen from '../Screens/MainApp/NewService/ServiceData/ServiceData';
 
 
 export default function Routes() {
@@ -17,6 +18,7 @@ export default function Routes() {
     <Stack.Navigator  initialRouteName="Begin">
         <Stack.Screen name="Start" component={StartScreen} options={{header:()=>null}}/>
         <Stack.Screen name="Begin" component={BeginScreen} options={{header:()=>null}}/>
+        <Stack.Screen name="DataService" component={DataServiceScreen} options={{header:()=>null}}/>
     </Stack.Navigator>
   )
 }

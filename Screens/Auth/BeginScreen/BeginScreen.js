@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, ImageBackground} from 'react-native';
 import styles from './BeginScreenStyle';
 import LogotipoMedicalColor from '../../../Shared/Icons/Logotipo-Medical-Color';
 
