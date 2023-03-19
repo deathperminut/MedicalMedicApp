@@ -19,6 +19,9 @@ const Globalstyles = StyleSheet.create({
   },PurpleWhite:{
    color:'#9D91F4'
   },
+  Orange:{
+    color:'#F19420',
+  },
   Title:{
    fontSize:29
   },
