@@ -1,4 +1,4 @@
-import { View, Text ,ImageBackground,Image,FlatList,ScrollView } from 'react-native'
+import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './LobbyStyle'
 import {LinearGradient} from 'expo-linear-gradient';
@@ -8,7 +8,10 @@ import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 
-export default function Lobby() {
+export default function Lobby(props) {
+
+  /* NAVIGATE */
+  let {navigation}=props
 
 
   /* COMPONENTE DE LAS TARJETAS */
@@ -53,7 +56,7 @@ export default function Lobby() {
           </View>
           <ScrollView horizontal={true} style={{width:'100%',maxHeight:220}} showsHorizontalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'row'}}>
-              <View style={{maxHeight:200}}>
+              <TouchableOpacity style={{maxHeight:200}}>
                 <Image style={{margin:10}}
                   source={require('../../../assets/Home/Tarjeta-Historial.png')}  
                 ></Image>
@@ -63,8 +66,8 @@ export default function Lobby() {
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.white}}>de citas</Text>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.white,position:'absolute',top:160,left:55}}>Ver +</Text>
                 </View>
-              </View>
-              <View style={{maxHeight:200}}>
+              </TouchableOpacity>
+              <TouchableOpacity style={{maxHeight:200}}>
                 <Image style={{margin:10}}
                   source={require('../../../assets/Home/Tarjeta-Reportar.png')}  
                 ></Image>
@@ -73,8 +76,8 @@ export default function Lobby() {
                   <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.text}}>Estado del paciente o novedades</Text>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.white,position:'absolute',top:160,left:55}}>Ver +</Text>
                 </View>
-              </View>
-              <View style={{maxHeight:200}}>
+              </TouchableOpacity>
+              <TouchableOpacity style={{maxHeight:200}}>
                 <Image style={{margin:10}}
                   source={require('../../../assets/Home/Tarjeta-Servicios.png')}  
                 ></Image>
@@ -84,8 +87,8 @@ export default function Lobby() {
                   <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.text}}>Portafolio</Text>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.green,position:'absolute',top:160,left:55}}>Ver +</Text>
                 </View>
-              </View>
-              <View style={{maxHeight:200}}>
+              </TouchableOpacity>
+              <TouchableOpacity style={{maxHeight:200}}  onPress={()=>{navigation.navigate('MedicalHomeCare')}}>
                 <Image style={{margin:10}}
                   source={require('../../../assets/Home/Tarjeta-Solicitar.png')}  
                 ></Image>
@@ -94,7 +97,7 @@ export default function Lobby() {
                   <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.text}}>Pide una visita médica en casa</Text>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.green,position:'absolute',top:160,left:55}}>Ver +</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
           </ScrollView>
           

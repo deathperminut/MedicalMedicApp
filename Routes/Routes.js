@@ -6,7 +6,6 @@ import StartScreen from '../Screens/Auth/StartScreen/StartScreen';
 import Login from '../Screens/Auth/Login/Login';
 import RegisterPatient from '../Screens/Auth/Register/RegisterPatient/RegisterPatient';
 import Lobby from '../Screens/MainApp/Lobby/Lobby';
-import DataServiceScreen from '../Screens/MainApp/NewService/ServiceData/ServiceData';
 import RegisterBeneficients from '../Screens/Auth/Register/RegisterBeneficients/RegisterBeneficients';
 import Eps from '../Screens/MainApp/NewService/ServiceData/Eps/Eps';
 import MedicalHomeCare from '../Screens/MainApp/NewService/ServiceData/MedicalHomeCare/MedicalHomeCare';
@@ -26,7 +25,6 @@ export default function Routes() {
         <Stack.Screen name="Lobby" component={Lobby} options={{header:()=>null}}/>
         <Stack.Screen name="RegisterPatient" component={RegisterPatient} options={{header:()=>null}}/>
         <Stack.Screen name="RegisterBeneficient" component={RegisterBeneficients} options={{header:()=>null}}/>
-        <Stack.Screen name="DataService" component={DataServiceScreen} options={{header:()=>null}}/>
         <Stack.Screen name="EPS" component={Eps} options={{header:()=>null}}/>
         <Stack.Screen name="Particular" component={Particular} options={{header:()=>null}}/>
         <Stack.Screen name="MedicalHomeCare" component={MedicalHomeCare} options={{header:()=>null}}/>
