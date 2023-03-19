@@ -81,19 +81,23 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   iconContainer:{
-    flexDirection:'row',
+    flexDirection:'column',
     height:'30%',
     minHeight:80,
     width:'100%',
     padding:20,
+    maxWidth:700,
   },
   navBar:{
     width:'100%',
-    marginTop:20,
+    padding:10,
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   photo:{
-    width:50,
-    height:50,
+    width:70,
+    height:70,
   },
   FormContainer:{
     width:'100%',
