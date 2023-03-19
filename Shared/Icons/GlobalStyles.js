@@ -28,6 +28,9 @@ const Globalstyles = StyleSheet.create({
   SubTitle:{
     fontSize:27
   },
+  SubTitle_2:{
+    fontSize:20
+  },
   text:{
     fontSize:13
   },

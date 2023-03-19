@@ -1,4 +1,4 @@
-import { View, Text,Switch,TouchableOpacity} from 'react-native'
+import { View, Text,Switch,TouchableOpacity,Image} from 'react-native'
 import React from 'react'
 import styles from './LoginStyle'
 import { Input, Icon } from 'react-native-elements';
@@ -21,8 +21,12 @@ export default function Login(props) {
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
       </View>
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
+        <Image
+            style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
+            source={require("../../../assets/Ingresar/Icono-Mano-Ingresar.png")}
+         />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Purple,...{['marginBottom']:40}}}>Hola!</Text>
-        <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:40}}}>Ingrese con tu usuario y contraseña</Text>
+        <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:40}}}>Ingresa con tu usuario y contraseña</Text>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
           <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Usuario' leftIcon={
                 <Icon

@@ -1,4 +1,4 @@
-import { View, Text,Switch,TouchableOpacity,ScrollView} from 'react-native'
+import { View, Text,Switch,TouchableOpacity,ScrollView,Image} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
@@ -20,18 +20,19 @@ export default function RegisterPatient(props) {
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
       </View>
 
-      <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
+      <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,...{['width']:'100%'}}}>
+        <Image
+            style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
+            source={require("../../../../assets/Registro/Icono-Mano-Registro.png")}
+         />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro</Text>
-        <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
+        <ScrollView showsVerticalScrollIndicator={false} style={{['width']:'100%'}}>
             <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-               <View style={{...styles.CameraIconContainer}}>
-                    <Icon
-                      name='camera-alt'
-                      size={40}
-                      color='#FFF'
+                    <Image
+                    style={{ width: 70, height: 70, }}
+                    source={require("../../../../assets/Registro/Subir-Foto.png")}
                     />
-               </View>
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
               <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Email' leftIcon={
@@ -39,7 +40,7 @@ export default function RegisterPatient(props) {
                       name='email'
                       size={20}
                       color='#7E72D1'
-                    />}   
+              />}   
               />
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>

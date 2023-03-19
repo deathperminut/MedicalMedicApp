@@ -1,4 +1,4 @@
-import { View, Text,Switch,TouchableOpacity,ScrollView} from 'react-native'
+import { View, Text,Switch,TouchableOpacity,ScrollView,Image} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
@@ -17,6 +17,10 @@ export default function RegisterBeneficients(props) {
       </View>
 
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
+        <Image
+            style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
+            source={require("../../../../assets/Registro/Icono-Mano-Registro.png")}
+         />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro Beneficiario</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>Llena todos los campos y dale registrar para completar el registro</Text>
         <ScrollView showsVerticalScrollIndicator={false}>

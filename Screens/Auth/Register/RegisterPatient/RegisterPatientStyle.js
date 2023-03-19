@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   FormContainer:{
     maxWidth:600,
     width:'100%',
-
+    alignItems:'center',
     height:'85%',
     borderTopRightRadius:20,
     borderTopLeftRadius:20,
