@@ -2,36 +2,36 @@ import { View, Text,Switch,TouchableOpacity,ScrollView,Image} from 'react-native
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
-import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
-import styles from './RegisterPatientStyle';
+import styles from './EditRegisterStyles';
+import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 
-export default function RegisterPatient(props) {
 
+export default function EditRegister(props) {
+
+  let {navigation}=props
+  
   /* USE STATE */
   let [showPassword,setShowPassword]=React.useState(true);
   let [showPassword2,setShowPassword2]=React.useState(true);
 
-  /* NAVITATION */
-  let {navigation}=props
-
   return (
     <View style={styles.container}>
       <View style={styles.IconContainer}>
-        <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
+        <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
       </View>
 
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,...{['width']:'100%'}}}>
         <Image
             style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
-            source={require("../../../../assets/Registro/Icono-Mano-Registro.png")}
+            source={require("../../../assets/Registro/Icono-Mano-Registro.png")}
          />
-        <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro</Text>
-        <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
+        <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Editar Perfil</Text>
+        <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>confirma tus cambios dandole click a actualizar al final del formulario</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{['width']:'100%'}}>
             <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
                     <Image
                     style={{ width: 70, height: 70, }}
-                    source={require("../../../../assets/Registro/Subir-Foto.png")}
+                    source={require("../../../assets/Registro/Subir-Foto.png")}
                     />
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
@@ -169,7 +169,7 @@ export default function RegisterPatient(props) {
             </View>
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
                 <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
-                      <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
+                      <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Actualizar</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

@@ -25,6 +25,9 @@ const Globalstyles = StyleSheet.create({
   PurpleWhite2:{
     color:'#C8C1F8',
   },
+  blueWhite:{
+    color:'#1671B7'
+  },
   Orange:{
     color:'#F19420',
   },

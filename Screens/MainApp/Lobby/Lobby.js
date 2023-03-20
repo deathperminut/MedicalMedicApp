@@ -1,12 +1,12 @@
 import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
 import React from 'react'
-import styles from './LobbyStyle'
 import {LinearGradient} from 'expo-linear-gradient';
 import { Input, Icon } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
+import styles from './LobbyStyle';
 
 
 export default function Lobby(props) {

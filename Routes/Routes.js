@@ -11,6 +11,9 @@ import Eps from '../Screens/MainApp/NewService/ServiceData/Eps/Eps';
 import MedicalHomeCare from '../Screens/MainApp/NewService/ServiceData/MedicalHomeCare/MedicalHomeCare';
 import Particular from '../Screens/MainApp/NewService/ServiceData/Particular/Particular';
 import DrawerComponent from '../Screens/MainApp/DrawerComponent/DrawerComponent';
+import EditRegister from '../Screens/Auth/EditRegister/EditRegister';
+import Beneficient from '../Screens/MainApp/Beneficient/Beneficient';
+import EditBeneficient from '../Screens/Auth/Register/EditBeneficient/EditBeneficient';
 
 export default function Routes() {
  
@@ -29,6 +32,9 @@ export default function Routes() {
         <Stack.Screen name="EPS" component={Eps} options={{header:()=>null}}/>
         <Stack.Screen name="Particular" component={Particular} options={{header:()=>null}}/>
         <Stack.Screen name="MedicalHomeCare" component={MedicalHomeCare} options={{header:()=>null}}/>
+        <Stack.Screen name="EditPerfil" component={EditRegister} options={{header:()=>null}} ></Stack.Screen>
+        <Stack.Screen name="Beneficient" component={Beneficient} options={{header:()=>null}} ></Stack.Screen>
+        <Stack.Screen name="EditBeneficient" component={EditBeneficient} options={{header:()=>null}} ></Stack.Screen>
     </Stack.Navigator>
   )
 }

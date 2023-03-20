@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+    width:'100%',
+    height:'100%'
   },
   button: {
     backgroundColor: '#642B80',
@@ -21,10 +23,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row', // nuevo
   },
   buttonBack:{
-    position: 'absolute',
-    left: '10%',
-    aspectRatio: 1,
-    top: '10%',
+    position: 'relative',
+    // left: 40,
+    // aspectRatio: 1,
+    // top: 100,
   },
   buttonText: {
     fontSize: 12.59,
@@ -37,28 +39,34 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     position: 'absolute',
-    paddingTop: '55%',
-    paddingLeft: '10%',
-    paddingRight: '10%'
+    paddingTop:20
   },
   iconContainer:{
-    position: 'absolute', 
-    top: '5%', 
-    right: '5%', 
-    width: '35%', 
-    aspectRatio: 1,
-    marginRight: '10%',
+    // position: 'absolute', 
+    // top: 10, 
+    // right: 20, 
+    width: 200, 
+    height:100,
+    // aspectRatio: 1,
+    // marginRight: 20,
+  },
+  navBar:{
+    width:'100%',
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   PointersContainer:{
-    marginTop: '100%',
-    height: '5%',
+    position:'relative',
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop:20,
+    marginBottom:20,
   },
   Pointer_1:{
     height: 8,
     marginRight: 10,
-    width: 8,
+    width: 30,
     borderRadius: 5,
     backgroundColor: '#E6B3FF',
     flexDirection: 'row',
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
   },
   Pointer_2:{
     height: 8,
-    width: 30,
+    width: 8,
     marginRight: 10,
     borderRadius: 5,
     backgroundColor: '#FFC47A',
@@ -82,12 +90,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   whiteBox: {
-    position:'absolute',
-    width: '130%',
-    height: 500,
+    width: '100%',
+    height: '80%',
     backgroundColor: 'white',
-    top:'90%',
-    borderTopLeftRadius:70
+    borderTopLeftRadius:50
   }
 });
 

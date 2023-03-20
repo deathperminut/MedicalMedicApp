@@ -1,8 +1,8 @@
 import { View, Text,Switch,TouchableOpacity,ScrollView,Image} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
-import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import {LinearGradient} from 'expo-linear-gradient';
+import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import styles from './RegisterBeneficientsStyle'
 
 export default function RegisterBeneficients(props) {
