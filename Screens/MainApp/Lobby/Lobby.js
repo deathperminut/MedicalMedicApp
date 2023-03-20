@@ -7,6 +7,11 @@ import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
+import { Linking } from 'react-native';
+
+const openWhatsApp = () => {
+  Linking.openURL('whatsapp://send?text=Hola!&phone=+573222423267');
+}
 
 
 export default function Lobby(props) {
@@ -91,7 +96,7 @@ export default function Lobby(props) {
           <ScrollView horizontal={true} style={{width:'100%',maxHeight:120}} showsHorizontalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'row'}}>
               <View style={{maxHeight:100,flexDirection:'row'}}>
-                <TouchableOpacity style={styles.options}>
+                <TouchableOpacity style={styles.options} onPress={()=>openWhatsApp()}>
                   <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                       <ContactIcon style={{width:15,height:15}}></ContactIcon>
                   </View>
