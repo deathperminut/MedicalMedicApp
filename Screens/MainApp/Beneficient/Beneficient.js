@@ -1,8 +1,8 @@
 import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
-import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import { Input, Icon } from 'react-native-elements';
+import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import styles from './BeneficientStyles'
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 

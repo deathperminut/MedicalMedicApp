@@ -37,7 +37,7 @@ export default function Lobby(props) {
           </View>
           <ScrollView horizontal={true} style={{width:'100%',maxHeight:220}} showsHorizontalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'row'}}>
-              <TouchableOpacity style={{maxHeight:200}}>
+              <TouchableOpacity style={{maxHeight:200}} onPress={()=>navigation.navigate('HistoryDates')}>
                 <Image style={{margin:10}}
                   source={require('../../../assets/Home/Tarjeta-Historial.png')}  
                 ></Image>
