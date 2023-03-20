@@ -13,7 +13,7 @@ export default function RegisterBeneficients(props) {
   return (
     <View style={styles.container}>
       <View style={styles.IconContainer}>
-        <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Lobby')}></Icon>
+        <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
       </View>
 
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
@@ -123,7 +123,7 @@ export default function RegisterBeneficients(props) {
                 />
             </View>
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Lobby')}>
+                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
                       <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
                 </TouchableOpacity>
             </View>

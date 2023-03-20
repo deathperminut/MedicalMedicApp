@@ -168,7 +168,7 @@ export default function RegisterPatient(props) {
                 />
             </View>
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Lobby')}>
+                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
                       <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
                 </TouchableOpacity>
             </View>

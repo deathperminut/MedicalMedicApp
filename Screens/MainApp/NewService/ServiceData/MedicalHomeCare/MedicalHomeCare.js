@@ -45,13 +45,13 @@ export default function MedicalHomeCare(props) {
           </View>
         
         
-        <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Lobby')}>
+        <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.navigate('Drawer')}>
             <Icon name="chevron-left" type="font-awesome" size={20} color="#fff" />
           </TouchableOpacity>
           
           <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Title, ...{marginTop:'0%'}, ...{color:'#642B80'}}}>Medical Home Care</Text>
         <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Medium, ...{marginTop:'5%'},...{paddingHorizontal:'10%'}, ...{color:'#9D91F4'}}}>Decir que es cada cosa particular suscrito y eps para que sepan que escojer</Text>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Lobby')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Drawer')}>
           
             <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
             <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>

@@ -10,6 +10,7 @@ import RegisterBeneficients from '../Screens/Auth/Register/RegisterBeneficients/
 import Eps from '../Screens/MainApp/NewService/ServiceData/Eps/Eps';
 import MedicalHomeCare from '../Screens/MainApp/NewService/ServiceData/MedicalHomeCare/MedicalHomeCare';
 import Particular from '../Screens/MainApp/NewService/ServiceData/Particular/Particular';
+import DrawerComponent from '../Screens/MainApp/DrawerComponent/DrawerComponent';
 
 export default function Routes() {
  
@@ -22,7 +23,7 @@ export default function Routes() {
         <Stack.Screen name="Start" component={StartScreen} options={{header:()=>null}}/>
         <Stack.Screen name="Begin" component={BeginScreen} options={{header:()=>null}}/>
         <Stack.Screen name="Login" component={Login} options={{header:()=>null}}/>
-        <Stack.Screen name="Lobby" component={Lobby} options={{header:()=>null}}/>
+        <Stack.Screen name="Drawer" component={DrawerComponent} options={{header:()=>null}}/>
         <Stack.Screen name="RegisterPatient" component={RegisterPatient} options={{header:()=>null}}/>
         <Stack.Screen name="RegisterBeneficient" component={RegisterBeneficients} options={{header:()=>null}}/>
         <Stack.Screen name="EPS" component={Eps} options={{header:()=>null}}/>

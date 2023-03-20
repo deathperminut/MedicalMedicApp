@@ -8,31 +8,12 @@ import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 
+
 export default function Lobby(props) {
 
   /* NAVIGATE */
-  let {navigation}=props
+  let {navigation}=props.props
 
-
-  /* COMPONENTE DE LAS TARJETAS */
-
-  const DATA = [
-    { id: '1', url: '../../../assets/Home/Tarjeta-Historial.png' },
-    { id: '2', url: '../../../assets/Home/Tarjeta-Reportar.png' },
-    { id: '3', url: '../../../assets/Home/Tarjeta-Servicios.png' },
-    { id: '4', url: '../../../assets/Home/Tarjeta-Solicitar.png' },
-  ];
-
-  const renderItem = ({ item }) => {
-    return (
-        <View style={{maxHeight:200,shadowColor: '#000',shadowOffset: { width: 0, height: 2 },shadowOpacity: 0.25,shadowRadius: 3.84}}>
-             <Image style={{margin:10,shadowColor: '#000',shadowOffset: { width: 0, height: 2 },shadowOpacity: 0.25,shadowRadius: 3.84}}
-               source={{uri:item.url}}  
-             ></Image>
-        </View>
-        
-    );
-  };
 
   return (
     <View style={styles.container}>

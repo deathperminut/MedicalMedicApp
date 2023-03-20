@@ -67,7 +67,7 @@ export default function Login(props) {
           />
         </View>
         <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:'20%'}}}>
-            <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Lobby')}>
+            <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
                   <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
