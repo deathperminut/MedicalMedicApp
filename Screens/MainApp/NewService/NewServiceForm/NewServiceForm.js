@@ -10,7 +10,11 @@ import Globalstyles from '../../../../Shared/Icons/GlobalStyles';
 import LogoMedicalComplete from '../../../../Shared/Icons/LogoMedicalComplete';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function NewServiceForm() {
+export default function NewServiceForm(props) {
+
+  /* NAVIGATION */
+
+  let {navigation}=props
 
 
   const [selectedValue, setSelectedValue] = React.useState('');
