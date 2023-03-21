@@ -4,16 +4,57 @@ import styles from './LoginStyle'
 import { Input, Icon } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import {LinearGradient} from 'expo-linear-gradient';
+import { initLogin } from '../../../services/Auth/Login/Login';
 
 export default function Login(props) {
 
   /* USE STATE */
   let [showPassword,setShowPassword]=React.useState(true);
   const [isEnabled, setIsEnabled] = React.useState(false);
+  const [user,setUser]=React.useState({
+    identification:"",
+    password:"",
+  })
+
+  const [valid,setValid]=React.useState(true);
+
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   
   /* NAVITATION */
   let {navigation}=props
+
+  /* FUNCTIONS */
+  const ReadInput=(text,type)=>{
+    setUser({...user,[type]:text});
+    validar({...user,[type]:text});
+  }
+
+  const validar=(obj)=>{
+
+    if (obj.identification!=="" && obj.password!==""){
+      setValid(false);
+    }else{
+      setValid(true);
+    }
+
+  }
+  
+  const logIn=async()=>{
+
+    let result=undefined;
+
+    console.log(user);
+
+    result=await initLogin(user).catch((error)=>{
+      console.log(error);
+    })
+
+    if (result){
+      console.log(result.data);
+    }
+
+  }
+
 
   return (
     <View style={styles.container}>
@@ -27,8 +68,8 @@ export default function Login(props) {
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Purple,...{['marginBottom']:40}}}>Hola!</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:40}}}>Ingresa con tu usuario y contraseña</Text>
-        <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
-          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Usuario' leftIcon={
+        <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}> 
+          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Identificación' onChangeText={(text)=>ReadInput(text,'identification')} leftIcon={
                 <Icon
                   name='user'
                   type='font-awesome'
@@ -38,7 +79,7 @@ export default function Login(props) {
           />
         </View>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:10},...{['marginBottom']:20}}}>
-          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={true} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' leftIcon={
+          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={true} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>ReadInput(text,'password')} leftIcon={
                 <Icon
                   name='lock'
                   type='font-awesome'
@@ -67,7 +108,7 @@ export default function Login(props) {
           />
         </View>
         <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:'20%'}}}>
-            <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
+            <TouchableOpacity style={styles.buttonIn} onPress={logIn}  disabled={valid}>
                   <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
