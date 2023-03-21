@@ -25,7 +25,7 @@ export default function HistoryDates(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
         </View>
-        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center'}}>
+        <LinearGradient colors={['#FFFFFF', '#1671B7']} style={{...styles.FormContainer,alignItems:'center'}}>
           <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,marginBottom:20}}>Historia de citas</Text>
           <View style={{...styles.PointersContainer}}>
               <View style={styles.Pointer_1}></View>
@@ -35,37 +35,41 @@ export default function HistoryDates(props) {
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'78%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:200,backgroundColor:'#00000029',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
                   <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}>Auxiliar: <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Juan Pablo Loaiza</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.white,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:200,backgroundColor:'#00000029',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
                   <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}>Auxiliar: <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Juan Pablo Loaiza</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.white,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:200,backgroundColor:'#00000029',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
                   <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}>Auxiliar: <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Juan Pablo Loaiza</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.white,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:200,backgroundColor:'#00000029',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
                   <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}>Auxiliar: <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Juan Pablo Loaiza</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.blueWhite,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.white,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
                 </TouchableOpacity>
               </View>
+              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                </TouchableOpacity>
+              </View>
+
             </View>
           </ScrollView>
           

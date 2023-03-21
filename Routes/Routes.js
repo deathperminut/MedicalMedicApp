@@ -15,6 +15,7 @@ import EditRegister from '../Screens/Auth/EditRegister/EditRegister';
 import Beneficient from '../Screens/MainApp/Beneficient/Beneficient';
 import EditBeneficient from '../Screens/Auth/Register/EditBeneficient/EditBeneficient';
 import HistoryDates from '../Screens/MainApp/HistoryDates/HistoryDates';
+import NewServiceForm from '../Screens/MainApp/NewService/NewServiceForm/NewServiceForm';
 
 export default function Routes() {
  
@@ -37,6 +38,7 @@ export default function Routes() {
         <Stack.Screen name="Beneficient" component={Beneficient} options={{header:()=>null}} ></Stack.Screen>
         <Stack.Screen name="EditBeneficient" component={EditBeneficient} options={{header:()=>null}} ></Stack.Screen>
         <Stack.Screen name="HistoryDates" component={HistoryDates} options={{header:()=>null}} ></Stack.Screen>
+        <Stack.Screen name="NewServices" component={NewServiceForm} options={{header:()=>null}} ></Stack.Screen>
     </Stack.Navigator>
   )
 }

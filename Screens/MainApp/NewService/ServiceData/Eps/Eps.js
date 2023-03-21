@@ -21,8 +21,8 @@ export default function Eps(props) {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      animateAndNavigate();
-    }, 3000); // tiempo en milisegundos, en este caso 3 segundos
+      //animateAndNavigate();
+    }, 1500); // tiempo en milisegundos, en este caso 3 segundos
 
     return () => clearTimeout(timeout);
   }, []);
@@ -48,7 +48,7 @@ export default function Eps(props) {
             </View> 
             <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Title, ...{marginTop:'0%'}, ...{color:'#642B80'}}}>EPS y seguro</Text>
             <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Medium, ...{marginTop:'5%'},...{paddingHorizontal:'10%'}, ...{color:'#9D91F4'},textAlign:'center'}}>Decir que es cada cosa particular suscrito y eps para que sepan que escojer</Text>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Drawer')}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NewServices')}>
               <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
               <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>
             </TouchableOpacity>

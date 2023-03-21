@@ -27,8 +27,15 @@ export default function Beneficient(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
         </View>
-        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center'}}>
+        <LinearGradient colors={['#FFFFFF', '#695F9766']} style={{...styles.FormContainer,alignItems:'center'}}>
           <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginBottom:20}}>Beneficiarios</Text>
+          <View style={{width:'100%',alignItems:'center'}}>
+            <View>
+                <TouchableOpacity style={{width:30,height:30,borderRadius:30,backgroundColor:'#F19420',alignItems:'center',justifyContent:'center',marginBottom:20}} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
+                        <Text style={{textAlign:'center',...Globalstyles.white,textAlignVertical:'center',...Globalstyles.Title,position:'relative',bottom:7}}>+</Text>
+                </TouchableOpacity>
+            </View>
+          </View>
           <View style={{...styles.PointersContainer}}>
               <View style={styles.Pointer_1}></View>
               <View style={styles.Pointer_2}></View>
@@ -37,39 +44,38 @@ export default function Beneficient(props) {
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'78%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Icon name="cancel" color={'#9D91F4'} size={20} style={{position:'relative',right:1}}></Icon>
-                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#B0A8EA80',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                <Icon name="cancel" color={'#1671B7'} size={20} style={{position:'relative',right:1}}></Icon>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.Purple,textAlign:'center'}}>C.C 1005691633</Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Icon name="cancel" color={'#9D91F4'} size={20} style={{position:'relative',right:1}}></Icon>
-                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#B0A8EA80',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                <Icon name="cancel" color={'#1671B7'} size={20} style={{position:'relative',right:1}}></Icon>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.Purple,textAlign:'center'}}>C.C 1005691633</Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Icon name="cancel" color={'#9D91F4'} size={20} style={{position:'relative',right:1}}></Icon>
-                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#B0A8EA80',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                <Icon name="cancel" color={'#1671B7'} size={20} style={{position:'relative',right:1}}></Icon>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.Purple,textAlign:'center'}}>C.C 1005691633</Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Icon name="cancel" color={'#9D91F4'} size={20} style={{position:'relative',right:1}}></Icon>
-                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#B0A8EA80',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                <Icon name="cancel" color={'#1671B7'} size={20} style={{position:'relative',right:1}}></Icon>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.Purple,textAlign:'center'}}>C.C 1005691633</Text>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Icon name="cancel" color={'#9D91F4'} size={20} style={{position:'relative',right:1}}></Icon>
-                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#B0A8EA80',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <Icon name="cancel" color={'#9D91F4'} size={20} style={{position:'relative',right:1}}></Icon>
-                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#B0A8EA80',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                <Icon name="cancel" color={'#1671B7'} size={20} style={{position:'relative',right:1}}></Icon>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.Purple,textAlign:'center'}}>C.C 1005691633</Text>
                 </TouchableOpacity>
               </View>
             </View>

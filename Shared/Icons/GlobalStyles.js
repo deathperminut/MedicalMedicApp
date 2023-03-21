@@ -28,6 +28,9 @@ const Globalstyles = StyleSheet.create({
   blueWhite:{
     color:'#1671B7'
   },
+  gray:{
+    color:'gray'
+  },
   Orange:{
     color:'#F19420',
   },
