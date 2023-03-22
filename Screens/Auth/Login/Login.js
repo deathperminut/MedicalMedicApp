@@ -45,20 +45,21 @@ export default function Login(props) {
   const handleConfirm = () => console.log('Confirmado');
   
   const logIn=async()=>{
+    navigation.navigate('Drawer');
 
-    let result=undefined;
+    // let result=undefined;
 
-    console.log(user);
+    // console.log(user);
 
-    result=await initLogin(user).catch((error)=>{
-      console.log(error);
-    })
+    // result=await initLogin(user).catch((error)=>{
+    //   console.log(error);
+    // })
 
-    if (result){
-      //console.log(result.data);
-      navigation.navigate('Drawer');
-      //return <ConfirmationAlert onCancel={handleCancel} onConfirm={handleConfirm} />
-     }
+    // if (result){
+    //   //console.log(result.data);
+    //   navigation.navigate('Drawer');
+    //   //return <ConfirmationAlert onCancel={handleCancel} onConfirm={handleConfirm} />
+    //  }
 
   }
 

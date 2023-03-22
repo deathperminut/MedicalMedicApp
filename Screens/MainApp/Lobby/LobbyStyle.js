@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   Pointer_1:{
     height:8,
     marginRight:10,
-    width:30,
+    width:8,
     borderRadius:5,
     borderWidth:1,
     borderColor:'#7E72D1',
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius:30,
     borderTopRightRadius:30,
     paddingTop:30,
-    paddingLeft:30,
-    paddingRight:30,
+    paddingHorizontal:5
+
   },
   //buttons
   buttonContainerWrapper: {

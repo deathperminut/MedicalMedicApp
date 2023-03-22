@@ -69,7 +69,6 @@ export default function HistoryDates(props) {
                   <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
                 </TouchableOpacity>
               </View>
-
             </View>
           </ScrollView>
           

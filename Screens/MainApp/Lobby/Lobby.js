@@ -1,4 +1,4 @@
-import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity,useWindowDimensions } from 'react-native'
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
 import { Input, Icon } from 'react-native-elements';
@@ -8,11 +8,52 @@ import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
-
+import Carusel from '../Carusel/Carusel';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573222423267');
 }
+
+
+/* DATA */
+
+const ServicesData=[
+  {
+
+    image:'../../../assets/Home/Tarjeta-Historial.png',
+    id:'1',
+    text_1:'Historial',
+    text_2:'citas',
+    text_3:'',
+    navigate:'HistoryDates'
+
+  },
+  {
+    image:'../../../assets/Home/Tarjeta-Reportar.png',
+    id:'2',
+    text_1:'Reportar',
+    text_2:'Estado del paciente o novedades',
+    text_3:'',
+    navigate:'HistoryDates'
+
+  },
+  {
+    image:'../../../assets/Home//Tarjeta-Servicios.png',
+    id:'3',
+    text_1:'Nuestros servicios',
+    text_2:'portafolio',
+    navigate:'HistoryDates' 
+  },
+  {
+    image:'../../../assets/Home/Tarjeta-Solicitar.png',
+    id:'4',
+    text_1:'Solicitar',
+    text_2:'Pide una cita', 
+    navigate:'Swiper'
+  },
+
+]
+
 
 
 export default function Lobby(props) {
@@ -20,7 +61,7 @@ export default function Lobby(props) {
   /* NAVIGATE */
   let {navigation}=props.props
 
-
+   
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}></ImageBackground>
@@ -35,60 +76,14 @@ export default function Lobby(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
         </View>
         <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Servicios</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
           <View style={{...styles.PointersContainer}}>
               <View style={styles.Pointer_1}></View>
               <View style={styles.Pointer_2}></View>
               <View style={styles.Pointer_3}></View>
           </View>
-          <ScrollView horizontal={true} style={{width:'100%',maxHeight:220}} showsHorizontalScrollIndicator={false}>
-            <View style={{width:"100%",flexDirection:'row'}}>
-              <TouchableOpacity style={{maxHeight:200}} onPress={()=>navigation.navigate('HistoryDates')}>
-                <Image style={{margin:10}}
-                  source={require('../../../assets/Home/Tarjeta-Historial.png')}  
-                ></Image>
-                <View style={{position:'absolute',padding:20,paddingTop:80}}>
-                  
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.white}}>Historial</Text>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.white}}>de citas</Text>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.white,position:'absolute',top:160,left:55}}>Ver +</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={{maxHeight:200}}>
-                <Image style={{margin:10}}
-                  source={require('../../../assets/Home/Tarjeta-Reportar.png')}  
-                ></Image>
-                <View style={{position:'absolute',padding:20,paddingTop:80}}>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.white}}>Reportar</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.text}}>Estado del paciente o novedades</Text>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.white,position:'absolute',top:160,left:55}}>Ver +</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={{maxHeight:200}}>
-                <Image style={{margin:10}}
-                  source={require('../../../assets/Home/Tarjeta-Servicios.png')}  
-                ></Image>
-                <View style={{position:'absolute',padding:20,paddingTop:80}}>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.green}}>Nuestros</Text>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.green}}>servicios</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.text}}>Portafolio</Text>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.green,position:'absolute',top:160,left:55}}>Ver +</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity style={{maxHeight:200}}  onPress={()=>{navigation.navigate('Swiper')}}>
-                <Image style={{margin:10}}
-                  source={require('../../../assets/Home/Tarjeta-Solicitar.png')}  
-                ></Image>
-                <View style={{position:'absolute',padding:20,paddingTop:80}}>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.green,marginBottom:4}}>Solicitar</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.text}}>Pide una visita médica en casa</Text>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.green,position:'absolute',top:160,left:55}}>Ver +</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-          
-          <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Ayuda</Text>
+          <Carusel data={ServicesData} style={{maxHeight:80}} props={props.props}></Carusel>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ayuda</Text>
           <View style={{...styles.PointersContainer,...{'marginBottom':10}}}>
               <View style={styles.Pointer_1}></View>
               <View style={styles.Pointer_2}></View>
