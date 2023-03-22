@@ -75,7 +75,7 @@ export default function Lobby(props) {
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.green,position:'absolute',top:160,left:55}}>Ver +</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={{maxHeight:200}}  onPress={()=>{navigation.navigate('MedicalHomeCare')}}>
+              <TouchableOpacity style={{maxHeight:200}}  onPress={()=>{navigation.navigate('Swiper')}}>
                 <Image style={{margin:10}}
                   source={require('../../../assets/Home/Tarjeta-Solicitar.png')}  
                 ></Image>

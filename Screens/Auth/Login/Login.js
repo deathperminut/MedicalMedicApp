@@ -5,6 +5,7 @@ import { Input, Icon } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import {LinearGradient} from 'expo-linear-gradient';
 import { initLogin } from '../../../services/Auth/Login/Login';
+import { ConfirmationAlert } from '../../../Shared/Alerts/YesNoAlert';
 
 export default function Login(props) {
 
@@ -38,6 +39,10 @@ export default function Login(props) {
     }
 
   }
+
+  /* Alert */
+  const handleCancel = () => console.log('Cancelado');
+  const handleConfirm = () => console.log('Confirmado');
   
   const logIn=async()=>{
 
@@ -50,14 +55,20 @@ export default function Login(props) {
     })
 
     if (result){
-      console.log(result.data);
-    }
+      //console.log(result.data);
+      navigation.navigate('Drawer');
+      //return <ConfirmationAlert onCancel={handleCancel} onConfirm={handleConfirm} />
+     }
 
   }
 
+  /* ALERT */
+  
+
 
   return (
-    <View style={styles.container}>
+    <>
+     <View style={styles.container}>
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
       </View>
@@ -119,5 +130,7 @@ export default function Login(props) {
         
       </LinearGradient>
     </View>
+    </>
+    
   )
 }
