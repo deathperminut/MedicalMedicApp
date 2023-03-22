@@ -9,6 +9,7 @@ import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
 import Carusel from '../Carusel/Carusel';
+import VerticalStepIndicator from './StepByStep';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573222423267');
@@ -56,11 +57,13 @@ const ServicesData=[
 
 
 
+
 export default function Lobby(props) {
 
   /* NAVIGATE */
   let {navigation}=props.props
   const windowHeight = Dimensions.get('window').height;
+
    
   return (
     
@@ -82,7 +85,8 @@ export default function Lobby(props) {
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Cita</Text>
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                        <View  style={{flexDirection:'row', marginBottom:5,width:'90%',height:290,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                        <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:290,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
                           <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
                             <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
                           </View>
@@ -102,7 +106,11 @@ export default function Lobby(props) {
                             <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
                           </View>
                           </View>
+
+                          </View>
+                          <VerticalStepIndicator></VerticalStepIndicator>
                         </View>
+                        
                   </View>
                 </View>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
