@@ -1,4 +1,4 @@
-import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity,useWindowDimensions } from 'react-native'
+import { View, Text ,ImageBackground,Image,Dimensions,FlatList,ScrollView,TouchableOpacity,useWindowDimensions } from 'react-native'
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
 import { Input, Icon } from 'react-native-elements';
@@ -60,62 +60,86 @@ export default function Lobby(props) {
 
   /* NAVIGATE */
   let {navigation}=props.props
-
+  const windowHeight = Dimensions.get('window').height;
    
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}></ImageBackground>
-      <View style={styles.LobbyContainer}>
-        <View style={styles.iconContainer}>
-          <View style={styles.navBar}>
-            <ImageBackground source={require('../../../assets/Home/Foto-Usuario.png')} style={styles.photo}></ImageBackground>
-            <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
-          </View>
-          <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>Alejandro Soto</Text>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
-        </View>
-        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
-          <View style={{...styles.PointersContainer}}>
-              <View style={styles.Pointer_1}></View>
-              <View style={styles.Pointer_2}></View>
-              <View style={styles.Pointer_3}></View>
-          </View>
-          <Carusel data={ServicesData} style={{maxHeight:80}} props={props.props}></Carusel>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ayuda</Text>
-          <View style={{...styles.PointersContainer,...{'marginBottom':10}}}>
-              <View style={styles.Pointer_1}></View>
-              <View style={styles.Pointer_2}></View>
-              <View style={styles.Pointer_3}></View>
-          </View>
-          <ScrollView horizontal={true} style={{width:'100%',maxHeight:120}} showsHorizontalScrollIndicator={false}>
-            <View style={{width:"100%",flexDirection:'row'}}>
-              <View style={{maxHeight:100,flexDirection:'row'}}>
-                <TouchableOpacity style={styles.options} onPress={()=>openWhatsApp()}>
-                  <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                      <ContactIcon style={{width:15,height:15}}></ContactIcon>
-                  </View>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.options}>
-                  <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                      <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
-                  </View>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.options} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
-                  <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                      <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
-                  </View>
-                  <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Beneficiarios</Text>
-                </TouchableOpacity>
+    
+
+        <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%'}}>
+            <View style={styles.LobbyContainer}>
+              <View style={styles.iconContainer}>
+                <View style={styles.navBar}>
+                  <ImageBackground source={require('../../../assets/Home/Foto-Usuario.png')} style={styles.photo}></ImageBackground>
+                  <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
+                </View>
+                <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>Alejandro Soto</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
               </View>
+              <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={[styles.FormContainer, { minHeight: windowHeight - 250 }]}>
+                
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Cita</Text>
+                <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
+                  <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                        <View  style={{flexDirection:'row', marginBottom:5,width:'90%',height:290,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                          <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                            <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                          </View>
+                          <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                          <View>
+                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <Icon
+                                name='calendar'
+                                type='font-awesome'
+                                color='#FFA500'
+                                size={14}
+                                style={{marginRight:10}}
+                              />
+                              <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                            </View>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                          </View>
+                          </View>
+                        </View>
+                  </View>
+                </View>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
+
+                <Carusel data={ServicesData}  props={props.props}></Carusel>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ayuda</Text>
+                <ScrollView horizontal={true} style={{width:'100%',height:240,paddingTop:30}} showsHorizontalScrollIndicator={false}>
+                  <View style={{width:"100%",flexDirection:'row'}}>
+                    <View style={{maxHeight:100,flexDirection:'row'}}>
+                      <TouchableOpacity style={styles.options} onPress={()=>openWhatsApp()}>
+                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
+                            <ContactIcon style={{width:15,height:15}}></ContactIcon>
+                        </View>
+                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.options}>
+                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
+                            <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
+                        </View>
+                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
+                        <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={styles.options} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
+                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
+                            <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
+                        </View>
+                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Beneficiarios</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </ScrollView>
+              </LinearGradient>
             </View>
           </ScrollView>
-        </LinearGradient>
-      </View>
-    </View>
+          
+        </ImageBackground>
+      
+    
   )
 }

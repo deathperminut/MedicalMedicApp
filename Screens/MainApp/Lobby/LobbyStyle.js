@@ -2,15 +2,12 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    width:'100%',
-    height:'100%',
+    // position:'absolute'
   },
   LobbyContainer:{
-    position:'absolute',
     width:'100%',
-    height:'100%',
-    alignItems:'center',
-    
+    height:'150%',
+    // alignItems:'center',
   },
   imageBackground: {
     flex: 1,
@@ -58,8 +55,8 @@ const styles = StyleSheet.create({
     marginRight:10,
     width:8,
     borderRadius:5,
-    borderWidth:1,
-    borderColor:'#7E72D1',
+    borderWidth:0,
+    backgroundColor:'#7E72D1',
     flexDirection:'row',
     justifyContent:'center',
   },
@@ -77,8 +74,8 @@ const styles = StyleSheet.create({
     width:8,
     marginRight:10,
     borderRadius:5,
-    borderWidth:1,
-    borderColor:'#F19420',
+    borderWidth:0,
+    backgroundColor:'#F19420',
     flexDirection:'row',
     justifyContent:'center',
   },
@@ -87,14 +84,14 @@ const styles = StyleSheet.create({
     height:8,
     width:8,
     borderRadius:5,
-    borderWidth:1,
-    borderColor:'#3A9EE9',
+    borderWidth:0,
+    backgroundColor:'#3A9EE9',
     flexDirection:'row',
     justifyContent:'center',
   },
   iconContainer:{
     flexDirection:'column',
-    height:'30%',
+    height:250,
     minHeight:80,
     width:'100%',
     padding:20,
@@ -114,7 +111,6 @@ const styles = StyleSheet.create({
   FormContainer:{
     width:'100%',
     maxWidth:700,
-    height:'70%',
     borderTopLeftRadius:30,
     borderTopRightRadius:30,
     paddingTop:30,

@@ -21,7 +21,7 @@ export default function Swiper(props) {
         useNativeDriver:false,
       })} style={{width:'100%'}}  data={SwiperData} renderItem={({item})=><SwiperItem item={item} props={props}></SwiperItem>} horizontal showsHorizontalScrollIndicator={false}  pagingEnabled>Swiper</FlatList>
       <Paginator data={SwiperData} scrollX={scrollX} top='88%'></Paginator>
-      <TouchableOpacity style={{...styles.button,position:'absolute',top:'87%'}} onPress={() => navigation.navigate('NewServices')}>
+      <TouchableOpacity style={{...styles.button,position:'absolute',top:'87%'}} onPress={() => navigation.navigate('SelectPatient')}>
               <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
               <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>
       </TouchableOpacity>

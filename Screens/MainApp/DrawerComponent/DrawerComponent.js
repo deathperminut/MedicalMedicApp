@@ -34,7 +34,7 @@ export default function DrawerComponent(props) {
                       style={{marginRight:13}}
 
                     />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.bold}}>Editar Perfil</Text>
+                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Editar Perfil</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('Beneficient')}>
                     <Icon
@@ -45,7 +45,7 @@ export default function DrawerComponent(props) {
                       style={{marginRight:13}}
 
                     />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.bold}}>Beneficiarios</Text>
+                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Beneficiarios</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('Login')}>
                     <Icon
@@ -55,7 +55,7 @@ export default function DrawerComponent(props) {
                       color='#3E4898'
                       style={{marginRight:17}}
                     />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.bold}}>Cerrar Sesión</Text>
+                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Cerrar Sesión</Text>
                   </TouchableOpacity>
                 </View>
                 
