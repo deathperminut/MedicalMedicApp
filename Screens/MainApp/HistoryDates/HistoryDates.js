@@ -35,38 +35,118 @@ export default function HistoryDates(props) {
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'78%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                  <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                    <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                  </View>
+                  <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                  <View>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                      <Icon
+                        name='calendar'
+                        type='font-awesome'
+                        color='#FFA500'
+                        size={14}
+                        style={{marginRight:10}}
+                      />
+                      <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                    </View>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                  </View>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                  <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                    <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                  </View>
+                  <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                  <View>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                      <Icon
+                        name='calendar'
+                        type='font-awesome'
+                        color='#FFA500'
+                        size={14}
+                        style={{marginRight:10}}
+                      />
+                      <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                    </View>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                  </View>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                  <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                    <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                  </View>
+                  <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                  <View>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                      <Icon
+                        name='calendar'
+                        type='font-awesome'
+                        color='#FFA500'
+                        size={14}
+                        style={{marginRight:10}}
+                      />
+                      <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                    </View>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                  </View>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                  <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                    <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                  </View>
+                  <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                  <View>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                      <Icon
+                        name='calendar'
+                        type='font-awesome'
+                        color='#FFA500'
+                        size={14}
+                        style={{marginRight:10}}
+                      />
+                      <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                    </View>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                  </View>
+                  </View>
                 </TouchableOpacity>
               </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,width:'90%',height:150,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}}>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}><Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>Visita médica domiciliaria</Text></Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>2020-05-21 <Text style={{...Globalstyles.Medium,...Globalstyles.text,textAlign:'center'}}>7:00 AM / 8:00 AM</Text></Text>
+                <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                  <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                    <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                  </View>
+                  <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                  <View>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                      <Icon
+                        name='calendar'
+                        type='font-awesome'
+                        color='#FFA500'
+                        size={14}
+                        style={{marginRight:10}}
+                      />
+                      <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                    </View>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                  </View>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
