@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     paddingRight:'10%'
   },
   PointersContainer:{
-    height:'10%',
+    height:20,
     flexDirection:'row',
     justifyContent:'center',
   },

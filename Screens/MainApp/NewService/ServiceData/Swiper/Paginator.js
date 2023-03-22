@@ -3,12 +3,12 @@ import React, {useState,useRef} from 'react'
 import { Extrapolate } from 'react-native-reanimated';
 
 
-export default function Paginator({data,scrollX}) {
+export default function Paginator({data,scrollX,top}) {
 
   const {width}=useWindowDimensions();
 
   return (
-    <View style={{flexDirection:'row',height:64 ,position:'absolute',top:'85%'}}>
+    <View style={{flexDirection:'row',height:64 ,position:'absolute',top}}>
        {data.map((_,i)=>{
         const inputRange=[(i-1)*width,i*width,(i+1)*width];
 

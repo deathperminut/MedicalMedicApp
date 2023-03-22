@@ -20,7 +20,7 @@ export default function Swiper(props) {
       <FlatList onScroll={Animated.event([{nativeEvent:{contentOffset:{x:scrollX}}}],{
         useNativeDriver:false,
       })} style={{width:'100%'}}  data={SwiperData} renderItem={({item})=><SwiperItem item={item} props={props}></SwiperItem>} horizontal showsHorizontalScrollIndicator={false}  pagingEnabled>Swiper</FlatList>
-      <Paginator data={SwiperData} scrollX={scrollX}></Paginator>
+      <Paginator data={SwiperData} scrollX={scrollX} top='85%'></Paginator>
       <TouchableOpacity style={{...styles.button,position:'absolute',top:'87%'}} onPress={() => navigation.navigate('NewServices')}>
               <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
               <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>

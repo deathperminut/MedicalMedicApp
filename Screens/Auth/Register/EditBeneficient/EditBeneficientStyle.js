@@ -68,6 +68,18 @@ const styles = StyleSheet.create({
     alignItems:'center',
     marginBottom:25
   },
+  buttonDelete: {
+    borderWidth:1,
+    borderColor:'#FF0057',
+    backgroundColor: 'transparent',
+    paddingVertical: 20,
+    borderRadius: 50,
+    paddingHorizontal:30,
+    width: 300,
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:25
+  },
   buttonUp: {
     backgroundColor: 'transparent',
     borderColor:'#9D91F4',

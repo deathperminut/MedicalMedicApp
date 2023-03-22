@@ -126,6 +126,9 @@ export default function EditBeneficient(props) {
                 <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Beneficient')}>
                       <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Actualizar</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonDelete} onPress={() => navigation.navigate('Beneficient')}>
+                      <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Eliminar</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
       </LinearGradient>

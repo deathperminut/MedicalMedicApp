@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   Pointer_1:{
     height:8,
     marginRight:10,
-    width:30,
+    width:8,
     borderRadius:5,
     backgroundColor:'#E6B3FF',
     flexDirection:'row',
