@@ -70,7 +70,7 @@ export default function Beneficient(props) {
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                 <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
-                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.Purple,textAlign:'center'}}>C.C 1005691633</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>C.C 1005691633</Text>
                 </TouchableOpacity>
               </View>
             </View>
