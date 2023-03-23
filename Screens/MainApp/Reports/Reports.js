@@ -204,7 +204,7 @@ export default function Reports(props) {
                 placeholderTextColor="#B0A8EA80"
                 multiline
            />
-           <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Beneficient')}>
+           <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
                       <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Actualizar</Text>
            </TouchableOpacity>
            </LinearGradient>
