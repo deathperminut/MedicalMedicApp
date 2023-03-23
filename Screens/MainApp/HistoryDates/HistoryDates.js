@@ -26,12 +26,7 @@ export default function HistoryDates(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
         </View>
         <LinearGradient colors={['#FFFFFF', '#1671B7']} style={{...styles.FormContainer,alignItems:'center'}}>
-          <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,marginBottom:20}}>Historia de citas</Text>
-          <View style={{...styles.PointersContainer}}>
-              <View style={styles.Pointer_1}></View>
-              <View style={styles.Pointer_2}></View>
-              <View style={styles.Pointer_3}></View>
-          </View>
+          <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.blueWhite,marginBottom:20}}>Historial de citas</Text>
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'78%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
