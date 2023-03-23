@@ -36,11 +36,6 @@ export default function Beneficient(props) {
                 </TouchableOpacity>
             </View>
           </View>
-          <View style={{...styles.PointersContainer}}>
-              <View style={styles.Pointer_1}></View>
-              <View style={styles.Pointer_2}></View>
-              <View style={styles.Pointer_3}></View>
-          </View>
           <ScrollView style={{width:'100%',marginBottom:0,maxWidth:470,maxHeight:'160%',height:'140%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>

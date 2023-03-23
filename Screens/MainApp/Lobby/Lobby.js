@@ -35,7 +35,7 @@ const ServicesData=[
     text_1:'Reportar',
     text_2:'Estado del paciente o novedades',
     text_3:'',
-    navigate:'HistoryDates'
+    navigate:'Reports'
 
   },
   {
@@ -67,9 +67,10 @@ export default function Lobby(props) {
    
   return (
     
-
+        <View style={styles.container}>
         <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
-          <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%'}}>
+        </ImageBackground>
+        <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%',position:'absolute'}}>
             <View style={styles.LobbyContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.navBar}>
@@ -145,8 +146,9 @@ export default function Lobby(props) {
               </LinearGradient>
             </View>
           </ScrollView>
-          
-        </ImageBackground>
+
+        </View>
+
       
     
   )

@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    // position:'absolute'
+    flex:1,
+    alignItems:'center'
   },
   LobbyContainer:{
     width:'100%',
@@ -10,9 +11,9 @@ const styles = StyleSheet.create({
     // alignItems:'center',
   },
   imageBackground: {
-    flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+    alignItems:'center',
     width: '100%',
     height:'100%',
   },
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
   },
   FormContainer:{
     width:'100%',
+    padding:20,
     maxWidth:700,
     borderTopLeftRadius:30,
     borderTopRightRadius:30,
     paddingTop:30,
-    paddingHorizontal:5
 
   },
   //buttons
