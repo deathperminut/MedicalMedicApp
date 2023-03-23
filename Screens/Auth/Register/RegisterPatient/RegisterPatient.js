@@ -1,8 +1,8 @@
 import { View, Text,Switch,TouchableOpacity,ScrollView,Image} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
-import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import {LinearGradient} from 'expo-linear-gradient';
+import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import styles from './RegisterPatientStyle';
 
 export default function RegisterPatient(props) {
@@ -168,7 +168,7 @@ export default function RegisterPatient(props) {
                 />
             </View>
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Lobby')}>
+                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
                       <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
                 </TouchableOpacity>
             </View>

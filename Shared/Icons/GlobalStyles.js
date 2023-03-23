@@ -17,6 +17,9 @@ const Globalstyles = StyleSheet.create({
   green:{
     color:'#BDFC97'
   },
+  BlackPurple:{
+    color:'#642B80',
+  },
   Purple:{
     color:'#7E72D1'
   },PurpleWhite:{
@@ -24,6 +27,12 @@ const Globalstyles = StyleSheet.create({
   },
   PurpleWhite2:{
     color:'#C8C1F8',
+  },
+  blueWhite:{
+    color:'#1671B7'
+  },
+  gray:{
+    color:'gray'
   },
   Orange:{
     color:'#F19420',
