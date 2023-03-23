@@ -1,21 +1,23 @@
-import { View, Text, ImageBackground, TouchableOpacity, Animated } from 'react-native'
+import { View, Text, ImageBackground, TouchableOpacity, Animated, Easing } from 'react-native'
 import { Icon } from 'react-native-elements'
 import React, { useState, useEffect } from 'react';
-import styles from './EpsStyle'
 import Globalstyles from '../../../../../Shared/Icons/GlobalStyles'
 import LogotipoMedicalColor from '../../../../../Shared/Icons/Logotipo-Medical-Color'
+import styles from '../Particular/ParticularStyle';
 
-export default function Eps(props) {
+export default function Particular(props) {
   let {navigation}=props
-  const [fadeAnim, setFadeAnim] = useState(new Animated.Value(1));
+
+  const [translateX, setTranslateX] = useState(new Animated.Value(0));
 
   const animateAndNavigate = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 200,
+    Animated.timing(translateX, {
+      toValue: -500,
+      duration: 100,
       useNativeDriver: true,
+      easing: Easing.out(Easing.quad)
     }).start(() => {
-      navigation.navigate('MedicalHomeCare');
+      navigation.navigate('Lobby');
     });
   };
 
@@ -26,7 +28,10 @@ export default function Eps(props) {
 
     return () => clearTimeout(timeout);
   }, []);
+
+
   return (
+    <Animated.View style={{...styles.container, transform: [{ translateX }]}}>
     <View style={styles.container}>
       <ImageBackground source={require('../../../../../assets/Home/BG-EPS.png')} style={styles.imageBackground}/>
 
@@ -55,5 +60,6 @@ export default function Eps(props) {
           </View>
         </View>
       </View>
+      </Animated.View>
   )
 }

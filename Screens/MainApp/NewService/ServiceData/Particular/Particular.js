@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, TouchableOpacity, Animated } from 'react-native'
+import { View, Text, ImageBackground, TouchableOpacity, Animated, Easing } from 'react-native'
 import { Icon } from 'react-native-elements'
 import React, { useState, useEffect } from 'react';
 import Globalstyles from '../../../../../Shared/Icons/GlobalStyles'
@@ -8,13 +8,14 @@ import styles from './ParticularStyle'
 export default function Particular(props) {
   let {navigation}=props
 
-  const [fadeAnim, setFadeAnim] = useState(new Animated.Value(1));
+  const [translateX, setTranslateX] = useState(new Animated.Value(0));
 
   const animateAndNavigate = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 200,
+    Animated.timing(translateX, {
+      toValue: -500,
+      duration: 100,
       useNativeDriver: true,
+      easing: Easing.out(Easing.quad)
     }).start(() => {
       navigation.navigate('EPS');
     });
@@ -29,7 +30,7 @@ export default function Particular(props) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={{...styles.container, transform: [{ translateX }]}}>
       <ImageBackground source={require('../../../../../assets/Home/BG-Particular.png')} style={styles.imageBackground}/>
 
       <View style={styles.MainContainer}>
@@ -49,13 +50,13 @@ export default function Particular(props) {
             <Icon name="chevron-left" type="font-awesome" size={20} color="#fff" />
           </TouchableOpacity>
           <View >
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.button} onPress={() => animateAndNavigate()}>
           
             <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
             <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>
           </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </Animated.View>
   )
 }

@@ -38,3 +38,8 @@ export default function App() {
     
   );
 };
+
+//retocar navbar
+//popup modal actializacion del estado del paciente
+//nuestro servicios portafolio mostar servicios
+//olvide mi contraseña
