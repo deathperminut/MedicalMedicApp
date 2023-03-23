@@ -19,50 +19,50 @@ export default function DrawerComponent(props) {
     return(
       <View>
               <View style={{alignItems:'center'}}>
-                <View style={{backgroundColor:'#6149cd',width:100,height:100,borderRadius:50,marginTop:20}}>
-                   <LogoMedicalWhite style={{width:150,height:100}}></LogoMedicalWhite>
+                <View style={{backgroundColor:'#3E4898',width:'100%',height:'15%'}}>
+                 <LogoMedicalWhite style={{width:150,height:100,marginLeft:'37%',marginTop:'15%' }}></LogoMedicalWhite>
                 </View>
                 
                 <View style={{width:'100%',marginTop:70,height:'90%',alignItems:'center',paddingTop:20}}>
-                  
+                  <View style={{width:45,backgroundColor:'#F19420',position:'absolute',top:-300,left:0,height:'100%'}}/>  
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('EditPerfil')}>
                   <Icon
                       name='user'
                       type='font-awesome'
-                      size={20}
+                      size={25}
                       color='#3E4898'
-                      style={{marginRight:13}}
+                      style={{marginRight:13,marginLeft:15}}
 
                     />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Editar Perfil</Text>
+                    <Text style={{...Globalstyles.white,...Globalstyles.Medium,color:'#1671B7'}}>Editar Perfil</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('Beneficient')}>
                     <Icon
                       name='users'
                       type='font-awesome'
-                      size={20}
+                      size={25}
                       color='#3E4898'
-                      style={{marginRight:13}}
+                      style={{marginRight:13,marginLeft:25}}
 
                     />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Beneficiarios</Text>
+                    <Text style={{...Globalstyles.white,...Globalstyles.Medium,color:'#1671B7'}}>Beneficiarios</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('Login')}>
                     <Icon
                       name='arrow-left'
                       type='font-awesome'
-                      size={20}
+                      size={25}
                       color='#3E4898'
-                      style={{marginRight:17}}
+                      style={{marginRight:13,marginLeft:25}}
                     />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Cerrar Sesión</Text>
+                    <Text style={{...Globalstyles.white,...Globalstyles.Medium,color:'#1671B7'}}>Cerrar Sesión</Text>
                   </TouchableOpacity>
+                  </View>
                 </View>
                 
 
               </View>
-              
-          </View>
+            
     )
   }
     
@@ -72,7 +72,7 @@ export default function DrawerComponent(props) {
       statusBarAnimation='fade'
       open={open}
       //drawerType={'slide'}
-      drawerStyle={{paddingTop:10,backgroundColor:'#090131',width:200}} //090131
+      drawerStyle={{backgroundColor:'#fff',width:'60%'}} //090131
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderDrawerContent={() => {
