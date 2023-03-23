@@ -43,7 +43,7 @@ const ServicesData=[
     id:'3',
     text_1:'Nuestros servicios',
     text_2:'portafolio',
-    navigate:'HistoryDates' 
+    navigate:'OurServices' 
   },
   {
     image:'../../../assets/Home/Tarjeta-Solicitar.png',

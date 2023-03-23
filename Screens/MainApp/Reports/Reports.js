@@ -1,12 +1,11 @@
 import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,TextInput,StyleSheet } from 'react-native'
 import React, { useState } from 'react';
-import styles from './ReportStyles';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import { Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import RNPickerSelect from "react-native-picker-select";
-
+import styles from './ReportStyles';
 
 
 export default function Reports(props) {
