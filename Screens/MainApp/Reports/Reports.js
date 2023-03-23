@@ -48,7 +48,7 @@ export default function Reports(props) {
         <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
           <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,fontSize:20,marginBottom:20}}>Reporta estado del paciente o novedades</Text>
           
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -67,7 +67,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -86,7 +86,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -105,7 +105,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -124,7 +124,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -143,7 +143,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -162,7 +162,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -181,27 +181,10 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
-               <Icon
-                name="check"
-                type="font-awesome"
-                color="#00000029"
-                size={14}
-                containerStyle={{
-                    backgroundColor: "transparent",
-                    borderRadius: 50,
-                    padding: 8,
-                    borderWidth:1,
-                    borderColor:'#00000029'
-                }}
-                /> 
-                <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                  <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Flevitis</Text>
-                  <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
-                </View>   
-          </View>
+
+  
           <TextInput
-                style={{...styles.textArea,...Globalstyles.Medium,marginBottom:100}}
+                style={{...styles.textArea,...Globalstyles.Medium,marginBottom:100,maxWidth:500}}
                 value={texto}
                 onChangeText={handleTexto}
                 placeholder="Escribe aquí..."
