@@ -1,31 +1,30 @@
-import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,TextInput } from 'react-native'
+import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,TextInput,StyleSheet } from 'react-native'
 import React, { useState } from 'react';
 import styles from './ReportStyles';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import { Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
+import RNPickerSelect from "react-native-picker-select";
 
 
 
 export default function Reports(props) {
 
+
+  /* NAVIGATION */
+
   let {navigation}=props;
 
-  const [select1, setSelect1] = useState('');
-  const [select2, setSelect2] = useState('');
+  /* SELECTS */
+  const placeholder = {
+    label: 'Seleccione una novedad',
+    value: null,
+    color: '#9EA0A4',
+    fontFamily:'Montserrat-SemiBold'
+  };
+
   const [texto, setTexto] = useState('');
-
-  const opcionesSelect1 = ['Opción 1', 'Opción 2', 'Opción 3'];
-  const opcionesSelect2 = ['Opción A', 'Opción B', 'Opción C'];
-
-  const handleSelect1 = (opcion) => {
-    setSelect1(opcion);
-  };
-
-  const handleSelect2 = (opcion) => {
-    setSelect2(opcion);
-  };
 
   const handleTexto = (texto) => {
     setTexto(texto);
@@ -45,9 +44,23 @@ export default function Reports(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
         </View>
-        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
+        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center'}}>
           <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,fontSize:20,marginBottom:20}}>Reporta estado del paciente o novedades</Text>
-          
+          <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+            <RNPickerSelect
+                    style={pickerSelectStyles}
+                    placeholder={placeholder }
+                    onValueChange={(value) => console.log(value)}
+                    items={[
+                        { label: "JavaScript", value: "JavaScript" },
+                        { label: "TypeScript", value: "TypeScript" },
+                        { label: "Python", value: "Python" },
+                        { label: "Java", value: "Java" },
+                        { label: "C++", value: "C++" },
+                        { label: "C", value: "C" },
+                    ]}
+                />
+          </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
                <Icon
                 name="check"
@@ -202,3 +215,32 @@ export default function Reports(props) {
     </View>
   )
 }
+
+
+/* STILOS SELECT */
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        fontFamily:'Montserrat-SemiBold',
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#9D91F4',
+        borderRadius: 4,
+        color: '#9D91F4',
+        paddingRight: 30 // to ensure the text is never behind the icon
+    },
+    inputAndroid: {
+        fontSize: 16,
+        fontFamily:'Montserrat-SemiBold',
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: '#9D91F4',
+        borderRadius: 8,
+        color: '#9D91F4',
+        width:'100%',
+        maxWidth:500,
+        paddingRight: 30 // to ensure the text is never behind the icon
+    }
+});

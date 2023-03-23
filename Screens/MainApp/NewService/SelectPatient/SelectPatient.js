@@ -1,12 +1,23 @@
-import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text ,ImageBackground,ScrollView,TouchableOpacity,Modal, StyleSheet} from 'react-native'
+import React, { useState } from 'react';
 import {LinearGradient} from 'expo-linear-gradient';
 import { Input, Icon } from 'react-native-elements';
 import LogoMedicalComplete from '../../../../Shared/Icons/LogoMedicalComplete';
 import styles from './SelectPatientStyle'
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
+import RNPickerSelect from "react-native-picker-select";
 
 export default function SelectPatient(props) {
+
+  /* FOR SELECT */
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('');
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  /* NAVIGATION */
   
   let {navigation}=props;
 
