@@ -6,8 +6,16 @@ import { Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import RNPickerSelect from "react-native-picker-select";
-
-
+import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
+import CuidadoAgudo from '../../../Shared/Icons/OurServices/CuidadoAgudo';
+import CuidadoCronico from '../../../Shared/Icons/OurServices/CuidadoCronico';
+import Fonoaudiologia from '../../../Shared/Icons/OurServices/Fonoaudiología';
+import Hospitalizacion from '../../../Shared/Icons/OurServices/Hospitalizacion';
+import Nutricion from '../../../Shared/Icons/OurServices/Nutricion';
+import Orientacion from '../../../Shared/Icons/OurServices/OrientacionVideofónica';
+import TerapiaFisica from '../../../Shared/Icons/OurServices/TerapiaFisica';
+import TerapiaOcupacional from '../../../Shared/Icons/OurServices/TerapiaOcupacional';
+import TerapiaRespiratoria from '../../../Shared/Icons/OurServices/TerapiaRespiratoria';
 
 export default function OurServices(props) {
 
@@ -51,19 +59,8 @@ export default function OurServices(props) {
         <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center',minHeight:newHeight}}>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                    
+                      <ConsultaDomestica style={{width:30,height:30}}></ConsultaDomestica>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Hospitalización en Casa</Text>
                     
               </View>
@@ -71,19 +68,7 @@ export default function OurServices(props) {
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <CuidadoAgudo style={{width:30,height:30}}></CuidadoAgudo> 
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Cuidado Agudo</Text>
                     
               </View>
@@ -91,39 +76,14 @@ export default function OurServices(props) {
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <CuidadoCronico style={{width:30,height:30}}></CuidadoCronico>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Cuidado Crónico</Text>
-                    
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>Esta atención se realizará a pacientes crónicos de alto costo, garantizando con este servicio, la disminución de hospitalizaciones innecesarias y asistencia a urgencias.</Text>
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <Orientacion style={{width:30,height:30}}></Orientacion>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Orientación médica Videofónica</Text>
                     
               </View>
@@ -131,19 +91,7 @@ export default function OurServices(props) {
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:130,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <ConsultaDomestica style={{width:30,height:30}}></ConsultaDomestica> 
                       <View>
                        <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Consulta médica</Text>
                        <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Domiciliaria</Text>
@@ -155,19 +103,7 @@ export default function OurServices(props) {
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <TerapiaFisica style={{width:30,height:30}}></TerapiaFisica>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Terapia Física</Text>
                     
               </View>
@@ -175,19 +111,7 @@ export default function OurServices(props) {
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <TerapiaRespiratoria style={{width:30,height:30}}></TerapiaRespiratoria> 
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Terapia Respiratoria</Text>
                     
               </View>
@@ -195,39 +119,14 @@ export default function OurServices(props) {
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <TerapiaOcupacional style={{width:30,height:30}}></TerapiaOcupacional>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Terapia Ocupacional</Text>
-                    
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>La atención domiciliaria constituye hoy una modalidad que permite solventar las dificultades derivadas de la sobreocupación hospitalaria y la cronicidad.</Text>
           </View>
           <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
-                    <Icon
-                      name="check"
-                      type="font-awesome"
-                      color="#00000029"
-                      size={14}
-                      containerStyle={{
-                          backgroundColor: "transparent",
-                          borderRadius: 50,
-                          padding: 8,
-                          borderWidth:1,
-                          borderColor:'#00000029'
-                      }}
-                      /> 
+                      <Fonoaudiologia style={{width:30,height:30}}></Fonoaudiologia> 
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Fonoaudiología</Text>
                     
               </View>
