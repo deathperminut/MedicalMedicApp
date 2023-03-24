@@ -36,7 +36,9 @@ export default function Reports(props) {
       <View style={styles.LobbyContainer}>
         <View style={styles.iconContainer}>
           <View style={styles.navBar}>
-            <ImageBackground source={require('../../../assets/Home/Foto-Usuario.png')} style={styles.photo}></ImageBackground>
+            <TouchableOpacity>
+              <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
+            </TouchableOpacity>
             <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
           </View>
           <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>Alejandro Soto</Text>

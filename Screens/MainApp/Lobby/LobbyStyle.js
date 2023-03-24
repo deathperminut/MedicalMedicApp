@@ -169,8 +169,23 @@ const styles = StyleSheet.create({
     
   },
   buttonText: {
-    fontSize: 12.59,
+    fontSize: 10,
     color: '#FFF',
+  },
+  buttonDelete:{
+
+    backgroundColor: 'transparent',
+    borderWidth:1,
+    borderColor:'#FF0057',
+    borderRadius: 50,
+    paddingHorizontal:20,
+    width: 140,
+    height:40,
+    marginTop:130,
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:25
+
   },
 
   ServicesContainer:{
