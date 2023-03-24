@@ -10,6 +10,8 @@ import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
 import Carusel from '../Carusel/Carusel';
 import VerticalStepIndicator from './StepByStep';
+import { styles_shadow_global } from '../../../Shared/Icons/GlobalStyles';
+import { styles_shadow } from '../OurServices/OurServicesStyles';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573222423267');
@@ -114,7 +116,6 @@ export default function Lobby(props) {
                                       <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
                           </TouchableOpacity>
                         </View>
-                        
                   </View>
                 </View>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
@@ -124,20 +125,20 @@ export default function Lobby(props) {
                 <ScrollView horizontal={true} style={{width:'100%',height:240,paddingTop:30}} showsHorizontalScrollIndicator={false}>
                   <View style={{width:"100%",flexDirection:'row'}}>
                     <View style={{maxHeight:100,flexDirection:'row'}}>
-                      <TouchableOpacity style={styles.options} onPress={()=>openWhatsApp()}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>openWhatsApp()}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <ContactIcon style={{width:15,height:15}}></ContactIcon>
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.options}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
                         <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.options} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
                         </View>

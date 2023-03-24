@@ -1,6 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-
+export const styles_shadow_global=StyleSheet.create({
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 11,
+  },
+})
 const Globalstyles = StyleSheet.create({
   bold:{
     fontFamily:'Montserrat-Bold'

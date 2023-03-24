@@ -1,5 +1,16 @@
 import { StyleSheet } from 'react-native';
 
+export const styles_shadow=StyleSheet.create({
+shadowColor: "#003",
+shadowOffset: {
+	width: 0,
+	height: 3,
+},
+shadowOpacity: 0.55,
+shadowRadius: 14.78,
+
+elevation: 12,
+})
 const styles = StyleSheet.create({
     container: {
         width:'100%',
@@ -129,6 +140,9 @@ const styles = StyleSheet.create({
         // paddingBottom:40,
     
       },
+      shadow:{
+        
+      },
       buttonContainerIn: {
     
          justifyContent: 'center',
@@ -226,4 +240,6 @@ const styles = StyleSheet.create({
         textAlignVertical:'top'
       },
   });
+
+
 export default styles;

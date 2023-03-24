@@ -16,6 +16,7 @@ import Orientacion from '../../../Shared/Icons/OurServices/OrientacionVideofóni
 import TerapiaFisica from '../../../Shared/Icons/OurServices/TerapiaFisica';
 import TerapiaOcupacional from '../../../Shared/Icons/OurServices/TerapiaOcupacional';
 import TerapiaRespiratoria from '../../../Shared/Icons/OurServices/TerapiaRespiratoria';
+import { styles_shadow } from './OurServicesStyles';
 
 export default function OurServices(props) {
 
@@ -57,7 +58,7 @@ export default function OurServices(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.SubTitle_2,marginTop:40}}>Nuestros servicios</Text>
         </View>
         <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center',minHeight:newHeight}}>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16, ...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                     
                       <ConsultaDomestica style={{width:30,height:30}}></ConsultaDomestica>
@@ -66,7 +67,7 @@ export default function OurServices(props) {
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>La atención domiciliaria constituye hoy una modalidad que permite solventar las dificultades derivadas de la sobreocupación hospitalaria y la cronicidad.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <CuidadoAgudo style={{width:30,height:30}}></CuidadoAgudo> 
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Cuidado Agudo</Text>
@@ -74,14 +75,14 @@ export default function OurServices(props) {
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>Esta atención se realizará a pacientes que, según concepto clínico, pueden continuar en su domicilio el tratamiento iniciado intrahospitalariamente.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <CuidadoCronico style={{width:30,height:30}}></CuidadoCronico>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Cuidado Crónico</Text>
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>Esta atención se realizará a pacientes crónicos de alto costo, garantizando con este servicio, la disminución de hospitalizaciones innecesarias y asistencia a urgencias.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <Orientacion style={{width:30,height:30}}></Orientacion>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Orientación médica Videofónica</Text>
@@ -89,7 +90,7 @@ export default function OurServices(props) {
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>Prestamos orientación médica telefónica a la hora que se necesite, los 7 días de la semana, las 24 horas del día a los 365 días del año.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:130,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:130,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <ConsultaDomestica style={{width:30,height:30}}></ConsultaDomestica> 
                       <View>
@@ -101,7 +102,7 @@ export default function OurServices(props) {
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>Realizará la respectiva valoración y establecerá las intervenciones a seguir para solucionar o mejorar el motivo de consulta por el cual fue solicitado, esta visita se podrá realizar en su hogar o sitio de trabajo.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <TerapiaFisica style={{width:30,height:30}}></TerapiaFisica>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Terapia Física</Text>
@@ -109,7 +110,7 @@ export default function OurServices(props) {
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>Prestamos orientación médica telefónica a la hora que se necesite, los 7 días de la semana, las 24 horas del día a los 365 días del año.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <TerapiaRespiratoria style={{width:30,height:30}}></TerapiaRespiratoria> 
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Terapia Respiratoria</Text>
@@ -117,14 +118,14 @@ export default function OurServices(props) {
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>La atención domiciliaria constituye hoy una modalidad que permite solventar las dificultades derivadas de la sobreocupación hospitalaria y la cronicidad.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <TerapiaOcupacional style={{width:30,height:30}}></TerapiaOcupacional>
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Terapia Ocupacional</Text>
               </View>
               <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10,marginTop:10,color:'#685CBF'}}>La atención domiciliaria constituye hoy una modalidad que permite solventar las dificultades derivadas de la sobreocupación hospitalaria y la cronicidad.</Text>
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#F1EEFE',borderRadius: 14, marginBottom:16,...styles_shadow}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10}}>
                       <Fonoaudiologia style={{width:30,height:30}}></Fonoaudiologia> 
                       <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:18,marginLeft:20}}>Fonoaudiología</Text>

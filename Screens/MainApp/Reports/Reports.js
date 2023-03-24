@@ -6,7 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import RNPickerSelect from "react-native-picker-select";
 import styles from './ReportStyles';
-
+import { styles_shadow } from '../OurServices/OurServicesStyles';
 
 export default function Reports(props) {
 
@@ -62,7 +62,7 @@ export default function Reports(props) {
                     ]}
                 />
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -81,7 +81,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -100,7 +100,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -119,7 +119,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -138,7 +138,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -157,7 +157,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
@@ -176,7 +176,7 @@ export default function Reports(props) {
                   <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
                 </View>   
           </View>
-          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16}}>
+          <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:80,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow}}>
                <Icon
                 name="check"
                 type="font-awesome"
