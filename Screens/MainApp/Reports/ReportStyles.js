@@ -225,19 +225,5 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         textAlignVertical:'top'
       },
-      buttonDelete:{
-
-        backgroundColor: 'transparent',
-        borderWidth:0.5,
-        borderColor:'#FF0057',
-        paddingVertical: 20,
-        borderRadius: 50,
-        paddingHorizontal:30,
-        width: 300,
-        justifyContent:'center',
-        alignItems:'center',
-        marginBottom:25
-
-      }
   });
 export default styles;

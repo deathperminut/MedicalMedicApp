@@ -10,6 +10,8 @@ import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
 import Carusel from '../Carusel/Carusel';
 import VerticalStepIndicator from './StepByStep';
+import { styles_shadow_global } from '../../../Shared/Icons/GlobalStyles';
+import { styles_shadow } from '../OurServices/OurServicesStyles';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573222423267');
@@ -35,7 +37,7 @@ const ServicesData=[
     text_1:'Reportar',
     text_2:'Estado del paciente o novedades',
     text_3:'',
-    navigate:'HistoryDates'
+    navigate:'Reports'
 
   },
   {
@@ -43,7 +45,7 @@ const ServicesData=[
     id:'3',
     text_1:'Nuestros servicios',
     text_2:'portafolio',
-    navigate:'HistoryDates' 
+    navigate:'OurServices' 
   },
   {
     image:'../../../assets/Home/Tarjeta-Solicitar.png',
@@ -67,9 +69,10 @@ export default function Lobby(props) {
    
   return (
     
-
+        <View style={styles.container}>
         <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
-          <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%'}}>
+        </ImageBackground>
+        <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%',position:'absolute'}}>
             <View style={styles.LobbyContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.navBar}>
@@ -85,7 +88,7 @@ export default function Lobby(props) {
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Cita</Text>
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                        <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:290,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
+                        <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
                           <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
                             <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
@@ -109,8 +112,10 @@ export default function Lobby(props) {
 
                           </View>
                           <VerticalStepIndicator></VerticalStepIndicator>
+                          <TouchableOpacity style={styles.buttonDelete} onPress={() => navigation.navigate('Drawer')}>
+                                      <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
+                          </TouchableOpacity>
                         </View>
-                        
                   </View>
                 </View>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
@@ -120,20 +125,20 @@ export default function Lobby(props) {
                 <ScrollView horizontal={true} style={{width:'100%',height:240,paddingTop:30}} showsHorizontalScrollIndicator={false}>
                   <View style={{width:"100%",flexDirection:'row'}}>
                     <View style={{maxHeight:100,flexDirection:'row'}}>
-                      <TouchableOpacity style={styles.options} onPress={()=>openWhatsApp()}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>openWhatsApp()}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <ContactIcon style={{width:15,height:15}}></ContactIcon>
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.options}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
                         <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={styles.options} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
                         </View>
@@ -145,8 +150,9 @@ export default function Lobby(props) {
               </LinearGradient>
             </View>
           </ScrollView>
-          
-        </ImageBackground>
+
+        </View>
+
       
     
   )

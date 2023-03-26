@@ -18,6 +18,8 @@ import HistoryDates from '../Screens/MainApp/HistoryDates/HistoryDates';
 import NewServiceForm from '../Screens/MainApp/NewService/NewServiceForm/NewServiceForm';
 import SelectPatient from '../Screens/MainApp/NewService/SelectPatient/SelectPatient';
 import Swiper from '../Screens/MainApp/NewService/ServiceData/Swiper/Swiper';
+import Reports from '../Screens/MainApp/Reports/Reports';
+import OurServices from '../Screens/MainApp/OurServices/OurServices';
 
 export default function Routes() {
  
@@ -43,6 +45,8 @@ export default function Routes() {
         <Stack.Screen name="NewServices" component={NewServiceForm} options={{header:()=>null}} ></Stack.Screen>
         <Stack.Screen name="SelectPatient" component={SelectPatient} options={{header:()=>null}} ></Stack.Screen>
         <Stack.Screen name="Swiper" component={Swiper} options={{header:()=>null}}></Stack.Screen>
+        <Stack.Screen name="Reports" component={Reports} options={{header:()=>null}}></Stack.Screen>
+        <Stack.Screen name="OurServices" component={OurServices} options={{header:()=>null}}></Stack.Screen>
     </Stack.Navigator>
   )
 }

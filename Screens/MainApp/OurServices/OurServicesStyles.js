@@ -1,5 +1,16 @@
 import { StyleSheet } from 'react-native';
 
+export const styles_shadow=StyleSheet.create({
+shadowColor: "#003",
+shadowOffset: {
+	width: 0,
+	height: 3,
+},
+shadowOpacity: 0.55,
+shadowRadius: 14.78,
+
+elevation: 12,
+})
 const styles = StyleSheet.create({
     container: {
         width:'100%',
@@ -129,6 +140,9 @@ const styles = StyleSheet.create({
         // paddingBottom:40,
     
       },
+      shadow:{
+        
+      },
       buttonContainerIn: {
     
          justifyContent: 'center',
@@ -225,19 +239,7 @@ const styles = StyleSheet.create({
         justifyContent:'flex-start',
         textAlignVertical:'top'
       },
-      buttonDelete:{
-
-        backgroundColor: 'transparent',
-        borderWidth:0.5,
-        borderColor:'#FF0057',
-        paddingVertical: 20,
-        borderRadius: 50,
-        paddingHorizontal:30,
-        width: 300,
-        justifyContent:'center',
-        alignItems:'center',
-        marginBottom:25
-
-      }
   });
+
+
 export default styles;

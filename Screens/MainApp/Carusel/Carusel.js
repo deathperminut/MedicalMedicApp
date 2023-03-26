@@ -2,6 +2,7 @@ import { View, Text ,ScrollView,Image,useWindowDimensions,TouchableOpacity } fro
 import React,{useState} from 'react'
 import styles from './CaruselStyles'
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
+import { styles_shadow } from '../OurServices/OurServicesStyles'
 import Animated,{useSharedValue,useAnimatedScrollHandler,useAnimatedScr
 ,interpolate,
 useAnimatedStyle} from 'react-native-reanimated'
@@ -50,7 +51,7 @@ export default function Carusel({data,props}) {
           return <View style={{width:SPACER}} key={index}></View>;
         }
         return(
-            <TouchableOpacity  key={index} onPress={()=>navigation.navigate(item.navigate)}>
+            <TouchableOpacity  key={index} onPress={()=>navigation.navigate(item.navigate)} style={styles_shadow}>
             <Animated.View style={[styles.imageContainer,style]}>
             {item.id=='1' ? 
               <>

@@ -36,13 +36,32 @@ export default function Beneficient(props) {
                 </TouchableOpacity>
             </View>
           </View>
-          <View style={{...styles.PointersContainer}}>
-              <View style={styles.Pointer_1}></View>
-              <View style={styles.Pointer_2}></View>
-              <View style={styles.Pointer_3}></View>
-          </View>
           <ScrollView style={{width:'100%',marginBottom:0,maxWidth:470,maxHeight:'160%',height:'140%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
+              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>C.C 1005691633</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>C.C 1005691633</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>C.C 1005691633</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>
+                  <Text style={{...Globalstyles.Medium,...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>C.C 1005691633</Text>
+                </TouchableOpacity>
+              </View>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                 <TouchableOpacity  style={{flexDirection:'column', marginBottom:5,maxHeight:200,width:'90%',height:100,backgroundColor:'#FFFFFF',borderRadius:20,padding:20,alignItems:'center',justifyContent:'center'}} onPress={()=>{navigation.navigate('EditBeneficient')}}>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,textAlign:'center'}}>Juan Sebastian Mendez Rondon</Text>

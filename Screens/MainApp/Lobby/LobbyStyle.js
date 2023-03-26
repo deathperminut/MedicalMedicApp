@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    // position:'absolute'
+    flex:1,
+    alignItems:'center'
   },
   LobbyContainer:{
     width:'100%',
@@ -10,9 +11,9 @@ const styles = StyleSheet.create({
     // alignItems:'center',
   },
   imageBackground: {
-    flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+    alignItems:'center',
     width: '100%',
     height:'100%',
   },
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
   },
   FormContainer:{
     width:'100%',
+    padding:20,
     maxWidth:700,
     borderTopLeftRadius:30,
     borderTopRightRadius:30,
     paddingTop:30,
-    paddingHorizontal:5
 
   },
   //buttons
@@ -168,8 +169,23 @@ const styles = StyleSheet.create({
     
   },
   buttonText: {
-    fontSize: 12.59,
+    fontSize: 10,
     color: '#FFF',
+  },
+  buttonDelete:{
+
+    backgroundColor: 'transparent',
+    borderWidth:1,
+    borderColor:'#FF0057',
+    borderRadius: 50,
+    paddingHorizontal:20,
+    width: 140,
+    height:40,
+    marginTop:130,
+    justifyContent:'center',
+    alignItems:'center',
+    marginBottom:25
+
   },
 
   ServicesContainer:{

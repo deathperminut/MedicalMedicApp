@@ -23,7 +23,7 @@ export default function Swiper(props) {
       <Paginator data={SwiperData} scrollX={scrollX} top='88%'></Paginator>
       <TouchableOpacity style={{...styles.button,position:'absolute',top:'87%'}} onPress={() => navigation.navigate('SelectPatient')}>
               <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
-              <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>
+              <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Solicitar</Text>
       </TouchableOpacity>
     </View>
   )
