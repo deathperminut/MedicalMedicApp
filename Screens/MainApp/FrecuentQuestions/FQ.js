@@ -1,15 +1,16 @@
-import { View, Text,ImageBackground,ScrollView,TouchableOpacity, Dimensions, Transition } from 'react-native'
+import { View, Text,ImageBackground,ScrollView,TouchableOpacity, Dimensions, TextInput } from 'react-native'
 import React, { useState } from 'react';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
-import { Icon } from 'react-native-elements';
+import { Icon, SearchBar  } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import styles from './FQStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
-import { SearchBar } from 'react-native-elements'; // importa el componente SearchBar
+
 
 export default function FQ(props) {
 
+  
     /* PANTALLA */
   const windowHeight = Dimensions.get('window').height;
   const newHeight = windowHeight  - 100;
@@ -89,13 +90,13 @@ const handleExpand = (index) => {
         <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center', height: newHeight}}>
             <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,fontSize:20,marginBottom:20}}>Preguntas frecuentes</Text>
             <View style={styles.searchBarContainer}>
-                <SearchBar
+              <Icon name="search" size={20} color="#c4c4c4" />
+                <TextInput
                     placeholder="Buscar ..."
                     onChangeText={handleSearch}
                     value={searchText}
-                    containerStyle={{ backgroundColor: '#F6F4FF', borderRadius:50 , marginBottom:20}}
-                    searchIcon={true}
-                    platform={'android'}
+                    style={{ ...Globalstyles.gray, ...Globalstyles.text, fontSize:15}}
+
                 />
             </View>
             {filteredFaqs.map((faq, index) => (

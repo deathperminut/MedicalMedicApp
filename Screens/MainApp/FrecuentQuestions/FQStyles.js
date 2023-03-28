@@ -225,7 +225,15 @@ const styles = StyleSheet.create({
         textAlignVertical:'top'
       },
       searchBarContainer: {
-        width:'100%', 
+        width:'100%',
+        height: 50,
+        justifyContent:'center',
+        alignContent:'center',
+        alignItems:'center',
+        backgroundColor: '#F6F4FF',
+        borderRadius:50,
+        marginBottom:20,
+        flexDirection:'row'
       },
   });
 export default styles;
