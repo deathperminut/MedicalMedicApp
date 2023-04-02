@@ -71,7 +71,7 @@ export default function DrawerComponent(props) {
     <Drawer
       statusBarAnimation='fade'
       open={open}
-      swipeEdgeWidth={150}
+      swipeEdgeWidth={100}
       //drawerType={'slide'}
       drawerStyle={{backgroundColor:'#fff',width:'60%'}} //090131
       onOpen={() => setOpen(true)}
