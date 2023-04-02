@@ -6,10 +6,10 @@ shadowOffset: {
 	width: 0,
 	height: 3,
 },
-shadowOpacity: 0.55,
+shadowOpacity: 0.75,
 shadowRadius: 14.78,
 
-elevation: 12,
+elevation: 5,
 })
 const styles = StyleSheet.create({
     container: {
