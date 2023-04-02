@@ -9,7 +9,7 @@ export const environment = {
 
   // SERVICIOS DE GESTIÓN DE USUARIO
   logIn: 'login/standar_login/',
-  signIn: 'usuarios/create_user/',
+  RegisterUser: 'usuarios/create_user/',
   updateUser: 'usuarios/update_user/',
   getToken: 'login/response_reset_password/',
   resetPassword: 'login/reset_password/',
