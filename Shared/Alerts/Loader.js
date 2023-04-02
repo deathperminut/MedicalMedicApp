@@ -11,11 +11,11 @@ export const Loader = (props) => {
             <View style={styles.modalBackground}>
                 <View style={styles.activityIndicatorWrapper}>
                     <ActivityIndicator animating = {loading} size='small' color ={'green'}>
-                    <LottieView
-                        source={require('../../assets/Splash/zK2xt5MiJE.json')}
-                        autoPlay
-                        loop
-                    />
+                        <LottieView
+                            source={require('../../assets/Splash/zK2xt5MiJE.json')}
+                            autoPlay
+                            loop
+                        />
                     </ActivityIndicator>
                 </View>
             </View>

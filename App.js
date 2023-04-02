@@ -15,14 +15,6 @@ export default function App(props) {
 
   const [loading, setLoading] = useState(true);
   const [fontsLoaded,setFontsLoaded]=useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  
-    return () => clearTimeout(timer);
-  }, []);
   
 
   /* USE EFFECT */
@@ -46,8 +38,8 @@ export default function App(props) {
 
   return (
     <NavigationContainer>
-      <AppWrapper name={"valor"}>
-        {loading ? <Loader loading={loading} /> : null}
+      <AppWrapper>
+        {/* {loading ? <Loader loading={loading} /> : null} */}
          <Routes></Routes>
       </AppWrapper>
     </NavigationContainer>
