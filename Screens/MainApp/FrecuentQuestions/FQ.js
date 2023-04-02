@@ -74,7 +74,7 @@ export default function FQ(props) {
     },
   ];
 
-  const [expanded, setExpanded] = useState({});
+const [expanded, setExpanded] = useState({});
 
 const handleExpand = (index) => {
   setExpanded({
@@ -136,9 +136,6 @@ const handleExpand = (index) => {
                           </Text>
                       </View>
                       )}
-                      {/* <Text style={{ ...Globalstyles.Medium, fontSize: 10, color:'#968DD6', marginBottom: 5,}}>
-                          {expanded[index] ? 'Ver menos' : 'Ver más ...'}
-                      </Text> */}
                   </View>
                 </TouchableOpacity>
             </View>
