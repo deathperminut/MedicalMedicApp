@@ -11,7 +11,7 @@ import AppWrapper from './AppContext/Context';
 /* FUENTES */
 import * as Font from 'expo-font';
 
-export default function App() {
+export default function App(props) {
 
   const [loading, setLoading] = useState(true);
   const [fontsLoaded,setFontsLoaded]=useState(false);
@@ -46,9 +46,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <AppWrapper>
-      {loading ? <Loader loading={loading} /> : null}
-       <Routes></Routes>
+      <AppWrapper name={"valor"}>
+        {loading ? <Loader loading={loading} /> : null}
+         <Routes></Routes>
       </AppWrapper>
     </NavigationContainer>
     
