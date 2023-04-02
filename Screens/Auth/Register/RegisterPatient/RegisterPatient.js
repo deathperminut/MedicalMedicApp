@@ -1,4 +1,4 @@
-import { View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image} from 'react-native'
+import { View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -6,6 +6,7 @@ import Globalstyles from '../../../../Shared/Icons/GlobalStyles';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from './RegisterPatientStyle';
 import { AppContext } from '../../../../AppContext/Context';
+import CustomModal from '../../../../Shared/Alerts/Alert';
 import { initRegister } from '../../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 
 const TypeIdentification = [
@@ -16,6 +17,16 @@ const TypeIdentification = [
 ];
 
 export default function RegisterPatient(props) {
+
+  const [showModal, setShowModal] = React.useState(false);
+
+  const handleRegistrationSuccess = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const { counter, setCounter } = React.useContext(AppContext);
   /* USE STATE */
@@ -252,9 +263,10 @@ export default function RegisterPatient(props) {
                 />
             </View>
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
-                      <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
-                </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonIn} onPress={handleRegistrationSuccess}>
+                <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
+              </TouchableOpacity>
+              <CustomModal visible={showModal} onClose={handleCloseModal} message="Registro exitoso!" iconName="check-circle"/>
             </View>
         </ScrollView>
       </LinearGradient>
