@@ -131,7 +131,7 @@ export default function Lobby(props) {
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow}}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('FrecuentQuestions')}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
                         </View>

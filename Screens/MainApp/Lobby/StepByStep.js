@@ -22,9 +22,6 @@ const VerticalStepIndicator = () => {
         activeStepIconColor="#FFFFFF"
         activeLabelColor="#1AE494"
         activeStep={0}
-        nextBtnDisabled={false}
-        previousBtnDisabled={false}
-        btnStyle={{ display: 'none',visibility:'hidden' }}
         style={styles.progressSteps}
       >
         {steps.map((step, index) => (
@@ -33,6 +30,7 @@ const VerticalStepIndicator = () => {
             label={step.label}
             icon={step.icon}
             style={{...Globalstyles.bold}}
+            removeBtnRow={true}
           />
         ))}
       </ProgressSteps>
