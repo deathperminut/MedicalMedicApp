@@ -139,8 +139,7 @@ const handleExpand = (index) => {
                   </View>
                 </TouchableOpacity>
             </View>
-    ))}
-
+            ))}
         </LinearGradient>
       </View>
     </ScrollView>
