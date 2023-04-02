@@ -4,6 +4,7 @@ import React, {useEffect,useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Routes from './Routes/Routes';
+import AppWrapper from './AppContext/Context';
 
 
 /* FUENTES */
@@ -36,7 +37,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Routes></Routes>
+      <AppWrapper>
+       <Routes></Routes>
+      </AppWrapper>
     </NavigationContainer>
     
   );

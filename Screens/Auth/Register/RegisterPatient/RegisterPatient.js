@@ -4,9 +4,11 @@ import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import styles from './RegisterPatientStyle';
+import { AppContext } from '../../../../AppContext/Context';
 
 export default function RegisterPatient(props) {
 
+  const { counter, setCounter } = React.useContext(AppContext);
   /* USE STATE */
   let [showPassword,setShowPassword]=React.useState(true);
   let [showPassword2,setShowPassword2]=React.useState(true);
