@@ -86,7 +86,14 @@ export default function NewServiceForm(props) {
                   ]}
               />
         </View>
-
+        <TextInput
+              style={{...styles.textArea,...Globalstyles.Medium,marginBottom:10,maxWidth:500,height:100}}
+              value={texto}
+              onChangeText={handleTexto}
+              placeholder="Detalle su dirección"
+              placeholderTextColor="#B0A8EA80"
+              multiline
+         />
         <TextInput
               style={{...styles.textArea,...Globalstyles.Medium,marginBottom:100,maxWidth:500}}
               value={texto}

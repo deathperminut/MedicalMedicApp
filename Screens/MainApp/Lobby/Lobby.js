@@ -14,7 +14,7 @@ import { styles_shadow_global } from '../../../Shared/Icons/GlobalStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 
 const openWhatsApp = () => {
-  Linking.openURL('whatsapp://send?text=Hola!&phone=+573222423267');
+  Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
 }
 
 
@@ -138,7 +138,7 @@ export default function Lobby(props) {
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
                         <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('Beneficient')}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
                         </View>

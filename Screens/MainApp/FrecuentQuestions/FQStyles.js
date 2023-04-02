@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
       cardContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         width: '100%',
       },
       card: {
@@ -227,10 +227,11 @@ const styles = StyleSheet.create({
       searchBarContainer: {
         width:'100%',
         height: 50,
-        justifyContent:'center',
-        alignContent:'center',
+        paddingLeft:30,
+        paddingRight:30,
+        justifyContent:'flex-start',
         alignItems:'center',
-        backgroundColor: '#F6F4FF',
+        backgroundColor: '#FBF9FE',
         borderRadius:50,
         marginBottom:20,
         flexDirection:'row'
