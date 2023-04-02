@@ -5,17 +5,20 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import styles from './RegisterPatientStyle';
 import { AppContext } from '../../../../AppContext/Context';
+import CustomModal from '../../../../Shared/Alerts/Alert';
 
 
 export default function RegisterPatient(props) {
 
-    const [showModal, setShowModal] = React.useState(false);
-  
-    function handleRegistrationSuccess() {
-      // Lógica para llamar al servicio y realizar el registro
-      // Si el registro es exitoso, establecer showModal en true
-      setShowModal(true);
-    }
+  const [showModal, setShowModal] = React.useState(false);
+
+  const handleRegistrationSuccess = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const { counter, setCounter } = React.useContext(AppContext);
   /* USE STATE */
@@ -182,62 +185,11 @@ export default function RegisterPatient(props) {
               <TouchableOpacity style={styles.buttonIn} onPress={handleRegistrationSuccess}>
                 <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
               </TouchableOpacity>
-              
-              <Modal visible={showModal} animationType="fade" transparent={true} style={ModalS.modal}>
-                <View style={ModalS.modalContainer}>
-                  <Icon name={faCheck} size={60} color="#2196F3" />
-                  <Text style={{...Globalstyles.BlackPurple,...ModalS.modalText}}>Registro exitoso!</Text>
-                  <TouchableOpacity style={{...Globalstyles.SubTitle_2,...ModalS.modalButton}} onPress={() => setShowModal(false)}>
-                    <Text style={ModalS.modalButtonText}>Cerrar</Text>
-                  </TouchableOpacity>
-                </View>
-              </Modal>
+              <CustomModal visible={showModal} onClose={handleCloseModal} message="Registro exitoso!" iconName="check-circle"/>
             </View>
         </ScrollView>
       </LinearGradient>
     </View>
   )
 }
-
-const ModalS = {
-  modal: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalContainer: {
-    width: '80%',
-    height: 200, // cambiar el valor de height
-    backgroundColor: '#fff',
-    borderRadius: 25,
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 'auto', // ajustar los márgenes
-    marginBottom: 'auto',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  modalText: {
-    fontSize: 20,
-    marginBottom: 20,
-  },
-  modalButton: {
-    backgroundColor: '#642B80',
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-  },
-  modalButtonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-};
 
