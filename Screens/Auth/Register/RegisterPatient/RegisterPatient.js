@@ -146,7 +146,7 @@ export default function RegisterPatient(props) {
   }
 
   const register =async()=>{
-
+   
     let result=await initRegister(userData).catch((error)=>{
       console.log("ERROR",error);
     })
