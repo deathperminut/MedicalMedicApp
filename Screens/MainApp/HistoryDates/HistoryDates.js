@@ -6,6 +6,9 @@ import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import styles from './HistoryDatesStyles'
 import { styles_shadow } from '../OurServices/OurServicesStyles';
+import { getAge } from '../../../services/DateManagement/DateManagement';
+import { GetName } from '../../../services/Auth/Login/Login';
+import { AppContext } from '../../../AppContext/Context';
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
@@ -69,6 +72,10 @@ export default function HistoryDates(props) {
     });
   };
 
+  /* APP CONTEXT */
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+
+
   return (
     <View style={styles.container}>
       <ImageBackground source={require('../../../assets/Home/BG-Particular.png')} style={styles.imageBackground}></ImageBackground>
@@ -80,12 +87,18 @@ export default function HistoryDates(props) {
             </TouchableOpacity>
             <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
           </View>
-          <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>Alejandro Soto</Text>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
+          <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
           <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
+            {currentDate ?  
+            <>
             <View style={{width:14,height:14,backgroundColor:'#BDFC97', borderRadius:10 ,marginRight:10}}></View>
             <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:50}}>Cita activa</Text>
+            </>
+            :
+            <></>
+            }
             <Text style={{...Globalstyles.Medium,color:'#FFFFFF'}}>Historial</Text>
             <View style={{minWidth:20,minHeight:20,backgroundColor:'#867BD8', borderRadius:2 ,marginLeft:10,alignItems:'center',justifyContent:'center',padding:5}}>
               <Text style={{...Globalstyles.Medium,fontSize:10,color:'#FFFF'}}>20</Text>

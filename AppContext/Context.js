@@ -5,12 +5,17 @@ export const AppContext = React.createContext(null);
 
 // Creamos un componente que envuelve nuestra aplicación
 const AppWrapper = (props) => {
-  // Definimos los datos y funciones que queremos compartir con los componentes hijos
-  const [counter, setCounter] = useState(0);
+  // AUTH
+  const [userData, setUserData] = useState(null);
+  const [token, setToken] = useState(null);
+
+  // DATE
+
+  const [currentDate,setCurrentDate]=useState(null);
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
-    <AppContext.Provider value={{ counter, setCounter }}>
+    <AppContext.Provider value={{ userData, setUserData, token, setToken , currentDate, setCurrentDate}}>
       {props.children}
     </AppContext.Provider>
   );

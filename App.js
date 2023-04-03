@@ -13,7 +13,7 @@ import * as Font from 'expo-font';
 
 export default function App(props) {
 
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
 
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -34,9 +34,9 @@ export default function App(props) {
     setFontsLoaded(true);
   };
 
-  if (!loaded) {
-    return <LoadingScreen />;
-  }
+  // if (!loaded) {
+  //   return <LoadingScreen />;
+  // }
 
   return (
     <NavigationContainer>

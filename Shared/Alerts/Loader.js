@@ -17,10 +17,14 @@ const LoadingScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    
+    position:'absolute',
+    width:'100%',
+    zIndex:2,
+    height:'100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(41, 50, 65, 0.8)',
   },
   animation: {
     width: 200,

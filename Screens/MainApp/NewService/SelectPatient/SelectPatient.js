@@ -7,6 +7,9 @@ import styles from './SelectPatientStyle'
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import RNPickerSelect from "react-native-picker-select";
 import { styles_shadow } from '../../OurServices/OurServicesStyles';
+import { AppContext } from '../../../../AppContext/Context';
+import { GetName } from '../../../../services/Auth/Login/Login';
+import { getAge } from '../../../../services/DateManagement/DateManagement';
 
 export default function SelectPatient(props) {
 
@@ -26,6 +29,9 @@ export default function SelectPatient(props) {
   
   let {navigation}=props;
 
+  /* APP CONTEXT */
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+
   return (
     <View style={styles.container}>
     <ImageBackground source={require('../../../../assets/Home/BG-Medical.png')} style={styles.imageBackground}></ImageBackground>
@@ -37,9 +43,9 @@ export default function SelectPatient(props) {
           </TouchableOpacity>
           <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
         </View>
-        <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>Alejandro Soto</Text>
-        <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
-        <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
+        <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
       </View>
       <LinearGradient colors={['#FFFFFF', '#695F9766']} style={{...styles.FormContainer,alignItems:'center'}}>
         <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginBottom:7}}>Paciente</Text>

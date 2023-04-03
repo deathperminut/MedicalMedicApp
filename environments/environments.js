@@ -15,5 +15,8 @@ export const environment = {
   resetPassword: 'login/reset_password/',
   changePassword: 'login/change_password/',
   userInfo: 'usuarios/user_info/',
+
+  // BENEFICIARIOS
+  getBeneficients:'usuarios/retrieve-affiliate/',
   
 }

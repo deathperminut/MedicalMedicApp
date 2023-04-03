@@ -18,10 +18,12 @@ const ImagePicker = (props) => {
       if (!result.canceled) {
          
          setImageUri(result.uri);
+         
+         let file=await createFile(result.uri);
          // Descargar la imagen como un objeto binario
-         const response = await fetch(result.uri);
-         const File = await response.blob();
-         props.ReturnFile(File);
+        //  const response = await fetch(result.uri);
+        //  const File = await response.blob();
+         props.ReturnFile(file);
        }
     } catch (error) {
       //console.log('Error selecting image', error);
@@ -55,6 +57,7 @@ const ImagePicker = (props) => {
 export default ImagePicker;
 
 import { StyleSheet } from 'react-native';
+import { createFile } from '../../services/Files/files';
 
 const styles = StyleSheet.create({
   container: {

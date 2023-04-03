@@ -12,6 +12,9 @@ import Carusel from '../Carusel/Carusel';
 import VerticalStepIndicator from './StepByStep';
 import { styles_shadow_global } from '../../../Shared/Icons/GlobalStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
+import { AppContext } from '../../../AppContext/Context';
+import { GetName } from '../../../services/Auth/Login/Login';
+import { getAge } from '../../../services/DateManagement/DateManagement';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -62,6 +65,9 @@ const ServicesData=[
 
 export default function Lobby(props) {
 
+  /* APP CONTEXT */
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+
   /* NAVIGATE */
   let {navigation}=props.props
   const windowHeight = Dimensions.get('window').height;
@@ -79,12 +85,13 @@ export default function Lobby(props) {
                   <ImageBackground source={require('../../../assets/Home/Foto-Usuario.png')} style={styles.photo}></ImageBackground>
                   <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
                 </View>
-                <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>Alejandro Soto</Text>
-                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>70 años</Text>
-                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>Manizales | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>Clle 98 #35-37 la enea</Text></Text>
+                <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
               </View>
-              <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={[styles.FormContainer, { minHeight: windowHeight - 250 }]}>
-                
+              <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={[styles.FormContainer, { minHeight: windowHeight - 200 }]}>
+                {currentDate!== null ? 
+                <>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Cita</Text>
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
@@ -118,6 +125,13 @@ export default function Lobby(props) {
                         </View>
                   </View>
                 </View>
+                </>
+                :
+                <>
+                  
+                </>
+                }
+                
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
 
                 <Carusel data={ServicesData}  props={props.props}></Carusel>

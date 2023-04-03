@@ -6,16 +6,56 @@ import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import {LinearGradient} from 'expo-linear-gradient';
 import { initLogin } from '../../../services/Auth/Login/Login';
 import { ConfirmationAlert } from '../../../Shared/Alerts/YesNoAlert';
+import LoadingScreen from '../../../Shared/Alerts/Loader';
+import CustomModal from '../../../Shared/Alerts/Alert';
+import { AppContext } from '../../../AppContext/Context';
 
 export default function Login(props) {
 
+  /* APP CONTEXT */
+
+  let { userData, setUserData, token, setToken }=React.useContext(AppContext); 
+
+  /* MODAL */
+  const [showModal, setShowModal] = React.useState(false);
+  const [message,setMessage]= React.useState("");
+  const [iconName,setIconName]=React.useState("");
+
+  const handleSuccess = () => {
+    setMessage('Login exitoso');
+    setIconName('check-circle');
+    setShowModal(true);
+  };
+
+  const handleError = () => {
+    setMessage('Error comprueba los campos');
+    setIconName('error');
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+
   /* USE STATE */
+  let [preloader,setPreloader]=React.useState(false);
   let [showPassword,setShowPassword]=React.useState(true);
   const [isEnabled, setIsEnabled] = React.useState(false);
   const [user,setUser]=React.useState({
     identification:"",
     password:"",
   })
+
+
+  /* REACT USE EFFECT */
+
+  React.useEffect(()=>{
+    console.log("useEFFECT");
+    if(userData!==null){
+      navigation.navigate('Drawer');
+    }
+  },[])
 
   const [valid,setValid]=React.useState(false);
 
@@ -41,25 +81,25 @@ export default function Login(props) {
   }
 
   /* Alert */
-  const handleCancel = () => console.log('Cancelado');
-  const handleConfirm = () => console.log('Confirmado');
   
   const logIn=async()=>{
-    navigation.navigate('Drawer');
 
-    // let result=undefined;
-
-    // console.log(user);
-
-    // result=await initLogin(user).catch((error)=>{
-    //   console.log(error);
-    // })
-
-    // if (result){
-    //   //console.log(result.data);
-    //   navigation.navigate('Drawer');
-    //   //return <ConfirmationAlert onCancel={handleCancel} onConfirm={handleConfirm} />
-    //  }
+    setPreloader(true);
+    let result=undefined;
+    console.log(user);
+    result=await initLogin(user).catch((error)=>{
+       console.log("ERROR: ",error,result);
+       handleError();
+       setPreloader(false);
+    })
+    if (result!==undefined){
+       console.log("RESULTADOS: ",result.data);
+       //handleSuccess();
+       setUserData(result.data.datos.datos_usuarios);
+       setToken(result.data.datos.token);
+       setPreloader(false);
+       navigation.navigate('Drawer');
+      }
 
   }
 
@@ -69,6 +109,11 @@ export default function Login(props) {
 
   return (
     <>
+     {preloader ? 
+     <LoadingScreen/>
+     :
+     <></>
+     }
      <View style={styles.container}>
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
@@ -91,7 +136,7 @@ export default function Login(props) {
           />
         </View>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:10},...{['marginBottom']:20}}}>
-          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={true} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>ReadInput(text,'password')} leftIcon={
+          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={!showPassword} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>ReadInput(text,'password')} leftIcon={
                 <Icon
                   name='lock'
                   type='font-awesome'
@@ -130,6 +175,7 @@ export default function Login(props) {
         
         
       </LinearGradient>
+      <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
     </View>
     </>
     

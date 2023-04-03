@@ -10,6 +10,7 @@ import CustomModal from '../../../../Shared/Alerts/Alert';
 import { initRegister } from '../../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageInput from '../../../../Shared/Components/imageInput';
+import LoadingScreen from '../../../../Shared/Alerts/Loader';
 
 
 
@@ -50,17 +51,28 @@ export default function RegisterPatient(props) {
     setUserData({...userData,['date_birth']:fDate});
   }
 
+  let [preloader,setPreloader]=React.useState(false);
+  /* MODAL */
   const [showModal, setShowModal] = React.useState(false);
+  const [message,setMessage]= React.useState("");
+  const [iconName,setIconName]=React.useState("");
 
-  const handleRegistrationSuccess = () => {
-    console.log(userData);
+  const handleSuccess = () => {
+    setMessage('Registro exitoso');
+    setIconName('check-circle');
+    setShowModal(true);
+    navigation.navigate('Start')
+  };
+
+  const handleError = () => {
+    setMessage('Error comprueba los campos');
+    setIconName('error');
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
   const { counter, setCounter } = React.useContext(AppContext);
   /* USE STATE */
   let [showPassword,setShowPassword]=React.useState(true);
@@ -122,8 +134,6 @@ export default function RegisterPatient(props) {
 
   const InputTextRead=(text,type)=>{
 
-    console.log(text)
-
     setUserData({...userData,[type]:text});
 
   }
@@ -146,13 +156,16 @@ export default function RegisterPatient(props) {
   }
 
   const register =async()=>{
-   
+    setPreloader(true);
     let result=await initRegister(userData).catch((error)=>{
       console.log("ERROR",error);
+      setPreloader(false);
+      handleError();
     })
 
     if(result !== undefined){
-      handleRegistrationSuccess();
+      setPreloader(false);
+      handleSuccess();
     }
 
 
@@ -171,6 +184,12 @@ export default function RegisterPatient(props) {
 
 
   return (
+    <>
+    {preloader ? 
+     <LoadingScreen/>
+     :
+     <></>
+     }
     <View style={styles.container}>
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
@@ -393,11 +412,13 @@ export default function RegisterPatient(props) {
               <TouchableOpacity style={styles.buttonIn} onPress={register}>
                 <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
               </TouchableOpacity>
-              <CustomModal visible={showModal} onClose={handleCloseModal} message="Registro exitoso!" iconName="check-circle"/>
+              <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
             </View>
         </ScrollView>
       </LinearGradient>
     </View>
+    </>
+    
   )
 }
 
