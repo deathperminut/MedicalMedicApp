@@ -1,43 +1,31 @@
-import React from "react";
-import { StyleSheet, View, Modal, ActivityIndicator } from "react-native";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-
-export const Loader = (props) => {
-    const {loading} = props;
-
-    return(
-        <Modal transparent = {true} animationType={'none'} visible ={loading}>
-            <View style={styles.modalBackground}>
-                <View style={styles.activityIndicatorWrapper}>
-                    <ActivityIndicator animating = {loading} size='small' color ={'green'}>
-                        <LottieView
-                            source={require('../../assets/Splash/zK2xt5MiJE.json')}
-                            autoPlay
-                            loop
-                        />
-                    </ActivityIndicator>
-                </View>
-            </View>
-        </Modal>
-    );
+const LoadingScreen = () => {
+  return (
+    <View style={styles.container}>
+      <LottieView
+        source={require('../../assets/Splash/zK2xt5MiJE.json')}
+        autoPlay
+        loop
+        style={styles.animation}
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    modalBackground:{
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        backgroundColor: '#00000040',
-    },
-    activityIndicatorWrapper:{
-        backgroundColor: '#FFFFFF',
-        height: 100,
-        width: 100,
-        borderRadius: 10,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent:'space-around'
-    },
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  animation: {
+    width: 200,
+    height: 200,
+  },
+});
+
+export default LoadingScreen;
