@@ -21,6 +21,7 @@ const initRegister=async(user)=>{
     body.append('department', user.department);
     body.append('city', user.city);
     body.append('coverage_city', user.coverageCity);
+    body.append('address', user.address);
     body.append('date_birth', user.birthDate);
     body.append('description', '');
     body.append('is_beneficiary',"False");
@@ -31,9 +32,8 @@ const initRegister=async(user)=>{
     body.append('identification_type',user.identification_type);
     body.append('genre', user.genre);
     body.append("eps",user.eps);
-    body.append("occupation",user.occupation);
-    body.append("regime_type",user.regime_type),
-    body.append("insurer",user.insurer);
+    body.append("regime_type",user.regime_type);
+
 
     return await axios.post(path,body)
 

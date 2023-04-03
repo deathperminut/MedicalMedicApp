@@ -1,4 +1,4 @@
-import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal} from 'react-native'
+import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal, Platform} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -9,6 +9,7 @@ import { AppContext } from '../../../../AppContext/Context';
 import CustomModal from '../../../../Shared/Alerts/Alert';
 import { initRegister } from '../../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import ImageInput from '../../../../Shared/Components/imageInput';
 
 
 
@@ -19,16 +20,40 @@ const TypeIdentification = [
   { value: "nie", label: "NIE" }
 ];
 
+const Regimen = [
+  { value: "contributivo", label: "Contributivo" },
+  { value: "subsidiado", label: "Subsidiado" }
+];
+
 
 export default function RegisterPatient(props) {
 
+  
+  
   /* DATE PICKER */
   const [date, setDate] = React.useState(new Date())
-  const [open, setOpen] = React.useState(false)
+  const [mode, setMode] = React.useState('date');
+  const [show,setShow]  = React.useState(false);
+  const [text,setText]= React.useState('');
+
+  const showMode= (currentMode)=>{
+    setShow(true);
+    setMode(currentMode);
+  }
+  const onChangeDate=(event,selectedDate)=>{
+    const currentDate=selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+
+    let tempDate=new Date(currentDate);
+    let fDate=tempDate.getFullYear() + "-" + (tempDate.getMonth()) + '-' +tempDate.getDate();
+    setUserData({...userData,['date_birth']:fDate});
+  }
 
   const [showModal, setShowModal] = React.useState(false);
 
   const handleRegistrationSuccess = () => {
+    console.log(userData);
     setShowModal(true);
   };
 
@@ -39,7 +64,6 @@ export default function RegisterPatient(props) {
   const { counter, setCounter } = React.useContext(AppContext);
   /* USE STATE */
   let [showPassword,setShowPassword]=React.useState(true);
-  let [showPassword2,setShowPassword2]=React.useState(true);
 
   /* NAVITATION */
   let {navigation}=props
@@ -63,11 +87,10 @@ export default function RegisterPatient(props) {
     "date_birth":"",
     "photo_profile":null,
     "neighbourhood":"",
+    "address":"",
     "genre":"",
     "eps":"",
-    "occupation":"",
     "regime_type":"",
-    "insurer":"",
   })
 
   const placeholder_type = {
@@ -82,10 +105,24 @@ export default function RegisterPatient(props) {
     color: '#9EA0A4',
     fontFamily:'Montserrat-SemiBold'
   };
+  const placeholder_genre = {
+    label: 'Género',
+    value: null,
+    color: '#9EA0A4',
+    fontFamily:'Montserrat-SemiBold'
+  };
+  const placeholder_regimen = {
+    label: 'Régimen',
+    value: null,
+    color: '#9EA0A4',
+    fontFamily:'Montserrat-SemiBold'
+  };
 
   /* FUNCTIONS */
 
   const InputTextRead=(text,type)=>{
+
+    console.log(text)
 
     setUserData({...userData,[type]:text});
 
@@ -101,15 +138,37 @@ export default function RegisterPatient(props) {
     
   }
 
-  const InputImageRead=()=>{
+  const InputImageRead=(File)=>{
+ 
+    console.log("ENTRAMOS")
+    setUserData({...userData,['photo_profile']:File});
 
   }
 
-  const register =()=>{
-    
-    
+  const register =async()=>{
 
+    let result=await initRegister(userData).catch((error)=>{
+      console.log("ERROR",error);
+    })
+
+    if(result !== undefined){
+      handleRegistrationSuccess();
+    }
+
+
+    
   }
+
+  const stylesDate = StyleSheet.create({
+    datePicker: {
+      backgroundColor: '#fff',
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      overflow: 'hidden',
+    },
+  });
+
+
 
   return (
     <View style={styles.container}>
@@ -126,10 +185,7 @@ export default function RegisterPatient(props) {
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
         <ScrollView showsVerticalScrollIndicator={false} style={{['width']:'100%'}}>
             <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-                    <Image
-                    style={{ width: 70, height: 70, }}
-                    source={require("../../../../assets/Registro/Subir-Foto.png")}
-                    />
+                    <ImageInput ReturnFile={InputImageRead}></ImageInput>
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
               <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Email' onChangeText={(text)=>InputTextRead(text,'email')} leftIcon={
@@ -139,6 +195,24 @@ export default function RegisterPatient(props) {
                       color='#7E72D1'
               />}   
               />
+            </View>
+            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:5},...{['marginBottom']:5}}}>
+              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={!showPassword} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>InputTextRead(text,'password')}  leftIcon={
+                    <Icon
+                      name='lock'
+                      type='font-awesome'
+                      size={20}
+                      color='#7E72D1'
+                    />}  
+                    rightIcon={
+                      <Icon
+                        name={showPassword ? 'visibility-off' : 'visibility'}
+                        size={20}
+                        color='#7E72D1'
+                        onPress={() => setShowPassword(!showPassword)}
+                      />
+                    } 
+                />
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
               <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Primer nombre' onChangeText={(text)=>InputTextRead(text,'first_name')} leftIcon={
@@ -204,7 +278,7 @@ export default function RegisterPatient(props) {
                 />
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onTouchStart={() => {setOpen(true); console.log("ENTRAMOS")} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Fecha de nacimiento' leftIcon={
+              <Input onTouchStart={() => {showMode('date')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Fecha de nacimiento' editable={true} value={userData.date_birth} leftIcon={
                     <Icon
                       name='calendar'
                       type='font-awesome'
@@ -212,6 +286,19 @@ export default function RegisterPatient(props) {
                       color='#7E72D1'
                     />}  
               />
+
+              {show && (
+                <DateTimePicker
+                testID='dateTimePicker'
+                locale="es-ES"
+                value={date}
+                mode={mode}
+                style={stylesDate.datePicker}
+                is24Hour={true}
+                display='default'
+                onChange={onChangeDate}
+                ></DateTimePicker>
+              )}
             </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
               <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Número celular' onChangeText={(text)=>InputTextRead(text,'phone')} leftIcon={
@@ -241,6 +328,15 @@ export default function RegisterPatient(props) {
                     />}  
                 />
             </View>
+            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
+              <Input onChangeText={(text)=>InputTextRead(text,'neighbourhood')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Barrio' leftIcon={
+                    <Icon
+                      name='location-city'
+                      size={20}
+                      color='#7E72D1'
+                    />}  
+                />
+            </View>
             <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
               <RNPickerSelect
                       style={pickerSelectStyles}
@@ -252,8 +348,19 @@ export default function RegisterPatient(props) {
                       ]}
               />
             </View>
+            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+              <RNPickerSelect
+                      style={pickerSelectStyles}
+                      placeholder={placeholder_genre}
+                      onValueChange={(value) => InputSelectRead(value,"genre")}
+                      items={[
+                        { value: "Masculino", label: "Masculino" },
+                        { value: "Femenino", label: "Femenino" }
+                      ]}
+              />
+            </View>
             <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Dirección' leftIcon={
+              <Input onChangeText={(text)=>InputTextRead(text,'address')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Dirección' leftIcon={
                     <Icon
                       name='directions'
                       size={20}
@@ -261,27 +368,29 @@ export default function RegisterPatient(props) {
                     />}  
                 />
             </View>
-            
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:5},...{['marginBottom']:5}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={true} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>InputTextRead(text,'password')}  leftIcon={
+            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
+              <Input onChangeText={(text)=>InputTextRead(text,'eps')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='eps' leftIcon={
                     <Icon
-                      name='lock'
-                      type='font-awesome'
+                      name='hospital'
+                      type='font-awesome-5'
                       size={20}
                       color='#7E72D1'
                     />}  
-                    rightIcon={
-                      <Icon
-                        name={showPassword ? 'visibility-off' : 'visibility'}
-                        size={20}
-                        color='#7E72D1'
-                        onPress={() => setShowPassword(!showPassword)}
-                      />
-                    } 
                 />
             </View>
+            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+              <RNPickerSelect
+                      style={pickerSelectStyles}
+                      placeholder={placeholder_regimen}
+                      onValueChange={(value) => InputSelectRead(value,"regime_type")}
+                      items={Regimen}
+              />
+            </View>
+            
+            
+            
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-              <TouchableOpacity style={styles.buttonIn} onPress={handleRegistrationSuccess}>
+              <TouchableOpacity style={styles.buttonIn} onPress={register}>
                 <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
               </TouchableOpacity>
               <CustomModal visible={showModal} onClose={handleCloseModal} message="Registro exitoso!" iconName="check-circle"/>
