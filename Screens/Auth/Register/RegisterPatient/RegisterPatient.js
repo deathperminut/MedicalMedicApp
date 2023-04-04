@@ -218,16 +218,15 @@ export default function RegisterPatient(props) {
        { value: "subsidiado", label: "Subsidiado" }
      ],open:open,setOpen:setOpen,typeForm:'dropdown'}]},
      {title:'19',data:[{typeForm:'submit'}]},
-
 ]
 
-  /* LIST FORM */
 
   const renderFormItem = ({ item }) => {
+   
     switch (item.typeForm) {
       case 'input':
         return (
-          <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
+          <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,position:'relative',zIndex:10}}>
                   <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder={item.placeholder} onChangeText={(text)=>InputTextRead(text,item.type)} leftIcon={
                        <>
                         {item.typeIcon==="" ? 
@@ -251,16 +250,17 @@ export default function RegisterPatient(props) {
         );
       case 'dropdown':
         return (
-          <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+          <View style={{width:'100%',position:'relative',maxWidth:500,marginBottom:20,zIndex:99}}>
                   <DropDownPicker
+                      dropDownDirection='TOP'
                       onSelectItem={(value) => InputSelectRead(value.value,item.type)}
                       value={userData[item.type]}
                       placeholder={item.placeholder}
                       items={item.data}
                       open={item.open}
-                      modal={false}
                       setOpen={item.setOpen}
                       style={{
+                        zIndex:999,
                         borderWidth: 0,
                         borderBottomWidth: 0.4,
                         borderBottomColor: '#7E72D1',
@@ -268,7 +268,6 @@ export default function RegisterPatient(props) {
                         borderRadius:0,
                         marginBottom:30,
                       }}
-
                       textStyle={{
                         ...Globalstyles.Purple,
                         ...Globalstyles.Medium,
@@ -331,7 +330,7 @@ export default function RegisterPatient(props) {
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
       </View>
-      <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,...{['width']:'100%'}}}>
+      <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,...{['width']:'100%'},position: 'relative'}}>
          <Image
                 style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
                 source={require("../../../../assets/Registro/Icono-Mano-Registro.png")}
@@ -344,7 +343,7 @@ export default function RegisterPatient(props) {
         <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          style={{['width']:'100%'}}
+          style={{['width']:'100%',position: 'relative'}}
           sections={FormInputs}
           renderItem={renderFormItem}
           keyExtractor={(item,index) => index.toString()}
@@ -356,27 +355,3 @@ export default function RegisterPatient(props) {
     
   )
 }
-
-const stylesPicker = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    backgroundColor: 'white',
-  },
-  inputAndroid: {
-    fontSize: 12,
-    paddingHorizontal: 10,
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'purple',
-    borderRadius: 8,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    backgroundColor: 'transparent',
-  },
-});
