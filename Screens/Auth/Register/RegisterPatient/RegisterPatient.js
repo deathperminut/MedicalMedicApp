@@ -146,17 +146,18 @@ export default function RegisterPatient(props) {
   }
 
   const register =async()=>{
-    setPreloader(true);
-    let result=await initRegister(userData).catch((error)=>{
-      console.log("ERROR",error);
-      setPreloader(false);
-      handleError();
-    })
+    //setPreloader(true);
+    console.log(userData);
+    // let result=await initRegister(userData).catch((error)=>{
+    //   console.log("ERROR",error);
+    //   setPreloader(false);
+    //   handleError();
+    // })
 
-    if(result !== undefined){
-      setPreloader(false);
-      handleSuccess();
-    }
+    // if(result !== undefined){
+    //   setPreloader(false);
+    //   handleSuccess();
+    // }
 
 
     
@@ -182,7 +183,7 @@ export default function RegisterPatient(props) {
   let FormInputs=[
     
     {title:"1",data:[{id:1,type:'email',placeholder:'Email' ,icon:'email' ,typeIcon:'',typeForm:'input',data:[]}]},
-    {title:"2",data:[{id:2,type:'password',placeholder:'Contraseña' ,icon:'lock' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"2",data:[{id:2,type:'password',placeholder:'Contraseña' ,icon:'lock' ,typeIcon:'font-awesome',typeForm:'password',data:[]}]},
     {title:"3",data:[{id:3,type:'first_name',placeholder:'Primer nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"4",data:[{id:4,type:'second_name',placeholder:'Segundo nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"5",data:[{id:5,type:'last_name',placeholder:'Primer apellido' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
@@ -224,6 +225,40 @@ export default function RegisterPatient(props) {
   const renderFormItem = ({ item }) => {
    
     switch (item.typeForm) {
+      case 'password':
+        return(
+          <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,position:'relative',zIndex:10}}>
+                  <Input secureTextEntry={showPassword} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder={item.placeholder} onChangeText={(text)=>InputTextRead(text,item.type)} leftIcon={
+                       <>
+                        {item.typeIcon==="" ? 
+                        <Icon
+                          name={item.icon}
+                          size={20}
+                          color='#7E72D1'
+                        />
+                        :
+                        <Icon
+                          name={item.icon}
+                          type={item.typeIcon}
+                          size={20}
+                          color='#7E72D1'
+                        />
+                        }
+                       </> 
+                        } 
+                        rightIcon={
+                        <Icon
+                          name={showPassword ? 'visibility' : 'visibility-off'}
+                          size={20}
+                          color='#7E72D1'
+                          onPress={() => setShowPassword(!showPassword)}
+                        />
+                } 
+                          
+                  />
+          </View>
+        );
+
       case 'input':
         return (
           <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,position:'relative',zIndex:10}}>
@@ -244,7 +279,8 @@ export default function RegisterPatient(props) {
                         />
                         }
                        </> 
-                        }   
+                        } 
+                          
                   />
           </View>
         );
