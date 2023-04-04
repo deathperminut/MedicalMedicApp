@@ -22,7 +22,7 @@ const initRegister=async(user)=>{
     body.append('date_birth', user.date_birth);
     body.append('is_beneficiary',"False");
     body.append('type_user', 'usuario');
-    body.append('photo_profile',user.photo_profile);
+    //body.append('photo_profile',user.photo_profile);
     body.append('profile_type', "Usuario");
     body.append('neighbourhood', user.neighbourhood);
     body.append('identification_type',user.identification_type);

@@ -32,6 +32,11 @@ export default function Login(props) {
     setIconName('error');
     setShowModal(true);
   };
+  const handleInfo = () => {
+    setMessage('Faltan campos por completar');
+    setIconName('error');
+    setShowModal(true);
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -84,7 +89,8 @@ export default function Login(props) {
   
   const logIn=async()=>{
 
-    setPreloader(true);
+    if(user.identification!=="" && user.password!==""){
+      setPreloader(true);
     let result=undefined;
     console.log(user);
     result=await initLogin(user).catch((error)=>{
@@ -100,6 +106,12 @@ export default function Login(props) {
        setPreloader(false);
        navigation.navigate('Drawer');
       }
+
+    }else{
+        
+      handleInfo();
+
+    }
 
   }
 
@@ -136,7 +148,7 @@ export default function Login(props) {
           />
         </View>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:10},...{['marginBottom']:20}}}>
-          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={!showPassword} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>ReadInput(text,'password')} leftIcon={
+          <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={showPassword} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>ReadInput(text,'password')} leftIcon={
                 <Icon
                   name='lock'
                   type='font-awesome'
@@ -145,7 +157,7 @@ export default function Login(props) {
                 />}  
                 rightIcon={
                   <Icon
-                    name={showPassword ? 'visibility-off' : 'visibility'}
+                    name={showPassword ? 'visibility' : 'visibility-off'}
                     size={20}
                     color='#7E72D1'
                     onPress={() => setShowPassword(!showPassword)}
@@ -153,17 +165,6 @@ export default function Login(props) {
                 } 
             />
         </View>
-        {/* <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'row'}}}>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text ,...{['marginRight']:10}}}>Recordar mi contraseña</Text>
-          <Switch
-            trackColor={{ false: "#9a91F4", true: "#7E72D1" }}
-            thumbColor={isEnabled ? "#642B80" : "#7E72D1"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-            style={styles.PositionRe}
-          />
-        </View> */}
         <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:'20%'}}}>
             <TouchableOpacity style={styles.buttonIn} onPress={logIn}  disabled={valid}>
                   <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>

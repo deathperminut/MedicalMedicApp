@@ -10,13 +10,9 @@ import { initRegister } from '../../../../services/Auth/Register/RegisterPatient
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
-import RNPickerSelect from 'react-native-picker-select';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const Regimen = [
-  { value: "contributivo", label: "Contributivo" },
-  { value: "subsidiado", label: "Subsidiado" }
-];
+
 
 export default function RegisterPatient(props) {
 
@@ -51,11 +47,16 @@ export default function RegisterPatient(props) {
     setMessage('Registro exitoso');
     setIconName('check-circle');
     setShowModal(true);
-    navigation.navigate('Start')
   };
 
   const handleError = () => {
-    setMessage('Error comprueba los campos');
+    setMessage('Cédula o correo ya en uso');
+    setIconName('error');
+    setShowModal(true);
+  };
+
+  const handleInfo = () => {
+    setMessage('Faltan campos por completar');
     setIconName('error');
     setShowModal(true);
   };
@@ -95,30 +96,6 @@ export default function RegisterPatient(props) {
     "regime_type":"",
   })
 
-  const placeholder_type = {
-    label: 'Tipo de documento',
-    value: null,
-    color: '#9EA0A4',
-    fontFamily:'Montserrat-SemiBold'
-  };
-  const placeholder_coverage = {
-    label: 'Ciudad de cobertura',
-    value: null,
-    color: '#9EA0A4',
-    fontFamily:'Montserrat-SemiBold'
-  };
-  const placeholder_genre = {
-    label: 'Género',
-    value: null,
-    color: '#9EA0A4',
-    fontFamily:'Montserrat-SemiBold'
-  };
-  const placeholder_regimen = {
-    label: 'Régimen',
-    value: null,
-    color: '#9EA0A4',
-    fontFamily:'Montserrat-SemiBold'
-  };
 
   /* FUNCTIONS */
 
@@ -146,18 +123,23 @@ export default function RegisterPatient(props) {
   }
 
   const register =async()=>{
-    //setPreloader(true);
     console.log(userData);
-    // let result=await initRegister(userData).catch((error)=>{
-    //   console.log("ERROR",error);
-    //   setPreloader(false);
-    //   handleError();
-    // })
+    if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood && userData.password!=="" && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
+        setPreloader(true);
+         let result=await initRegister(userData).catch((error)=>{
+           console.log("ERROR",error);
+           setPreloader(false);
+           handleError();
+         })
 
-    // if(result !== undefined){
-    //   setPreloader(false);
-    //   handleSuccess();
-    // }
+         if(result !== undefined){
+           setPreloader(false);
+           handleSuccess();
+         }
+    }else{
+      handleInfo();
+    }
+    
 
 
     
@@ -373,9 +355,9 @@ export default function RegisterPatient(props) {
          />
          <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro</Text>
          <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-         <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
+         {/* <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
                         <ImageInput ReturnFile={InputImageRead}></ImageInput>
-         </View>
+         </View> */}
         <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
