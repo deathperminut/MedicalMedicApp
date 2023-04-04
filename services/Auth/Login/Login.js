@@ -42,6 +42,29 @@ const GetName=(Date)=>{
     return name;
 }
 
+const GetName_Beneficient=(Date)=>{
+    
+  let Dates={...Date};
+  let name=Date.first_name;
+  if(Dates.second_name===null){
+    Dates['second_name']='';
+  }
+  if(Dates.last_name===null){
+    Dates['last_name']='';
+  }
+  if(Dates.second_last_name===null){
+    Dates['second_last_name']='';
+  }
+
+  try {
+    name=name+' '+Dates.second_name+' '+Dates.last_name+' '+Dates.second_last_name;
+  } catch (error) {
+    name=name;
+  }
+  return name;
+}
 
 
-export {initLogin,GetName}
+
+
+export {initLogin,GetName,GetName_Beneficient}

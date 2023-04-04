@@ -11,10 +11,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { initRegisterBeneficient } from '../../../../services/Auth/Register/RegisterBeneficient/RegisterBeneficient';
 
 export default function RegisterBeneficients(props) {
   
-  
+  /* APP CONTEXT */
+  let {token} = React.useContext(AppContext);
+
   /* NAVITATION */
   let {navigation}=props
 
@@ -122,9 +125,9 @@ export default function RegisterBeneficients(props) {
 
   const register =async()=>{
     console.log(userData);
-    if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood && userData.password!=="" && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
+    if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood  && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
         setPreloader(true);
-         let result=await initRegister(userData).catch((error)=>{
+         let result=await initRegisterBeneficient(userData,token).catch((error)=>{
            console.log("ERROR",error);
            setPreloader(false);
            handleError();
@@ -163,7 +166,6 @@ export default function RegisterBeneficients(props) {
   let FormInputs=[
     
     {title:"1",data:[{id:1,type:'email',placeholder:'Email' ,icon:'email' ,typeIcon:'',typeForm:'input',data:[]}]},
-    {title:"2",data:[{id:2,type:'password',placeholder:'Contraseña' ,icon:'lock' ,typeIcon:'font-awesome',typeForm:'password',data:[]}]},
     {title:"3",data:[{id:3,type:'first_name',placeholder:'Primer nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"4",data:[{id:4,type:'second_name',placeholder:'Segundo nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"5",data:[{id:5,type:'last_name',placeholder:'Primer apellido' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
@@ -335,7 +337,15 @@ export default function RegisterBeneficients(props) {
     }
   };
 
+  
+
   return (
+    <>
+    {preloader ? 
+      <LoadingScreen/>
+      :
+      <></>
+    }
     <View style={styles.container}>
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
@@ -348,112 +358,20 @@ export default function RegisterBeneficients(props) {
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro Beneficiario</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-        <ScrollView showsVerticalScrollIndicator={false} style={{width:'100%'}}>
-
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Email' leftIcon={
-                    <Icon
-                      name='email'
-                      size={20}
-                      color='#7E72D1'
-                    />}   
-              />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Primer nombre' leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Segundo nombre' leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Primer apellido' leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Segundo apellido' leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Documento Ident.' leftIcon={
-                    <Icon
-                      name='id-card'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Fecha de nacimiento' leftIcon={
-                    <Icon
-                      name='calendar'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Número celular' leftIcon={
-                    <Icon
-                      name='phone'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Ciudad' leftIcon={
-                    <Icon
-                      name='directions'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Dirección' leftIcon={
-                    <Icon
-                      name='directions'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-                <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Drawer')}>
-                      <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+        {/* <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
+                        <ImageInput ReturnFile={InputImageRead}></ImageInput>
+         </View> */}
+         <SectionList
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={{['width']:'100%',position: 'relative'}}
+          sections={FormInputs}
+          renderItem={renderFormItem}
+          keyExtractor={(item,index) => index.toString()}
+        />
       </LinearGradient>
     </View>
+    </>
+    
   )
 }

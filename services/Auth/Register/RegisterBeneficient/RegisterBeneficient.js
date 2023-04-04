@@ -1,7 +1,15 @@
 import axios from "axios";
 import { environment } from "../../../../environments/environments";
 
-const initRegisterBeneficient=async(user)=>{
+const initRegisterBeneficient=async(user,token)=>{
+
+    let config = {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'multipart/form-data',
+        },
+    };
+
     
     /* LOGIN */
     let path=environment.api+environment.createBeneficient
@@ -29,7 +37,7 @@ const initRegisterBeneficient=async(user)=>{
     body.append("eps",user.eps);
     body.append("regime_type",user.regime_type);
     console.log(body);
-    return await axios.post(path,body)
+    return await axios.post(path,body,config)
 
 }
 

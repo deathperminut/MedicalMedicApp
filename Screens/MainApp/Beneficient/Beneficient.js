@@ -7,7 +7,7 @@ import styles from './BeneficientStyles'
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
-import { GetName } from '../../../services/Auth/Login/Login';
+import { GetName, GetName_Beneficient } from '../../../services/Auth/Login/Login';
 import { getAge } from '../../../services/DateManagement/DateManagement';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
@@ -65,7 +65,7 @@ export default function Beneficient(props) {
     })
     if(result){
       setPreloader(false);
-      console.log(result.data);
+      console.log("DATOS: ",result.data);
       setListBeneficient(result.data);
     }
     
@@ -103,7 +103,7 @@ export default function Beneficient(props) {
           <ScrollView style={{width:'100%',marginBottom:0,maxWidth:470,maxHeight:'160%',height:'140%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
                 
-              {listBeneficient.map((faq, index) => (
+              {listBeneficient.map((beneficient, index) => (
                 <View key={index} style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                       <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
                         <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
@@ -111,8 +111,8 @@ export default function Beneficient(props) {
                         </View>
                         <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                         <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
+                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>{GetName_Beneficient(beneficient)}</Text>
+                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{beneficient.identification_type+'. '+beneficient.identification}</Text>
                         </View>
                         </View>
                       </TouchableOpacity>

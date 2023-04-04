@@ -14,7 +14,7 @@ export default function DrawerComponent(props) {
   
   function DrawerC(props){
 
-    let { userData, setUserData, token, setToken }=React.useContext(AppContext); 
+    let { userData, setUserData, token, setToken,Logout }=React.useContext(AppContext); 
 
     /* NAVIGATION */
     let {navigation}=props.props
@@ -51,8 +51,7 @@ export default function DrawerComponent(props) {
                     <Text style={{...Globalstyles.white,...Globalstyles.Medium,color:'#1671B7'}}>Beneficiarios</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>{
-                    setUserData(null);
-                    setToken(null);
+                    Logout()
                     navigation.navigate('Login')
                   }}>
                     <Icon

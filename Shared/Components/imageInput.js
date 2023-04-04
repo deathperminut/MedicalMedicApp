@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import * as imagePicker from 'expo-image-picker';
+import { StyleSheet } from 'react-native';
+import { createFile } from '../../services/Files/files';
 
 const ImagePicker = (props) => {
 
@@ -56,8 +58,7 @@ const ImagePicker = (props) => {
 
 export default ImagePicker;
 
-import { StyleSheet } from 'react-native';
-import { createFile } from '../../services/Files/files';
+
 
 const styles = StyleSheet.create({
   container: {

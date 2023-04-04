@@ -18,5 +18,6 @@ export const environment = {
 
   // BENEFICIARIOS
   getBeneficients:'usuarios/retrieve-beneficiary/',
+  createBeneficient:'usuarios/create-beneficiary/',
   
 }
