@@ -12,10 +12,15 @@ const AppWrapper = (props) => {
   // DATE
 
   const [currentDate,setCurrentDate]=useState(null);
+  const [historyDates,setHistoryDates]=useState([]);
+
+  //BENEFICIENT
+
+  const [listBeneficient,setListBeneficient]=useState([]);
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
-    <AppContext.Provider value={{ userData, setUserData, token, setToken , currentDate, setCurrentDate}}>
+    <AppContext.Provider value={{ userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient}}>
       {props.children}
     </AppContext.Provider>
   );

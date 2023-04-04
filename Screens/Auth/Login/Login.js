@@ -153,7 +153,7 @@ export default function Login(props) {
                 } 
             />
         </View>
-        <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'row'}}}>
+        {/* <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'row'}}}>
           <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text ,...{['marginRight']:10}}}>Recordar mi contraseña</Text>
           <Switch
             trackColor={{ false: "#9a91F4", true: "#7E72D1" }}
@@ -163,7 +163,7 @@ export default function Login(props) {
             value={isEnabled}
             style={styles.PositionRe}
           />
-        </View>
+        </View> */}
         <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:'20%'}}}>
             <TouchableOpacity style={styles.buttonIn} onPress={logIn}  disabled={valid}>
                   <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>

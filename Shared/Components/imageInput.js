@@ -13,16 +13,16 @@ const ImagePicker = (props) => {
         mediaTypes: imagePicker.MediaTypeOptions.Images,
         quality: 1,
       });
-      console.log(result);
+      console.log(result.assets[0].uri);
 
       if (!result.canceled) {
          
-         setImageUri(result.uri);
+         setImageUri(result.assets[0].uri);
          
-         let file=await createFile(result.uri);
+         let file=await createFile(result.assets[0].uri);
          // Descargar la imagen como un objeto binario
-        //  const response = await fetch(result.uri);
-        //  const File = await response.blob();
+         // const response = await fetch(result.uri);
+         //  const File = await response.blob();
          props.ReturnFile(file);
        }
     } catch (error) {

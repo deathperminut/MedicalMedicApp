@@ -10,7 +10,6 @@ import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
 import Carusel from '../Carusel/Carusel';
 import VerticalStepIndicator from './StepByStep';
-import { styles_shadow_global } from '../../../Shared/Icons/GlobalStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';

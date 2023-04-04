@@ -9,18 +9,75 @@ import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { getAge } from '../../../services/DateManagement/DateManagement';
+import LoadingScreen from '../../../Shared/Alerts/Loader';
+import CustomModal from '../../../Shared/Alerts/Alert';
+import { getBeneficients } from '../../../services/MainApp/Beneficient/Beneficient';
 
 
 export default function Beneficient(props) {
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient} =React.useContext(AppContext);
   
   /* NAVIGATE */
   let {navigation}=props
 
+  /* MODAL */
+  const [showModal, setShowModal] = React.useState(false);
+  const [message,setMessage]= React.useState("");
+  const [iconName,setIconName]=React.useState("");
+  const [preloader,setPreloader] = React.useState(false);
+
+  const handleSuccess = () => {
+    setMessage('Login exitoso');
+    setIconName('check-circle');
+    setShowModal(true);
+  };
+
+  const handleError = () => {
+    setMessage('Error comprueba los campos');
+    setIconName('error');
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  React.useEffect(()=>{
+    console.log("useEFFECT");
+    if(token){
+      getData();
+    }
+  },[])
+
+  /* FUNCTIONS */
+
+  const getData=async()=>{
+    
+    setPreloader(true);
+    let result=undefined;
+    result= await getBeneficients(userData,token).catch((error)=>{
+      
+      console.log(error);
+      setPreloader(false);
+      handleError();
+    })
+    if(result){
+      setPreloader(false);
+      console.log(result.data);
+      setListBeneficient(result.data);
+    }
+    
+  }
+
   return (
     <View style={styles.container}>
+      {preloader ? 
+        <LoadingScreen/>
+        :
+        <></>
+      }
       <ImageBackground source={require('../../../assets/Home/BG-Medical.png')} style={styles.imageBackground}></ImageBackground>
       <View style={styles.LobbyContainer}>
         <View style={styles.iconContainer}>
@@ -45,7 +102,9 @@ export default function Beneficient(props) {
           </View>
           <ScrollView style={{width:'100%',marginBottom:0,maxWidth:470,maxHeight:'160%',height:'140%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
-              <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                
+              {listBeneficient.map((faq, index) => (
+                <View key={index} style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                       <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
                         <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
                           <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
@@ -58,102 +117,14 @@ export default function Beneficient(props) {
                         </View>
                       </TouchableOpacity>
                 </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>Juan Sebastian Méndez Rondón</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>CC. 1005691633</Text>
-                        </View>
-                        </View>
-                      </TouchableOpacity>
-                </View>
+              ))}
+                
             </View>
           </ScrollView>
           
         </LinearGradient>
       </View>
+      <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
     </View>
   )
 }

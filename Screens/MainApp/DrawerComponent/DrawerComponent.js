@@ -6,12 +6,15 @@ import { Icon } from 'react-native-elements';
 import LogotipoMedicalColor from '../../../Shared/Icons/Logotipo-Medical-Color';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import LogoMedicalWhite from '../../../Shared/Icons/LogoMedicalWhite';
+import { AppContext } from '../../../AppContext/Context';
 
 export default function DrawerComponent(props) {
   const [open, setOpen] = React.useState(false);
   //const Drawer=createDrawerNavigator();
   
   function DrawerC(props){
+
+    let { userData, setUserData, token, setToken }=React.useContext(AppContext); 
 
     /* NAVIGATION */
     let {navigation}=props.props
@@ -47,7 +50,11 @@ export default function DrawerComponent(props) {
                     />
                     <Text style={{...Globalstyles.white,...Globalstyles.Medium,color:'#1671B7'}}>Beneficiarios</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('Login')}>
+                  <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>{
+                    setUserData(null);
+                    setToken(null);
+                    navigation.navigate('Login')
+                  }}>
                     <Icon
                       name='arrow-left'
                       type='font-awesome'

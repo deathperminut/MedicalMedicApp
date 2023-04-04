@@ -36,6 +36,12 @@ export default function Reports(props) {
   let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
 
   return (
+    <>
+    {preloader ? 
+      <LoadingScreen/>
+      :
+      <></>
+    }
     <View style={styles.container}>
       <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
       <ScrollView showsVerticalScrollIndicator={false} style={{}}>
@@ -220,6 +226,7 @@ export default function Reports(props) {
       
       </ImageBackground>
     </View>
+    </>
   )
 }
 

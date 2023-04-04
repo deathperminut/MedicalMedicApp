@@ -1,9 +1,8 @@
-import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal, Platform} from 'react-native'
+import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal, Platform ,FlatList,SectionList} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles';
-import RNPickerSelect from 'react-native-picker-select';
 import styles from './RegisterPatientStyle';
 import { AppContext } from '../../../../AppContext/Context';
 import CustomModal from '../../../../Shared/Alerts/Alert';
@@ -11,21 +10,13 @@ import { initRegister } from '../../../../services/Auth/Register/RegisterPatient
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
-
-
-
-const TypeIdentification = [
-  { value: "cc", label: "CC" },
-  { value: "di", label: "DI" },
-  { value: "ce", label: "CE" },
-  { value: "nie", label: "NIE" }
-];
+import RNPickerSelect from 'react-native-picker-select';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const Regimen = [
   { value: "contributivo", label: "Contributivo" },
   { value: "subsidiado", label: "Subsidiado" }
 ];
-
 
 export default function RegisterPatient(props) {
 
@@ -35,7 +26,6 @@ export default function RegisterPatient(props) {
   const [date, setDate] = React.useState(new Date())
   const [mode, setMode] = React.useState('date');
   const [show,setShow]  = React.useState(false);
-  const [text,setText]= React.useState('');
 
   const showMode= (currentMode)=>{
     setShow(true);
@@ -73,7 +63,7 @@ export default function RegisterPatient(props) {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  const { counter, setCounter } = React.useContext(AppContext);
+  
   /* USE STATE */
   let [showPassword,setShowPassword]=React.useState(true);
 
@@ -182,6 +172,153 @@ export default function RegisterPatient(props) {
   });
 
 
+  const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
+
+  /* LIST FORM DATA */
+
+  let FormInputs=[
+    
+    {title:"1",data:[{id:1,type:'email',placeholder:'Email' ,icon:'email' ,typeIcon:'',typeForm:'input',data:[]}]},
+    {title:"2",data:[{id:2,type:'password',placeholder:'Contraseña' ,icon:'lock' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"3",data:[{id:3,type:'first_name',placeholder:'Primer nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"4",data:[{id:4,type:'second_name',placeholder:'Segundo nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"5",data:[{id:5,type:'last_name',placeholder:'Primer apellido' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"6",data:[{id:6,type:'second_last_name',placeholder:'Segundo apellido' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"7",data:[{id:7,type:"identification_type",placeholder:"Tipo de identificación" ,data:[
+      { value: "CC", label: "CC" },
+      { value: "DI", label: "DI" },
+      { value: "CE", label: "CE" },
+      { value: "NIE", label: "NIE" }
+    ],open:open2,setOpen:setOpen2,typeForm:'dropdown'}]},
+
+     {title:"8",data:[{id:8,type:'identification',placeholder:'Documento Ident.' ,icon:'id-card' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+     {title:"9",data:[{id:22,typeForm:'date',data:[]}]},
+     {title:"10",data:[{id:9,type:'phone',placeholder:'Número celular' ,icon:'phone',typeIcon:'font-awesome' ,typeForm:'input',data:[]}]},
+     {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
+     {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
+     {title:"13",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
+     {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:[
+       { value: "armenia", label: "Armenia" },
+       { value: "manizales", label: "Manizales" }
+     ],open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+     {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
+       { value: "Masculino", label: "Masculino" },
+       { value: "Femenino", label: "Femenino" }
+     ],open:open4,setOpen:setOpen4 ,typeForm:'dropdown'}]},
+
+     {title:"16",data:[{id:15,type:'address',placeholder:'Dirección' ,icon:'directions' ,typeIcon:'',typeForm:'input',data:[]}]},
+
+     {title:"17",data:[{id:16,type:'eps',placeholder:'eps' ,icon:'hospital' ,typeIcon:'font-awesome-5',typeForm:'input',data:[]}]},
+
+     {title:"18",data:[{id:17,type:'regime_type',placeholder:"Seleccione Régimen" ,data:[
+       { value: "contributivo", label: "Contributivo" },
+       { value: "subsidiado", label: "Subsidiado" }
+     ],open:open,setOpen:setOpen,typeForm:'dropdown'}]},
+     {title:'19',data:[{typeForm:'submit'}]},
+
+]
+
+  /* LIST FORM */
+
+  const renderFormItem = ({ item }) => {
+    switch (item.typeForm) {
+      case 'input':
+        return (
+          <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
+                  <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder={item.placeholder} onChangeText={(text)=>InputTextRead(text,item.type)} leftIcon={
+                       <>
+                        {item.typeIcon==="" ? 
+                        <Icon
+                          name={item.icon}
+                          size={20}
+                          color='#7E72D1'
+                        />
+                        :
+                        <Icon
+                          name={item.icon}
+                          type={item.typeIcon}
+                          size={20}
+                          color='#7E72D1'
+                        />
+                        }
+                       </> 
+                        }   
+                  />
+          </View>
+        );
+      case 'dropdown':
+        return (
+          <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+                  <DropDownPicker
+                      onSelectItem={(value) => InputSelectRead(value.value,item.type)}
+                      value={userData[item.type]}
+                      placeholder={item.placeholder}
+                      items={item.data}
+                      open={item.open}
+                      modal={false}
+                      setOpen={item.setOpen}
+                      style={{
+                        borderWidth: 0,
+                        borderBottomWidth: 0.4,
+                        borderBottomColor: '#7E72D1',
+                        backgroundColor:'transparent',
+                        borderRadius:0,
+                        marginBottom:30,
+                      }}
+
+                      textStyle={{
+                        ...Globalstyles.Purple,
+                        ...Globalstyles.Medium,
+                      }}
+                    />
+                </View>
+        );
+      case 'date': 
+        return(
+          <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
+          <Input onTouchStart={() => {showMode('date')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Fecha de nacimiento' editable={true} value={userData.date_birth} leftIcon={
+                <Icon
+                  name='calendar'
+                  type='font-awesome'
+                  size={20}
+                  color='#7E72D1'
+                />}  
+          />
+
+          {show && (
+            <DateTimePicker
+            testID='dateTimePicker'
+            locale="es-ES"
+            value={date}
+            mode={mode}
+            style={stylesDate.datePicker}
+            is24Hour={true}
+            display='default'
+            onChange={onChangeDate}
+            ></DateTimePicker>
+          )}
+          </View>
+
+      );
+
+      case 'submit':
+        return(
+          <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
+              <TouchableOpacity style={styles.buttonIn} onPress={register}>
+                <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
+              </TouchableOpacity>
+              <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
+          </View>
+        );
+       
+
+      default:
+        return null
+    }
+  };
 
   return (
     <>
@@ -194,227 +331,25 @@ export default function RegisterPatient(props) {
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>
       </View>
-
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,...{['width']:'100%'}}}>
-        <Image
-            style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
-            source={require("../../../../assets/Registro/Icono-Mano-Registro.png")}
+         <Image
+                style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
+                source={require("../../../../assets/Registro/Icono-Mano-Registro.png")}
          />
-        <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro</Text>
-        <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-        <ScrollView showsVerticalScrollIndicator={false} style={{['width']:'100%'}}>
-            <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-                    <ImageInput ReturnFile={InputImageRead}></ImageInput>
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Email' onChangeText={(text)=>InputTextRead(text,'email')} leftIcon={
-                    <Icon
-                      name='email'
-                      size={20}
-                      color='#7E72D1'
-              />}   
-              />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:5},...{['marginBottom']:5}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} secureTextEntry={!showPassword} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Contraseña' onChangeText={(text)=>InputTextRead(text,'password')}  leftIcon={
-                    <Icon
-                      name='lock'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                    rightIcon={
-                      <Icon
-                        name={showPassword ? 'visibility-off' : 'visibility'}
-                        size={20}
-                        color='#7E72D1'
-                        onPress={() => setShowPassword(!showPassword)}
-                      />
-                    } 
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Primer nombre' onChangeText={(text)=>InputTextRead(text,'first_name')} leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-               />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Segundo nombre' onChangeText={(text)=>InputTextRead(text,'second_name')} leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Primer apellido' onChangeText={(text)=>InputTextRead(text,'last_name')} leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Segundo apellido' onChangeText={(text)=>InputTextRead(text,'second_last_name')} leftIcon={
-                    <Icon
-                      name='user'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
-              <RNPickerSelect
-                      style={pickerSelectStyles}
-                      placeholder={placeholder_type }
-                      onValueChange={(value) => InputSelectRead(value,"identification_type")}
-                      items={[
-                        { value: "CC", label: "CC" },
-                        { value: "DI", label: "DI" },
-                        { value: "CE", label: "CE" },
-                        { value: "NIE", label: "NIE" }
-                      ]}
-              />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Documento Ident.' onChangeText={(text)=>InputTextRead(text,'identification')} leftIcon={
-                    <Icon
-                      name='id-card'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onTouchStart={() => {showMode('date')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Fecha de nacimiento' editable={true} value={userData.date_birth} leftIcon={
-                    <Icon
-                      name='calendar'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-              />
-
-              {show && (
-                <DateTimePicker
-                testID='dateTimePicker'
-                locale="es-ES"
-                value={date}
-                mode={mode}
-                style={stylesDate.datePicker}
-                is24Hour={true}
-                display='default'
-                onChange={onChangeDate}
-                ></DateTimePicker>
-              )}
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Número celular' onChangeText={(text)=>InputTextRead(text,'phone')} leftIcon={
-                    <Icon
-                      name='phone'
-                      type='font-awesome'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onChangeText={(text)=>InputTextRead(text,'department')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Departamento' leftIcon={
-                    <Icon
-                      name='location-city'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onChangeText={(text)=>InputTextRead(text,'city')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Ciudad' leftIcon={
-                    <Icon
-                      name='location-city'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onChangeText={(text)=>InputTextRead(text,'neighbourhood')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Barrio' leftIcon={
-                    <Icon
-                      name='location-city'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
-              <RNPickerSelect
-                      style={pickerSelectStyles}
-                      placeholder={placeholder_coverage}
-                      onValueChange={(value) => InputSelectRead(value,"coverage_city")}
-                      items={[
-                        { value: "armenia", label: "Armenia" },
-                        { value: "manizales", label: "Manizales" }
-                      ]}
-              />
-            </View>
-            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
-              <RNPickerSelect
-                      style={pickerSelectStyles}
-                      placeholder={placeholder_genre}
-                      onValueChange={(value) => InputSelectRead(value,"genre")}
-                      items={[
-                        { value: "Masculino", label: "Masculino" },
-                        { value: "Femenino", label: "Femenino" }
-                      ]}
-              />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onChangeText={(text)=>InputTextRead(text,'address')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='Dirección' leftIcon={
-                    <Icon
-                      name='directions'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2}}}>
-              <Input onChangeText={(text)=>InputTextRead(text,'eps')} inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} containerStyle={{ marginVertical: 10 }} placeholder='eps' leftIcon={
-                    <Icon
-                      name='hospital'
-                      type='font-awesome-5'
-                      size={20}
-                      color='#7E72D1'
-                    />}  
-                />
-            </View>
-            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
-              <RNPickerSelect
-                      style={pickerSelectStyles}
-                      placeholder={placeholder_regimen}
-                      onValueChange={(value) => InputSelectRead(value,"regime_type")}
-                      items={Regimen}
-              />
-            </View>
-            
-            
-            
-            <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-              <TouchableOpacity style={styles.buttonIn} onPress={register}>
-                <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
-              </TouchableOpacity>
-              <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
-            </View>
-        </ScrollView>
+         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro</Text>
+         <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
+         <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
+                        <ImageInput ReturnFile={InputImageRead}></ImageInput>
+         </View>
+        <SectionList
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={{['width']:'100%'}}
+          sections={FormInputs}
+          renderItem={renderFormItem}
+          keyExtractor={(item,index) => index.toString()}
+        />
+        
       </LinearGradient>
     </View>
     </>
@@ -422,29 +357,26 @@ export default function RegisterPatient(props) {
   )
 }
 
-const pickerSelectStyles = StyleSheet.create({
+const stylesPicker = StyleSheet.create({
   inputIOS: {
-      fontSize: 16,
-      fontFamily:'Montserrat-SemiBold',
-      paddingVertical: 12,
-      paddingHorizontal: 10,
-      borderWidth: 1,
-      borderColor: '#9D91F4',
-      borderRadius: 4,
-      color: '#9EA0A4',
-      paddingRight: 30 // to ensure the text is never behind the icon
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    backgroundColor: 'white',
   },
   inputAndroid: {
-      fontSize: 16,
-      fontFamily:'Montserrat-SemiBold',
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: '#9D91F4',
-      borderRadius: 8,
-      color: '#9EA0A4',
-      width:'100%',
-      maxWidth:500,
-      paddingRight: 30 // to ensure the text is never behind the icon
-  }
+    fontSize: 12,
+    paddingHorizontal: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    backgroundColor: 'transparent',
+  },
 });

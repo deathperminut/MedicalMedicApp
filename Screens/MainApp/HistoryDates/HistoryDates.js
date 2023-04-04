@@ -9,6 +9,8 @@ import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { getAge } from '../../../services/DateManagement/DateManagement';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { AppContext } from '../../../AppContext/Context';
+import LoadingScreen from '../../../Shared/Alerts/Loader';
+import CustomModal from '../../../Shared/Alerts/Alert';
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
@@ -64,6 +66,7 @@ export default function HistoryDates(props) {
 
   /* EXPAND */
   const [expanded, setExpanded] = useState({});
+  const [preloader,setPreloader] = React.useState(false);
 
   const handleExpand = (index) => {
     setExpanded({
@@ -72,11 +75,60 @@ export default function HistoryDates(props) {
     });
   };
 
+  
+  /* MODAL */
+  const [showModal, setShowModal] = React.useState(false);
+  const [message,setMessage]= React.useState("");
+  const [iconName,setIconName]=React.useState("");
+
+  const handleSuccess = () => {
+    setMessage('Login exitoso');
+    setIconName('check-circle');
+    setShowModal(true);
+  };
+
+  const handleError = () => {
+    setMessage('Error comprueba los campos');
+    setIconName('error');
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,historyDates,setHistoryDates} =React.useContext(AppContext);
+
+  
+  // React.useEffect(()=>{
+  //   console.log("useEFFECT");
+  //   if(token){
+  //     getData();
+  //   }
+  // },[])
+
+  // /* FUNCTIONS */
+
+  // const getData=async()=>{
+    
+  //   setPreloader(true);
+  //   let result=undefined;
+  //   result= await getHistoryDates(token).catch((error)=>{
+  //     console.log(error);
+
+  //   })
+    
+  // }
 
 
   return (
+    <>
+    {preloader ? 
+      <LoadingScreen/>
+      :
+      <></>
+      }
     <View style={styles.container}>
       <ImageBackground source={require('../../../assets/Home/BG-Particular.png')} style={styles.imageBackground}></ImageBackground>
       <View style={styles.LobbyContainer}>
@@ -264,6 +316,9 @@ export default function HistoryDates(props) {
           </ScrollView>
         </LinearGradient>
       </View>
+      <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
     </View>
+    </>
+    
   )
 }

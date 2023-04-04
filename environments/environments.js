@@ -17,6 +17,6 @@ export const environment = {
   userInfo: 'usuarios/user_info/',
 
   // BENEFICIARIOS
-  getBeneficients:'usuarios/retrieve-affiliate/',
+  getBeneficients:'usuarios/retrieve-beneficiary/',
   
 }
