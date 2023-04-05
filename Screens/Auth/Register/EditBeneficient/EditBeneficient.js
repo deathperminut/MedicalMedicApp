@@ -12,6 +12,7 @@ import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { initRegisterBeneficient } from '../../../../services/Auth/Register/RegisterBeneficient/RegisterBeneficient';
+import { deleteBeneficient, editBeneficient } from '../../../../services/Auth/Register/EditBeneficient/EditBeneficient';
 
 
 export default function EditBeneficient(props) {
@@ -53,7 +54,7 @@ export default function EditBeneficient(props) {
   };
 
   const handleError = () => {
-    setMessage('Cédula o correo ya en uso');
+    setMessage('Error al completar la acción');
     setIconName('error');
     setShowModal(true);
   };
@@ -123,28 +124,6 @@ export default function EditBeneficient(props) {
 
   }
 
-  const register =async()=>{
-    console.log(userData);
-    if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood  && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
-        setPreloader(true);
-         let result=await initRegisterBeneficient(userData,token).catch((error)=>{
-           console.log("ERROR",error);
-           setPreloader(false);
-           handleError();
-         })
-
-         if(result !== undefined){
-           setPreloader(false);
-           handleSuccess();
-         }
-    }else{
-      handleInfo();
-    }
-    
-
-
-    
-  }
 
   const stylesDate = StyleSheet.create({
     datePicker: {
@@ -293,8 +272,8 @@ export default function EditBeneficient(props) {
       case 'submit':
         return(
           <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-              <TouchableOpacity style={styles.buttonIn} onPress={register}>
-                <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
+              <TouchableOpacity style={styles.buttonIn} onPress={UPDATEBeneficient}>
+                <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Actualizar</Text>
               </TouchableOpacity>
               <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
           </View>
@@ -302,10 +281,9 @@ export default function EditBeneficient(props) {
       case 'delete':
           return(
             <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-                <TouchableOpacity style={styles.buttonIn} onPress={register}>
-                  <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrar</Text>
+                <TouchableOpacity style={styles.buttonDelete} onPress={()=>DeleteBeneficient()}>
+                      <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Eliminar</Text>
                 </TouchableOpacity>
-                <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
             </View>
           ); 
 
@@ -325,8 +303,44 @@ export default function EditBeneficient(props) {
   let {navigation}=props
 
 
+  const DeleteBeneficient=async()=>{
+    setPreloader(true);
+    let result=undefined;
+    result=await deleteBeneficient(userData,token).catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+      handleError();
+    })
+    if(result){
+      setPreloader(false);
+      navigation.navigate('Beneficient');
+    }
+    
+  }
+
+  const UPDATEBeneficient=async()=>{
+    setPreloader(true);
+    let result=undefined;
+    result=await editBeneficient(userData,token).catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+      handleError();
+    })
+    if(result){
+      setPreloader(false);
+    }
+    
+  }
+
+
 
   return (
+    <>
+    {preloader ? 
+      <LoadingScreen/>
+      :
+      <></>
+    }
     <View style={styles.container}>
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Beneficient')}></Icon>
@@ -352,5 +366,6 @@ export default function EditBeneficient(props) {
         />
       </LinearGradient>
     </View>
+    </>
   )
 }
