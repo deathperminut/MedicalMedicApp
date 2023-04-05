@@ -30,11 +30,12 @@ const editBeneficient=async(user,token)=>{
         },
     };
     /* LOGIN */
-    let path=environment.api+environment.updateUser
+    let path=environment.api+environment.editBeneficient
     /* BODY */
+    console.log("ID: ",user.id)
     const body = new FormData();
     body.append('id',user.id);
-    body.append('first_name', user.first_name);
+    body.append('first_name', user.name);
     body.append('second_name', user.second_name);
     body.append('last_name', user.last_name);
     body.append('second_last_name', user.second_last_name);

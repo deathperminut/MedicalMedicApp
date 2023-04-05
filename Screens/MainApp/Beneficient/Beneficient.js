@@ -47,9 +47,11 @@ export default function Beneficient(props) {
   React.useEffect(()=>{
     console.log("useEFFECT");
     if(token){
-      getData();
+      if(selectBeneficient===null || selectBeneficient==={}){
+        getData();
+      }
     }
-  },[])
+  },[selectBeneficient])
 
   /* FUNCTIONS */
 
@@ -115,8 +117,8 @@ export default function Beneficient(props) {
                           <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
                         </View>
                         <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center'}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>{GetName_Beneficient(beneficient)}</Text>
+                        <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
+                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:17,textAlign:'center'}}>{GetName(beneficient)}</Text>
                           <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{beneficient.identification_type+'. '+beneficient.identification}</Text>
                         </View>
                         </View>

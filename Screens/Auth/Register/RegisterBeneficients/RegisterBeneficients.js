@@ -16,7 +16,7 @@ import { initRegisterBeneficient } from '../../../../services/Auth/Register/Regi
 export default function RegisterBeneficients(props) {
   
   /* APP CONTEXT */
-  let {token} = React.useContext(AppContext);
+  let {token,setSelectBeneficient} = React.useContext(AppContext);
 
   /* NAVITATION */
   let {navigation}=props
@@ -135,6 +135,7 @@ export default function RegisterBeneficients(props) {
 
          if(result !== undefined){
            setPreloader(false);
+           setSelectBeneficient(null);
            handleSuccess();
          }
     }else{

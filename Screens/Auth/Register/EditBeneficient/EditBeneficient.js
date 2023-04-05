@@ -48,7 +48,7 @@ export default function EditBeneficient(props) {
   const [iconName,setIconName]=React.useState("");
 
   const handleSuccess = () => {
-    setMessage('Registro exitoso');
+    setMessage('Acción completada con exito');
     setIconName('check-circle');
     setShowModal(true);
   };
@@ -76,7 +76,7 @@ export default function EditBeneficient(props) {
   /* USESTATE */
 
   let [userData,setUserData]=React.useState({
-    "first_name":"",
+    "name":"",
     "second_name":"",
     "last_name":"",
     "second_last_name":"",
@@ -145,7 +145,7 @@ export default function EditBeneficient(props) {
   let FormInputs=[
     
     {title:"1",data:[{id:1,type:'email',placeholder:'Email' ,icon:'email' ,typeIcon:'',typeForm:'input',data:[]}]},
-    {title:"3",data:[{id:3,type:'first_name',placeholder:'Primer nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
+    {title:"3",data:[{id:3,type:'name',placeholder:'Primer nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"4",data:[{id:4,type:'second_name',placeholder:'Segundo nombre' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"5",data:[{id:5,type:'last_name',placeholder:'Primer apellido' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
     {title:"6",data:[{id:6,type:'second_last_name',placeholder:'Segundo apellido' ,icon:'user' ,typeIcon:'font-awesome',typeForm:'input',data:[]}]},
@@ -293,12 +293,11 @@ export default function EditBeneficient(props) {
   };
 
   React.useEffect(()=>{
-    console.log("DATOS: ",selectBeneficient.phone)
     if(selectBeneficient!==null){
       setUserData({...selectBeneficient,['phone']:selectBeneficient.phone});
     }
   },[selectBeneficient])
-
+ 
   /* NAVITATION */
   let {navigation}=props
 
@@ -313,6 +312,8 @@ export default function EditBeneficient(props) {
     })
     if(result){
       setPreloader(false);
+      setSelectBeneficient(null);
+      handleSuccess();
       navigation.navigate('Beneficient');
     }
     
@@ -327,6 +328,8 @@ export default function EditBeneficient(props) {
       handleError();
     })
     if(result){
+      setSelectBeneficient(null);
+      handleSuccess();
       setPreloader(false);
     }
     

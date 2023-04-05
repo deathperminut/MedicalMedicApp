@@ -28,9 +28,9 @@ export default function FQ(props) {
   /* FAQS */
   const faqs = [
     {
-      title: '¿Cómo puedo solicitar una consulta en linea?',
-      description: 'Hay diferentes canales de comunicación donde puedes agendar una cita con MHC. A continuación menionaremos las formas más sencillas de solicitar una consulta.',
-      content:'1) Puedes solicitar una consulta a través del menú de la app móvil, en el apartado consulta médica.\n\n 2) Puedes solicitar una consulta a través del menú de la app móvil, en el apartado de consulta médica.\n\n 3) Puedes solicitar una consulta a través del menú de la app móvil, en el apartado consulta médica.'
+      title: '¿Qué servicios médicos ofrecen en el domicilio?',
+      description: 'Ofrecemos una amplia variedad de servicios médicos en el domicilio, incluyendo ',
+      content:'1) Consulta médica.\n\n 2) Fisioterapia .\n\n 3) Terapia respiratoria.\n\n 4) Terapia ocupacional.\n\n 5) Terapia del lenguaje.\n\n 6) Consulta de psicología.\n\n 7) Nutrición.\n\n 8) Consulta de especialidades por telemedicina.\n\n 9) Orientación médica telefónica.\n\n 10) Cuidados paliativos.\n\n 11) Trabajo social.\n\n 12) Hospitalización en casa para patologías de menor \t complejidad.\n\n 13) Curaciones de mayor y menor complejidad.\n\n 14) Curaciones de mayor y menor complejidad.\n\n 15) Actividades de enfermería.\n\n 16) Hidratación por vía intravenosa.\n\n 17) Exámenes de laboratorio.\n\n 18) Ecografías.\n\n 19) Electrocardiograma.\n\n 20) Trasporte asistencial básico.\n\n'
     },
     {
       title: '¿Cómo puedo cancelar una conuslta médica?',
