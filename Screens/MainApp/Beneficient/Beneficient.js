@@ -17,7 +17,7 @@ import { getBeneficients } from '../../../services/MainApp/Beneficient/Beneficie
 export default function Beneficient(props) {
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient} =React.useContext(AppContext);
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
   
   /* NAVIGATE */
   let {navigation}=props
@@ -71,6 +71,11 @@ export default function Beneficient(props) {
     
   }
 
+  const EDITBeneficient=(beneficient)=>{
+    setSelectBeneficient(beneficient);
+    navigation.navigate('EditBeneficient');
+  }
+
   return (
     <View style={styles.container}>
       {preloader ? 
@@ -105,7 +110,7 @@ export default function Beneficient(props) {
                 
               {listBeneficient.map((beneficient, index) => (
                 <View key={index} style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>navigation.navigate('EditBeneficient')}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
+                      <TouchableOpacity onPress={()=>EDITBeneficient(beneficient)}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
                         <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
                           <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
                         </View>
