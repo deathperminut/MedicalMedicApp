@@ -21,13 +21,12 @@ export default function DrawerComponent(props) {
 
     return(
       <View>
-              <View style={{alignItems:'center'}}>
-                <View style={{backgroundColor:'#3E4898',width:'100%',height:'15%'}}>
-                 <LogoMedicalWhite style={{width:150,height:100,marginLeft:'37%',marginTop:'15%' }}></LogoMedicalWhite>
+              <View style={{alignContent:'center',justifyContent:'center'}}>
+                <View style={{backgroundColor:'#3E4898',width:'100%',height:'15%',aligncontent:'center',justifyContent:'center'}}>
+                 <LogoMedicalWhite style={{width:110,height:100}}></LogoMedicalWhite>
                 </View>
                 
                 <View style={{width:'100%',marginTop:70,height:'90%',alignItems:'center',paddingTop:20}}>
-                  <View style={{width:45,backgroundColor:'#F19420',position:'absolute',top:-300,left:0,height:'100%'}}/>  
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('EditPerfil')}>
                   <Icon
                       name='user'
