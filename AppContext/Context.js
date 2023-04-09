@@ -19,6 +19,10 @@ const AppWrapper = (props) => {
   const [listBeneficient,setListBeneficient]=useState([]);
   const [selectBeneficient,setSelectBeneficient]=useState(null);
 
+  // DATEMANAGEMENT
+
+  const [patient,setPatient]=useState(null);
+
   //Logout
 
   const Logout=()=>{
@@ -29,12 +33,14 @@ const AppWrapper = (props) => {
     setHistoryDates([])
     setListBeneficient([])
     setSelectBeneficient(null)
+    setPatient(null)
 
   }
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
-    <AppContext.Provider value={{ Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient}}>
+    <AppContext.Provider value={{ Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
+    patient,setPatient}}>
       {props.children}
     </AppContext.Provider>
   );
