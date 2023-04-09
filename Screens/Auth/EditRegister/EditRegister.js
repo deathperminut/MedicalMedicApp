@@ -22,7 +22,6 @@ export default function EditRegister(props) {
   let [showPassword,setShowPassword]=React.useState(true);
   let [showPassword2,setShowPassword2]=React.useState(true);
 
-  console.log("ENTRAMOS: ")
   /* APP CONTEXT */
  let {token, userData,setUserData, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
   
@@ -82,7 +81,6 @@ export default function EditRegister(props) {
 
  let [userData_,setUserData_]=React.useState(userData)
 
- console.log("USER DATA: ",userData);
  /* FUNCTIONS */
 
  const InputTextRead=(text,type)=>{
@@ -103,7 +101,6 @@ export default function EditRegister(props) {
 
  const InputImageRead=(File)=>{
 
-   console.log("ENTRAMOS")
    setUserData_({...userData_,['photo_profile']:File});
 
  }
@@ -167,8 +164,6 @@ export default function EditRegister(props) {
 ]
 
 const renderFormItem = ({ item }) => {
-
-  console.log(item.type,userData_[item.type]);
  
   switch (item.typeForm) {
     case 'input':
@@ -312,7 +307,6 @@ const UPDATEBeneficient=async()=>{
   if(result){
     setSelectBeneficient(null);
     handleSuccess();
-    console.log("USUARIO ACTUALIZADO: ",result.data);
     setUserData(result.data)
     setPreloader(false);
   }
