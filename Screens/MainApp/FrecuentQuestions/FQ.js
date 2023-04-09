@@ -6,7 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import styles from './FQStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
-
+import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 
 export default function FQ(props) {
 
@@ -125,11 +125,12 @@ const handleExpand = (index) => {
             </View>
             {filteredFaqs.map((faq, index) => (
             <View key={index} style={styles.cardContainer}>
-                <TouchableOpacity activeOpacity={0.99} onPress={() => handleExpand(index)}>
+                <TouchableOpacity activeOpacity={0.99}  onPress={() => handleExpand(index)}>
                   <View style={{ padding:10,alignItems:'center',flexDirection:'column',minWidth:'98%',maxWidth:'98%',maxWidth:500,height: expanded[index] ? 'auto' : 'auto',backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow,minHeight:60,justifyContent:'center'}} >
-                      <Text style={{ ...Globalstyles.Purple, ...Globalstyles.Semibold, fontSize: 15, marginBottom:5,textAlign:'center' }} >
-                          {faq.title}
-                      </Text>
+                        <Text style={{ ...Globalstyles.Purple, ...Globalstyles.Semibold, fontSize: 15, marginBottom:5,textAlign:'center' }} >
+                            {faq.title}
+                        </Text>
+                        <QuestionIcon style={{width:20,height:20,marginBottom:5,marginTop:5}}></QuestionIcon>
                       {expanded[index] && (
                       <View style={{ marginBottom: 10 ,minWidth:'98%',maxWidth:'98%',alignItems:'center',justifyContent:'center'}}>
                           <Text style={{ ...Globalstyles.gray, fontSize: 10, marginBottom: 2,...Globalstyles.Medium}} >
