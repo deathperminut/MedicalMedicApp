@@ -17,7 +17,7 @@ import { deleteBeneficient, editBeneficient } from '../../../../services/Auth/Re
 
 export default function EditBeneficient(props) {
 
-  /* APP CONTEXT */
+ /* APP CONTEXT */
  let {token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
   
 

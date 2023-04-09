@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     maxWidth:600,
     width:'100%',
     alignItems:'center',
-    height:'85%',
+    height:'100%',
     borderTopRightRadius:20,
     borderTopLeftRadius:20,
     padding:40,
