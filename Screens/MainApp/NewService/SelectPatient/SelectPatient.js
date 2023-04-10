@@ -116,14 +116,21 @@ export default function SelectPatient(props) {
         <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'72.5%'}} showsVerticalScrollIndicator={false}>
           <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}} onPress={()=>navigation.navigate('NewServices')}>
-                    <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#F1EEFE',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}} onPress={()=>getPatient(userData)}>
-                      <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                        <Image source={require('../../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                      </View>
+                    <TouchableOpacity  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}} onPress={()=>getPatient(userData)}>
+                       {userData?.genre.toLowerCase()==="masculino" ? 
+                          <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
+                           <ImageBackground source={require('../../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
+                          </View>
+                          
+                          :
+                          <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
+                           <ImageBackground source={require('../../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
+                          </View>
+                       }
                       <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                       <View style={{alignItems:'center'}}>
-                        <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20,textAlign:'center'}}>{GetName(userData)}</Text>
-                        <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{userData.identification_type+" "+userData.identification}</Text>
+                        <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:17,textAlign:'center'}}>{GetName(userData)}</Text>
+                        <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{userData.identification_type+". "+userData.identification}</Text>
                       </View>
                       </View>
                     </TouchableOpacity>
@@ -131,9 +138,16 @@ export default function SelectPatient(props) {
               {listBeneficient.map((beneficient, index) => (
                 <View key={index} style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                       <TouchableOpacity   style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}} onPress={()=>getPatient(beneficient)}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
+                        {beneficient?.genre.toLowerCase()==="masculino" ? 
+                            <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
+                             <ImageBackground source={require('../../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
+                            </View>
+                            
+                            :
+                            <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
+                             <ImageBackground source={require('../../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
+                            </View>
+                        }
                         <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                         <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
                           <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:17,textAlign:'center'}}>{GetName(beneficient)}</Text>

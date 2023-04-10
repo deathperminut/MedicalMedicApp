@@ -14,6 +14,10 @@ import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { getAge } from '../../../services/DateManagement/DateManagement';
+import CustomModal from '../../../Shared/Alerts/Alert';
+import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
+import LoadingScreen from '../../../Shared/Alerts/Loader';
+import { cancelService, getActiveService } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -71,17 +75,142 @@ export default function Lobby(props) {
   let {navigation}=props.props
   const windowHeight = Dimensions.get('window').height;
 
+  let [preloader,setPreloader]=React.useState(false);
+ /* MODAL */
+ const [showModal, setShowModal] = React.useState(false);
+ const [showModalCancel, setShowModalCancel] = React.useState(false);
+ const [message,setMessage]= React.useState("");
+ const [iconName,setIconName]=React.useState("");
+
+ const handleSuccess = () => {
+   setMessage('Acción completada con exito');
+   setIconName('check-circle');
+   setShowModal(true);
+ };
+
+ const handleError = () => {
+   setMessage('Error al completar la acción');
+   setIconName('error');
+   setShowModal(true);
+ };
+ const handleCita = () => {
+  setMessage('Tienes una cita activa');
+  setIconName('error');
+  setShowModal(true);
+};
+const handleCancel = () => {
+  setMessage('Da un motivo para cancelación');
+  setIconName('error');
+  setShowModalCancel(true);
+};
+
+ const handleInfo = () => {
+   setMessage('Solo es posible cancelar mientras no haya sido agendada, en caso distinto comuniquese con la central, en el apartado de contacto.');
+   setIconName('error');
+   setShowModal(true);
+ };
+
+ const handleCloseModal = () => {
+   setShowModal(false);
+ };
+ 
+
+  /* NEW SERVICE LOGIC */
+
+  const cancelDate=async()=>{
+
+    setShowModalCancel(false);
+    
+    if(currentDate.status==="INGRESADA"){
+
+      setPreloader(true);
+      let result=undefined;
+      console.log(reason);
+      result=await cancelService(currentDate,reason,token).catch((error)=>{
+
+        console.log(error);
+        setPreloader(false);
+        handleError();
+
+      })
+
+      if (result !== undefined){
+
+        setPreloader(false);
+        setCurrentDate(null);
+        handleSuccess();
+
+      }
+
+    }else{
+      handleInfo();
+    }
+  }
+
+  React.useEffect(()=>{
+    if(token && currentDate===null){
+
+      getData();
+
+    }
+  },[])
+
+  const getData=async()=>{
+    setPreloader(true);
+    let result=undefined
+    result= await getActiveService(userData,token).catch((error)=>{
+      console.log(error);
+      handleError();
+      setPreloader(false);
+    })
+    if (result!==undefined){
+
+      let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
+      if(ArrayDates.length!==0){
+        setCurrentDate(ArrayDates[0]);
+        handleCita()
+      }
+
+      console.log("CITAS ACTIVE: ",ArrayDates);
+      setPreloader(false);
+    }
+
+  }
+
+  let [reason,setReason]=React.useState("");
+
+  const readInputReason=(Text)=>{
+
+    setReason(Text);
+
+  }
+
+
    
   return (
     
         <View style={styles.container}>
+        {preloader ? 
+          <LoadingScreen/>
+          :
+          <></>
+        }
         <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
         </ImageBackground>
         <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%',position:'absolute'}}>
             <View style={styles.LobbyContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.navBar}>
-                  <ImageBackground source={require('../../../assets/Home/Foto-Usuario.png')} style={styles.photo}></ImageBackground>
+                  {userData?.genre.toLowerCase()==="masculino" ? 
+                  <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                   <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
+                  </View>
+                  
+                  :
+                  <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                   <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
+                  </View>
+                  }
                   <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
                 </View>
                 <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
@@ -118,7 +247,7 @@ export default function Lobby(props) {
 
                           </View>
                           <VerticalStepIndicator></VerticalStepIndicator>
-                          <TouchableOpacity style={styles.buttonDelete} onPress={() => navigation.navigate('Drawer')}>
+                          <TouchableOpacity style={styles.buttonDelete} onPress={handleCancel}>
                                       <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
                           </TouchableOpacity>
                         </View>
@@ -163,7 +292,8 @@ export default function Lobby(props) {
               </LinearGradient>
             </View>
           </ScrollView>
-
+          <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
+          <CustomModalCancel readInputReason={readInputReason} visible={showModalCancel} cancel={cancelDate} onClose={()=>setShowModalCancel(false)} message={message} iconName={iconName}></CustomModalCancel>
         </View>
 
       

@@ -343,7 +343,7 @@ const UPDATEBeneficient=async()=>{
           sections={FormInputs}
           renderItem={renderFormItem}
           keyExtractor={(item,index) => index.toString()}
-        />
+         />
       </LinearGradient>
     </View>
     </>

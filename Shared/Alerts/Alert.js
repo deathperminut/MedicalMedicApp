@@ -26,6 +26,8 @@ const CustomModal = ({ visible, onClose, message, iconName }) => {
   );
 };
 
+
+
 const styles = {
   modalContainer: {
     flex: 1,

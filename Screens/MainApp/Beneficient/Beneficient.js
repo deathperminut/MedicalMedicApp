@@ -113,9 +113,16 @@ export default function Beneficient(props) {
               {listBeneficient.map((beneficient, index) => (
                 <View key={index} style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                       <TouchableOpacity onPress={()=>EDITBeneficient(beneficient)}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                          <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                        </View>
+                        {beneficient?.genre.toLowerCase()==="masculino" ? 
+                          <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
+                           <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
+                          </View>
+                          
+                          :
+                          <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
+                           <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
+                          </View>
+                        }
                         <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                         <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
                           <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:17,textAlign:'center'}}>{GetName(beneficient)}</Text>

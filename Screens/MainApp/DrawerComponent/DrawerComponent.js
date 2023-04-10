@@ -64,8 +64,6 @@ export default function DrawerComponent(props) {
                     <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Cerrar Sesión</Text>
                   </TouchableOpacity>
                 </View>
-                
-
               </View>
               
       </View>
@@ -77,9 +75,9 @@ export default function DrawerComponent(props) {
     <Drawer
       statusBarAnimation='fade'
       open={open}
-      swipeEdgeWidth={50}
+      // swipeEdgeWidth={50}
       //drawerType={'slide'}
-      drawerStyle={{backgroundColor:'#090131',width:'60%'}} //090131
+      drawerStyle={{backgroundColor:'#090131',width:180}} //090131
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderDrawerContent={() => {

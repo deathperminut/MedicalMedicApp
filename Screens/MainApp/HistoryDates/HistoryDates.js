@@ -11,6 +11,7 @@ import { GetName } from '../../../services/Auth/Login/Login';
 import { AppContext } from '../../../AppContext/Context';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
+import { getCompleteDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
@@ -88,7 +89,7 @@ export default function HistoryDates(props) {
   };
 
   const handleError = () => {
-    setMessage('Error comprueba los campos');
+    setMessage('Error al cargar historial de consultas');
     setIconName('error');
     setShowModal(true);
   };
@@ -101,25 +102,31 @@ export default function HistoryDates(props) {
   let {userData, setUserData, token, setToken,currentDate,setCurrentDate,historyDates,setHistoryDates} =React.useContext(AppContext);
 
   
-  // React.useEffect(()=>{
-  //   console.log("useEFFECT");
-  //   if(token){
-  //     getData();
-  //   }
-  // },[])
+   React.useEffect(()=>{
+     if(token){
+       getData();
+     }
+   },[])
 
   // /* FUNCTIONS */
 
-  // const getData=async()=>{
+   const getData=async()=>{
     
-  //   setPreloader(true);
-  //   let result=undefined;
-  //   result= await getHistoryDates(token).catch((error)=>{
-  //     console.log(error);
+     setPreloader(true);
+     let result=undefined;
+     result= await getCompleteDates(userData,token).catch((error)=>{
+       console.log(error);
+       setPreloader(false);
+       handleError();
+     })
+     if(result!==undefined){
+      let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
+      setHistoryDates(ArrayDates);
+      setPreloader(false);
 
-  //   })
+     }
     
-  // }
+   }
 
 
   return (
@@ -153,7 +160,7 @@ export default function HistoryDates(props) {
             }
             <Text style={{...Globalstyles.Medium,color:'#FFFFFF'}}>Historial</Text>
             <View style={{minWidth:20,minHeight:20,backgroundColor:'#867BD8', borderRadius:2 ,marginLeft:10,alignItems:'center',justifyContent:'center',padding:5}}>
-              <Text style={{...Globalstyles.Medium,fontSize:10,color:'#FFFF'}}>20</Text>
+              <Text style={{...Globalstyles.Medium,fontSize:10,color:'#FFFF'}}>{historyDates.length}</Text>
             </View>
           </View>
         </View>
@@ -162,7 +169,7 @@ export default function HistoryDates(props) {
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'100%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               
-              {DatesArray.map((faq, index) => (
+              {historyDates.map((faq, index) => (
                
               <View style={{width:'100%',flexDirection:'column',alignItems:'center',justifyContent:'center'}} key={index}>
                 <View  style={{flexDirection:'column', marginBottom:5,width:'90%',minHeight:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:5,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>

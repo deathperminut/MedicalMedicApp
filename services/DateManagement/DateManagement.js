@@ -11,5 +11,15 @@ function getAge(dateString) {
     }
     return age;
 }
+const getDateByHourDate=(date,hour)=>{
 
-export {getAge};
+let [año, mes, dia] = date.split("-");
+let [hora, minutos] = hour.split(":");
+
+let fecha = new Date(año, mes - 1, dia, hora, minutos);
+
+return fecha; // Output: Thu Dec 31 2020 20:31:00 GMT-0800 (Pacific Standard Time)
+
+}
+
+export {getAge,getDateByHourDate};

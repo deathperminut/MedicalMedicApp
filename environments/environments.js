@@ -21,6 +21,11 @@ export const environment = {
   createBeneficient:'usuarios/create-beneficiary/',
   editBeneficient:'usuarios/update-user/',
   deleteBeneficient:'usuarios/delete-user/',
-  
-  
+
+  //NewService
+  datesActivities:'citas/retrieve-medical-appointment-service-list/',
+  generateService:'citas/insert-appointment-service-app/',
+  cancelService:'citas/cancel-appointment-service-app/',
+  getActiveDate:'citas/retrieve-appointment-service-app/',
+  getCompleteDates:'citas/retrieve-complete-appointment-service-app/',
 }

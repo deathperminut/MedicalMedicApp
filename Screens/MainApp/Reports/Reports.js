@@ -10,9 +10,12 @@ import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { getAge } from '../../../services/DateManagement/DateManagement';
+import LoadingScreen from '../../../Shared/Alerts/Loader';
 
 export default function Reports(props) {
 
+  /*USE STATE*/
+  let [preloader,setPreloader]=React.useState(false);
 
   /* NAVIGATION */
 
