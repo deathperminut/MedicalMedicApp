@@ -205,10 +205,10 @@ const GetActivities=async()=>{
       handleError();
     })
     if(result!==undefined){
-      console.log("CITA GENERADA: ",result.data);
+      console.log({...result.data,'user_info':patient});
       setPreloader(false);
       handleSuccess();
-      setCurrentDate(result.data);
+      setCurrentDate({...result.data,'user_info':patient});
       navigation.navigate('Drawer');
     }
     

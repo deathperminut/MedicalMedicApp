@@ -164,14 +164,13 @@ const handleCancel = () => {
       setPreloader(false);
     })
     if (result!==undefined){
-
-      let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
+      
+      console.log("DATA: ",result.data)
+      let ArrayDates=result.data;
       if(ArrayDates.length!==0){
-        setCurrentDate(ArrayDates[0]);
-        handleCita()
-      }
-
-      console.log("CITAS ACTIVE: ",ArrayDates);
+         setCurrentDate(ArrayDates[0]);
+         //handleCita()
+       }
       setPreloader(false);
     }
 
@@ -203,7 +202,7 @@ const handleCancel = () => {
                 <View style={styles.navBar}>
                   {userData?.genre.toLowerCase()==="masculino" ? 
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
-                   <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
+                    <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
                   </View>
                   
                   :
@@ -224,28 +223,52 @@ const handleCancel = () => {
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                         <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
+                          {currentDate.status==="INGRESADA" ?
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
-                          <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                            <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                          </View>
-                          <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                          <View>
-                            <View style={{flexDirection:'row',alignItems:'center'}}>
-                              <Icon
-                                name='calendar'
-                                type='font-awesome'
-                                color='#FFA500'
-                                size={14}
-                                style={{marginRight:10}}
-                              />
-                              <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                            <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
+                              <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
                             </View>
-                            <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
-                            <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                            <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                              <View>
+                                <View style={{flexDirection:'row',alignItems:'center'}}>
+                                  <Icon
+                                    name='calendar'
+                                    type='font-awesome'
+                                    color='#FFA500'
+                                    size={14}
+                                    style={{marginRight:10}}
+                                  />
+                                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>Esperando asignación...</Text>
+                                </View>
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.user_info)}</Text>
+                                {/* <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{currentDate?.patient.identification}</Text> */}
+                              </View>
+                            </View>
                           </View>
+                          :
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                            <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
+                              <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                            </View>
+                            <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                              <View>
+                                <View style={{flexDirection:'row',alignItems:'center'}}>
+                                  <Icon
+                                    name='calendar'
+                                    type='font-awesome'
+                                    color='#FFA500'
+                                    size={14}
+                                    style={{marginRight:10}}
+                                  />
+                                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                                </View>
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                              </View>
+                            </View>
                           </View>
-
-                          </View>
+                          }
+                          
                           <VerticalStepIndicator></VerticalStepIndicator>
                           <TouchableOpacity style={styles.buttonDelete} onPress={handleCancel}>
                                       <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
