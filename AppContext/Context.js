@@ -22,6 +22,7 @@ const AppWrapper = (props) => {
   // DATEMANAGEMENT
 
   const [patient,setPatient]=useState(null);
+  const [step,setStep]=useState(0);
 
   //Logout
 
@@ -40,7 +41,7 @@ const AppWrapper = (props) => {
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
     <AppContext.Provider value={{ Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
-    patient,setPatient}}>
+    patient,setPatient,step,setStep}}>
       {props.children}
     </AppContext.Provider>
   );

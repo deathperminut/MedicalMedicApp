@@ -1,6 +1,7 @@
 import { configuraciones } from "../Appconfig";
 
 let server = configuraciones.server;
+let socket_date=configuraciones.socket_date;
 
 export const environment = {
   production: false,
@@ -28,4 +29,5 @@ export const environment = {
   cancelService:'citas/cancel-appointment-service-app/',
   getActiveDate:'citas/retrieve-appointment-service-app/',
   getCompleteDates:'citas/retrieve-complete-appointment-service-app/',
+  socket_date:socket_date,
 }

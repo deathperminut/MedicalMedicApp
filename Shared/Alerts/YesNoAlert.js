@@ -25,10 +25,10 @@ const CustomModalCancel = ({ visible, onClose, message, iconName, cancel ,readIn
           />
           <View style={{width:'100%',flexDirection:'row',justifyContent:'center'}}>
             <TouchableOpacity style={{...styles.modalButton,marginRight:10,minWidth:110,alignItems:'center',borderRadius:30}} onPress={onClose}>
-              <Text style={{...styles.modalButtonText,...Globalstyles.Medium}}>Volver</Text>
+              <Text style={{...styles.modalButtonText,...Globalstyles.Medium,color:'#642B80'}}>Volver</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.modalButton,minWidth:100,borderRadius:30,backgroundColor:'#FF0057'}} onPress={cancel}>
-              <Text style={{...styles.modalButtonText,...Globalstyles.Medium}}>Cancelar</Text>
+            <TouchableOpacity style={{...styles.modalButton,minWidth:100,borderRadius:30,backgroundColor:'transparent',borderColor:'#FF0057'}} onPress={cancel}>
+              <Text style={{...styles.modalButtonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
             </TouchableOpacity>
           </View>
           
@@ -85,8 +85,10 @@ const styles = {
     color: Globalstyles.BlackPurple.color,
   },
   modalButton: {
-    backgroundColor: '#642B80',
-    borderRadius: 5,
+    backgroundColor: 'transparent',
+    borderColor:'#642B80',
+    borderWidth:0.7,
+    borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 15,
   },

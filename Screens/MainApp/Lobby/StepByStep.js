@@ -3,8 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import { ProgressSteps,ProgressStep } from 'react-native-progress-steps';
 import { Icon } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
+import { AppContext } from '../../../AppContext/Context';
 
 const VerticalStepIndicator = () => {
+
+  let {step,setStep} =React.useContext(AppContext);
   const steps = [
     { label: 'Solicitud del servicio', icon: { name: 'user', type: 'font-awesome' } },
     { label: 'En camino', icon: { name: 'envelope', type: 'font-awesome' } },
@@ -14,14 +17,14 @@ const VerticalStepIndicator = () => {
   return (
     <View style={styles.container}>
       <ProgressSteps
-        activeStepIconBorderColor="#1AE494"
-        completedProgressBarColor="#1AE494"
-        activeStepNumColor="#1AE494"
+        activeStepIconBorderColor="#1671B7"
+        completedProgressBarColor="#1671B7"
+        activeStepNumColor="#1671B7"
         progressBarColor="#E5E5E5"
-        completedStepIconColor="#1AE494"
+        completedStepIconColor="#1671B7"
         activeStepIconColor="#FFFFFF"
-        activeLabelColor="#1AE494"
-        activeStep={0}
+        activeLabelColor="#1671B7"
+        activeStep={step}
         style={styles.progressSteps}
       >
         {steps.map((step, index) => (

@@ -18,6 +18,7 @@ import CustomModal from '../../../Shared/Alerts/Alert';
 import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import { cancelService, getActiveService } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { environment } from '../../../environments/environments';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -69,7 +70,7 @@ const ServicesData=[
 export default function Lobby(props) {
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep} =React.useContext(AppContext);
 
   /* NAVIGATE */
   let {navigation}=props.props
@@ -138,7 +139,6 @@ const handleCancel = () => {
 
         setPreloader(false);
         setCurrentDate(null);
-        handleSuccess();
 
       }
 
@@ -172,6 +172,9 @@ const handleCancel = () => {
          //handleCita()
        }
       setPreloader(false);
+      // NOS SUSCRIBIMOS AL SOCKET
+      socket_control();
+
     }
 
   }
@@ -182,6 +185,39 @@ const handleCancel = () => {
 
     setReason(Text);
 
+  }
+
+  const socket_control=async()=>{
+    console.log("entramos");
+    const socket = new WebSocket(environment.socket_date+token);
+
+    socket.onopen = () => {
+      console.log('WebSocket connected');
+    };
+
+    socket.onmessage = (event) => {
+      console.log('Received message: ' , event.data);
+      if (event.data.type==="return_services"){
+        if(event.data.app_services.length===0){
+          console.log('Received message: ENTRAMOS?');
+          handleSuccess();
+        }else{
+          console.log("QUE ESTA PASANDO? ");
+        }
+      }
+    };
+
+    socket.onerror = (error) => {
+      console.log('WebSocket error: ' + error.message);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    return () => {
+      socket.close();
+    };
   }
 
 
@@ -241,7 +277,7 @@ const handleCancel = () => {
                                   <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>Esperando asignación...</Text>
                                 </View>
                                 <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.user_info)}</Text>
-                                {/* <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{currentDate?.patient.identification}</Text> */}
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate?.user_info.identification_type+" "+currentDate?.user_info.identification}</Text>
                               </View>
                             </View>
                           </View>
