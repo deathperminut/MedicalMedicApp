@@ -120,8 +120,9 @@ export default function HistoryDates(props) {
        handleError();
      })
      if(result!==undefined){
-      let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
-      setHistoryDates(ArrayDates);
+      console.log("HISTORIA CITA: ",result.data)
+      // let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
+      setHistoryDates(result.data);
       setPreloader(false);
 
      }
@@ -166,6 +167,9 @@ export default function HistoryDates(props) {
         </View>
         <LinearGradient colors={['#FFFFFF', '#B2ACDC91']} style={{...styles.FormContainer,alignItems:'center'}}>
           <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginBottom:20}}>Historial de citas medicas</Text>
+          {historyDates.length===0 ?
+            <Text style={{...Globalstyles.Medium,...Globalstyles.gray,marginTop:'50%'}}>No se han cargado citas completadas</Text>
+          :
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'100%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
               
@@ -321,6 +325,8 @@ export default function HistoryDates(props) {
               ))}
             </View>
           </ScrollView>
+          }
+          
         </LinearGradient>
       </View>
       <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
