@@ -56,7 +56,7 @@ export default function NewServiceForm(props) {
   const [selectedValue, setSelectedValue] = React.useState('');
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,patient,setPatient} =React.useContext(AppContext);
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,patient,setPatient,step,setStep} =React.useContext(AppContext);
 
   /* DATE PICKER */
  const [date, setDate] = React.useState(new Date())
@@ -180,7 +180,7 @@ const GetActivities=async()=>{
   if (result!==undefined){
    
    let ACTIVITIES=result['data'].map(obj => ({
-    value: obj.id,
+    value: obj.name,
     label: obj.name,
   }))
   setActivities(ACTIVITIES);
@@ -209,6 +209,7 @@ const GetActivities=async()=>{
       setPreloader(false);
       handleSuccess();
       setCurrentDate({...result.data,'user_info':patient});
+      setStep(0);
       navigation.navigate('Drawer');
     }
     

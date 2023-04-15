@@ -99,7 +99,7 @@ export default function HistoryDates(props) {
   };
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,historyDates,setHistoryDates} =React.useContext(AppContext);
+  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,historyDates,setHistoryDates,step,setStep} =React.useContext(AppContext);
 
   
    React.useEffect(()=>{

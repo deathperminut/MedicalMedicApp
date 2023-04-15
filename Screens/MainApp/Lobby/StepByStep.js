@@ -10,7 +10,8 @@ const VerticalStepIndicator = () => {
   let {step,setStep} =React.useContext(AppContext);
   const steps = [
     { label: 'Solicitud del servicio', icon: { name: 'user', type: 'font-awesome' } },
-    { label: 'En camino', icon: { name: 'envelope', type: 'font-awesome' } },
+    { label: 'En proceso de agendamiento', icon: { name: 'envelope', type: 'font-awesome' } },
+    { label: 'Agendada', icon: { name: 'envelope', type: 'font-awesome' } },
     { label: 'Terminado', icon: { name: 'lock', type: 'font-awesome' } },
   ];
 
@@ -27,7 +28,11 @@ const VerticalStepIndicator = () => {
         activeStep={step}
         style={styles.progressSteps}
       >
-        {steps.map((step, index) => (
+        {steps.map((step, index) => {
+         
+         console.log(step)
+
+        return (
           <ProgressStep
             key={index}
             label={step.label}
@@ -35,7 +40,8 @@ const VerticalStepIndicator = () => {
             style={{...Globalstyles.bold}}
             removeBtnRow={true}
           />
-        ))}
+        )
+        })}
       </ProgressSteps>
     </View>
   );
@@ -49,8 +55,8 @@ const styles = StyleSheet.create({
     flexDirection:'column'
   },
   progressSteps: {
-    width: 200,
-    height: 300,
+    width: 250,
+    height: 200,
   },
 });
 

@@ -88,6 +88,11 @@ export default function Lobby(props) {
    setIconName('check-circle');
    setShowModal(true);
  };
+ const handleCancelWeb = (date) => {
+  setMessage("No fue posible agendar la cita debido al siguiente motivo: "+date.reason);
+  setIconName('error');
+  setShowModal(true);
+};
 
  const handleError = () => {
    setMessage('Error al completar la acción');
@@ -169,6 +174,9 @@ const handleCancel = () => {
       let ArrayDates=result.data;
       if(ArrayDates.length!==0){
          setCurrentDate(ArrayDates[0]);
+         if(ArrayDates[0].status==="ACEPTADA"){
+          setStep(1)
+         }
          //handleCita()
        }
       setPreloader(false);
@@ -196,13 +204,14 @@ const handleCancel = () => {
     };
 
     socket.onmessage = (event) => {
-      console.log('Received message: ' , event.data);
-      if (event.data.type==="return_services"){
-        if(event.data.app_services.length===0){
+      console.log('Received message: ' ,JSON.parse(event.data));
+      let data=JSON.parse(event.data);
+      if (data.type==="appointment_state"){
+        console.log("ENTRAMOS O NO?")
+        if(data.state==="CANCELADA"){
           console.log('Received message: ENTRAMOS?');
-          handleSuccess();
-        }else{
-          console.log("QUE ESTA PASANDO? ");
+          setCurrentDate(null);
+          handleCancelWeb(data);
         }
       }
     };
@@ -259,7 +268,7 @@ const handleCancel = () => {
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                         <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
-                          {currentDate.status==="INGRESADA" ?
+                          {currentDate.status==="INGRESADA" || currentDate.status==="ACEPTADA"  ?
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
                             <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
                               <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
