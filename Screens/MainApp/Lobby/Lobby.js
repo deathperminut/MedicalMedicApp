@@ -89,7 +89,7 @@ export default function Lobby(props) {
    setShowModal(true);
  };
  const handleCancelWeb = (date) => {
-  setMessage("No fue posible agendar la cita debido al siguiente motivo: "+date.reason);
+  setMessage("Cita cancelada por el siguiente motivo: "+date.reason);
   setIconName('error');
   setShowModal(true);
 };
@@ -127,7 +127,7 @@ const handleCancel = () => {
 
     setShowModalCancel(false);
     
-    if(currentDate.status==="INGRESADA"){
+    if(currentDate.status!=="INGRESADA"){
 
       setPreloader(true);
       let result=undefined;
@@ -207,11 +207,20 @@ const handleCancel = () => {
       console.log('Received message: ' ,JSON.parse(event.data));
       let data=JSON.parse(event.data);
       if (data.type==="appointment_state"){
-        console.log("ENTRAMOS O NO?")
         if(data.state==="CANCELADA"){
           console.log('Received message: ENTRAMOS?');
           setCurrentDate(null);
           handleCancelWeb(data);
+        }else if(data.state==="ACEPTADA"){
+
+          //console.log("CURRENT DATE: ",currentDate);
+          // console.log('Received message: ENTRAMOS? x2',{...currentDate,['status']:"ACEPTADA"});
+          setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'ACEPTADA' }));
+          setStep(1);
+
+        }else if(data.state==="AGENDADA"){
+          setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'AGENDADA' }));
+          setStep(2);
         }
       }
     };
@@ -228,6 +237,8 @@ const handleCancel = () => {
       socket.close();
     };
   }
+
+
 
 
    
@@ -268,7 +279,7 @@ const handleCancel = () => {
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                         <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
-                          {currentDate.status==="INGRESADA" || currentDate.status==="ACEPTADA"  ?
+                          {currentDate?.status==="INGRESADA" || currentDate?.status==="ACEPTADA" || currentDate?.state==="INGRESADA" || currentDate?.state==="ACEPTADA"   ?
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
                             <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
                               <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
