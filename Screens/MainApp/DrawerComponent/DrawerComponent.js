@@ -52,7 +52,7 @@ export default function DrawerComponent(props) {
                   </TouchableOpacity>
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>{
                     Logout()
-                    navigation.navigate('Login')
+                    navigation.navigate('Start')
                   }}>
                     <Icon
                       name='arrow-left'

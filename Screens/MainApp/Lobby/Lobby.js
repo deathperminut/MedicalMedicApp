@@ -13,7 +13,7 @@ import VerticalStepIndicator from './StepByStep';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';
-import { getAge } from '../../../services/DateManagement/DateManagement';
+import { formatearFecha, formatearHora, getAge } from '../../../services/DateManagement/DateManagement';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
@@ -67,21 +67,23 @@ const ServicesData=[
 
 
 
+
 export default function Lobby(props) {
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep} =React.useContext(AppContext);
+  var {userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep} =React.useContext(AppContext);
 
   /* NAVIGATE */
-  let {navigation}=props.props
+  var {navigation}=props.props
   const windowHeight = Dimensions.get('window').height;
 
   let [preloader,setPreloader]=React.useState(false);
  /* MODAL */
- const [showModal, setShowModal] = React.useState(false);
- const [showModalCancel, setShowModalCancel] = React.useState(false);
- const [message,setMessage]= React.useState("");
- const [iconName,setIconName]=React.useState("");
+ var [showModal, setShowModal] = React.useState(false);
+ var [showModalCancel, setShowModalCancel] = React.useState(false);
+ var [message,setMessage]= React.useState("");
+ var [iconName,setIconName]=React.useState("");
+
 
  const handleSuccess = () => {
    setMessage('Acción completada con exito');
@@ -99,11 +101,7 @@ export default function Lobby(props) {
    setIconName('error');
    setShowModal(true);
  };
- const handleCita = () => {
-  setMessage('Tienes una cita activa');
-  setIconName('error');
-  setShowModal(true);
-};
+
 const handleCancel = () => {
   setMessage('Da un motivo para cancelación');
   setIconName('error');
@@ -127,7 +125,7 @@ const handleCancel = () => {
 
     setShowModalCancel(false);
     
-    if(currentDate.status!=="INGRESADA"){
+    if(currentDate.status==="INGRESADA"){
 
       setPreloader(true);
       let result=undefined;
@@ -158,7 +156,7 @@ const handleCancel = () => {
       getData();
 
     }
-  },[])
+  },[userData])
 
   const getData=async()=>{
     setPreloader(true);
@@ -176,53 +174,51 @@ const handleCancel = () => {
          setCurrentDate(ArrayDates[0]);
          if(ArrayDates[0].status==="ACEPTADA"){
           setStep(1)
+         }else if(ArrayDates[0].status==="AGENDADA"){
+          setStep(2)
+         }else{
+          setStep(3)
          }
          //handleCita()
        }
       setPreloader(false);
       // NOS SUSCRIBIMOS AL SOCKET
-      socket_control();
+      socket_control(userData);
 
     }
 
   }
 
-  let [reason,setReason]=React.useState("");
-
-  const readInputReason=(Text)=>{
-
-    setReason(Text);
-
-  }
-
-  const socket_control=async()=>{
-    console.log("entramos");
+  const socket_control=async(User)=>{
+    console.log("PFFFFFFFFFFFF",User);
+    var DATAUSER=User
     const socket = new WebSocket(environment.socket_date+token);
-
     socket.onopen = () => {
       console.log('WebSocket connected');
     };
-
     socket.onmessage = (event) => {
       console.log('Received message: ' ,JSON.parse(event.data));
       let data=JSON.parse(event.data);
-      if (data.type==="appointment_state"){
-        if(data.state==="CANCELADA"){
-          console.log('Received message: ENTRAMOS?');
-          setCurrentDate(null);
-          handleCancelWeb(data);
-        }else if(data.state==="ACEPTADA"){
-
-          //console.log("CURRENT DATE: ",currentDate);
-          // console.log('Received message: ENTRAMOS? x2',{...currentDate,['status']:"ACEPTADA"});
-          setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'ACEPTADA' }));
-          setStep(1);
-
-        }else if(data.state==="AGENDADA"){
-          setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'AGENDADA' }));
-          setStep(2);
+      if(data.user_id ===  DATAUSER.identification){
+        console.log("User data",data.user_id,DATAUSER)
+        if (data.type==="appointment_state"){
+          if(data.state==="CANCELADA"){
+            console.log('Received message: ENTRAMOS?');
+            setCurrentDate(null);
+            handleCancelWeb(data);
+          }else if(data.state==="ACEPTADA"){
+            //console.log("CURRENT DATE: ",currentDate);
+            // console.log('Received message: ENTRAMOS? x2',{...currentDate,['status']:"ACEPTADA"});
+            setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'ACEPTADA' }));
+            setStep(1);
+          }else if(data.state==="AGENDADA"){
+            setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'AGENDADA' }));
+            setStep(2);
+          }
         }
+
       }
+      
     };
 
     socket.onerror = (error) => {
@@ -236,6 +232,15 @@ const handleCancel = () => {
     return () => {
       socket.close();
     };
+  }
+
+
+  let [reason,setReason]=React.useState("");
+
+  const readInputReason=(Text)=>{
+
+    setReason(Text);
+
   }
 
 
@@ -256,7 +261,7 @@ const handleCancel = () => {
             <View style={styles.LobbyContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.navBar}>
-                  {userData?.genre.toLowerCase()==="masculino" ? 
+                  {userData?.genre?.toLowerCase()==="masculino" ? 
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
                     <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
                   </View>
@@ -275,7 +280,11 @@ const handleCancel = () => {
               <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={[styles.FormContainer, { minHeight: windowHeight - 200 }]}>
                 {currentDate!== null ? 
                 <>
+                {currentDate.status==="COMPLETADA" ? 
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ultima cita</Text>
+                :
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Cita</Text>
+                }
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                         <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
@@ -304,11 +313,11 @@ const handleCancel = () => {
                           :
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
                             <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                              <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                              <Image source={{uri:currentDate?.doctor_info?.photo_profile}} style={{resizeMode:'cover',width:70,height:70}}></Image>
                             </View>
                             <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                               <View>
-                                <View style={{flexDirection:'row',alignItems:'center'}}>
+                                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                                   <Icon
                                     name='calendar'
                                     type='font-awesome'
@@ -316,19 +325,23 @@ const handleCancel = () => {
                                     size={14}
                                     style={{marginRight:10}}
                                   />
-                                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>28 de Julio de 2022</Text>
+                                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearFecha(currentDate?.appointment_date)}</Text>
                                 </View>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>Dr Pedro Pablo Ruiz</Text>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>8:00 Am - 9:00 Am</Text>
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>Dr Sebastian Mendez Rondon </Text>
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{formatearHora(currentDate?.appointment_date)}</Text>
                               </View>
                             </View>
                           </View>
                           }
                           
                           <VerticalStepIndicator></VerticalStepIndicator>
+                          {currentDate.status ==='COMPLETADA' ?
+                          <></>
+                          :
                           <TouchableOpacity style={styles.buttonDelete} onPress={handleCancel}>
                                       <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
                           </TouchableOpacity>
+                          }
                         </View>
                   </View>
                 </View>

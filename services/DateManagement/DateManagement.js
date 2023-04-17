@@ -22,4 +22,45 @@ return fecha; // Output: Thu Dec 31 2020 20:31:00 GMT-0800 (Pacific Standard Tim
 
 }
 
-export {getAge,getDateByHourDate};
+const getHourString=(date)=>{
+    let day=new Date(date);
+    let getHour=day.getHours()+':'+day.getMinutes();
+    if(day.getMinutes()===0 || day.getMinutes()==='0'){
+        getHour=getHour+'0';
+    }
+    return getHour;
+}
+
+function formatearFecha(fecha) {
+    const meses = [
+      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    console.log("DESEADA; ",fecha)
+    let FECHA=new Date(fecha)
+    const dia = FECHA.getDate();
+    const mes = meses[FECHA.getMonth()];
+    const anio = FECHA.getFullYear();
+  
+    return `${dia} de ${mes} de ${anio}`;
+  }
+
+/* DATE FORMAT */
+
+const getDateFormat=(date)=>{
+    return moment(date).format('YYYY-MM-DD');
+}
+
+function formatearHora(hora) {
+    let HORA= new Date(hora);
+    const horas = HORA.getHours();
+    const minutos = HORA.getMinutes();
+  
+    const amPm = horas >= 12 ? "pm" : "am";
+    const hora12 = horas % 12 === 0 ? 12 : horas % 12;
+  
+    return `${hora12}:${minutos.toString().padStart(2, "0")} ${amPm}`;
+  }
+
+export {formatearHora,getAge,getDateByHourDate,getHourString,getDateFormat,formatearFecha};

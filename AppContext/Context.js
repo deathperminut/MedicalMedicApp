@@ -6,23 +6,23 @@ export const AppContext = React.createContext(null);
 // Creamos un componente que envuelve nuestra aplicación
 const AppWrapper = (props) => {
   // AUTH
-  const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState(null);
+  var [userData, setUserData] = useState(null);
+  var [token, setToken] = useState(null);
 
   // DATE
 
-  const [currentDate,setCurrentDate]=useState(null);
-  const [historyDates,setHistoryDates]=useState([]);
+  var [currentDate,setCurrentDate]=useState(null);
+  var [historyDates,setHistoryDates]=useState([]);
 
   //BENEFICIENT
 
-  const [listBeneficient,setListBeneficient]=useState([]);
-  const [selectBeneficient,setSelectBeneficient]=useState(null);
+  var [listBeneficient,setListBeneficient]=useState([]);
+  var [selectBeneficient,setSelectBeneficient]=useState(null);
 
   // DATEMANAGEMENT
 
-  const [patient,setPatient]=useState(null);
-  const [step,setStep]=useState(0);
+  var [patient,setPatient]=useState(null);
+  var [step,setStep]=useState(0);
 
   //Logout
 

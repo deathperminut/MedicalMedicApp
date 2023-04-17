@@ -255,7 +255,7 @@ const GetActivities=async()=>{
                   placeholder={placeholder }
                   onValueChange={(value) => InputSelectRead(value,"activity")}
                   items={activities}
-              />
+          />
         </View>
         <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
           <RNPickerSelect
@@ -266,7 +266,7 @@ const GetActivities=async()=>{
                       { label: "Eps", value: "Eps" },
                       { label: "Particular", value: "Particular" },
                   ]}
-              />
+          />
         </View>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2},width:'100%'}}>
        <Input onTouchStart={() => {console.log("entramos");showMode_date('date')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} placeholderTextColor="#B0A8EA80" containerStyle={{ marginVertical: 10 }} placeholder='Fecha deseada' editable={true} value={service.desired_date} leftIcon={

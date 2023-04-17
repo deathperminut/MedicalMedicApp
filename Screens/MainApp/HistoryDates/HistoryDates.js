@@ -6,7 +6,7 @@ import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import styles from './HistoryDatesStyles'
 import { styles_shadow } from '../OurServices/OurServicesStyles';
-import { getAge } from '../../../services/DateManagement/DateManagement';
+import { formatearFecha, formatearHora, getAge } from '../../../services/DateManagement/DateManagement';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { AppContext } from '../../../AppContext/Context';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
@@ -101,7 +101,6 @@ export default function HistoryDates(props) {
   /* APP CONTEXT */
   let {userData, setUserData, token, setToken,currentDate,setCurrentDate,historyDates,setHistoryDates,step,setStep} =React.useContext(AppContext);
 
-  
    React.useEffect(()=>{
      if(token){
        getData();
@@ -120,9 +119,15 @@ export default function HistoryDates(props) {
        handleError();
      })
      if(result!==undefined){
-      console.log("HISTORIA CITA: ",result.data)
-      // let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
-      setHistoryDates(result.data);
+      if(result.data.length!==0){
+        console.log("HISTORIA CITA: ",result.data[0].appointments)
+        //let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
+        setHistoryDates(result.data[0].appointments);
+
+      }else{
+        setHistoryDates(result.data);
+      }
+      
       setPreloader(false);
 
      }
@@ -151,7 +156,7 @@ export default function HistoryDates(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
           <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
-            {currentDate ?  
+            {currentDate?.status!=='COMPLETADA' ?  
             <>
             <View style={{width:14,height:14,backgroundColor:'#BDFC97', borderRadius:10 ,marginRight:10}}></View>
             <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:50}}>Cita activa</Text>
@@ -179,7 +184,7 @@ export default function HistoryDates(props) {
                 <View  style={{flexDirection:'column', marginBottom:5,width:'90%',minHeight:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:5,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
                   <TouchableOpacity style={{flexDirection:'row',width:'100%',height:90,padding:10,alignItems:'flex-start',justifyContent:'center'}} onPress={() => handleExpand(index)}>
                     <View style={{width:70,height:70,padding:10,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                      <Image source={require('../../../assets/Home/Foto-Usuario.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                      <Image source={{uri:faq.doctor_info?.photo_profile}} style={{resizeMode:'cover',width:70,height:70}}></Image>
                     </View>
                     <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                     <View>
@@ -191,10 +196,10 @@ export default function HistoryDates(props) {
                           size={14}
                           style={{marginRight:10}}
                         />
-                        <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{faq?.Date}</Text>
+                        <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearFecha(faq?.appointment_date)}</Text>
                       </View>
-                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:20}}>{faq?.Doctor}</Text>
-                      <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{faq?.Hour}</Text>
+                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{'Dr Juan Sebastian Mendez Rondon'}</Text>
+                      <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{'DNI. '+faq?.doctor_info.identification}</Text>
                     </View>
                     </View>
                   </TouchableOpacity>
@@ -202,7 +207,7 @@ export default function HistoryDates(props) {
                   {expanded[index] && (
                     <>
                       <TouchableOpacity style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,backgroundColor:'#1AE494',borderRadius: 10, marginBottom:20,justifyContent:'center',marginTop:20}}>
-                        <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>Terminado</Text>  
+                        <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>{'Terminado ' + formatearHora(faq?.appointment_date)}</Text>  
                       </TouchableOpacity>
                       <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
                           <Icon
