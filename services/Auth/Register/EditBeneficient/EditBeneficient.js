@@ -101,7 +101,31 @@ const editUser=async(user,token)=>{
 
 }
 
+const getWareLocation= async ()=>{
+  const path = environment.api + environment.getLocations;
+  
+
+   return await axios.get(path);
+
+}
+
+const getBarrios= async ()=>{
+  const path = environment.api + environment.getBarriosLocation;
 
 
-export {deleteBeneficient,editBeneficient,editUser}
+   return await axios.get(path);
+
+}
+
+const getBarriosByLocation= async (idLocation)=>{
+  const path = environment.api + environment.getBarriosLocation + idLocation;
+
+   return await axios.get(path);
+
+}
+
+
+
+
+export {getBarrios,deleteBeneficient,editBeneficient,editUser,getWareLocation,getBarriosByLocation}
 

@@ -11,9 +11,65 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
+import RNPickerSelect from 'react-native-picker-select';
 import { initRegisterBeneficient } from '../../../../services/Auth/Register/RegisterBeneficient/RegisterBeneficient';
+import { getBarrios, getWareLocation } from '../../../../services/Auth/Register/EditBeneficient/EditBeneficient';
 
 export default function RegisterBeneficients(props) {
+
+  /* REACT USESTATE */
+
+  let [barrios,setBarrios]=React.useState([]);
+  let [barriosSublist,setBarriosSublist]=React.useState([]);
+  let [cities,setCities]=React.useState([]);
+  let [citiesComplete,setCitiesComplete]=React.useState([]);
+
+  React.useEffect(()=>{
+    
+    getData()
+
+  },[])
+
+
+  const getData=()=>{
+     getlocations();
+  }
+
+  const getlocations=async()=>{
+   setPreloader(true);
+   let result=undefined;
+   result=await getWareLocation().catch((error)=>{
+    console.log(error);
+    setPreloader(false);
+    handleError_();
+   })
+   if (result){
+      //setPreloader(false);
+      setCities(result.data.map(
+        obj => ({
+          value: obj.location_name,
+          label: obj.location_name,
+        })
+      ))
+      setCitiesComplete(result.data.map(
+        obj => ({
+          value: obj.id,
+          label: obj.location_name,
+        })
+      )) 
+      GetBarrios()    
+   }
+  }
+
+  const findLocation=(location_name)=>{
+
+    for (var i=0;i<citiesComplete.length;i++){
+      if(citiesComplete[i].label === location_name){
+        return citiesComplete[i].value
+      }
+    }
+
+  }
   
   /* APP CONTEXT */
   let {token,setSelectBeneficient} = React.useContext(AppContext);
@@ -54,6 +110,12 @@ export default function RegisterBeneficients(props) {
 
   const handleError = () => {
     setMessage('Cédula o correo ya en uso');
+    setIconName('error');
+    setShowModal(true);
+  };
+
+  const handleError_ = () => {
+    setMessage('Error al cargar datos');
     setIconName('error');
     setShowModal(true);
   };
@@ -107,13 +169,22 @@ export default function RegisterBeneficients(props) {
   }
 
   const InputSelectRead=(value,type)=>{
+    console.log("VALORES: ",value)
 
-    if(value === null){
-      setUserData({...userData,[type]:""});
+    if(type!=='coverage_city'){
+      if(value === null){
+        setUserData({...userData,[type]:""});
+      }else{
+        setUserData({...userData,[type]:value});
+      }
     }else{
-      setUserData({...userData,[type]:value});
+      if(value === null){
+        setUserData({...userData,[type]:"",['city']:""});
+      }else{
+        setUserData({...userData,[type]:value,['city']:value});
+      }
     }
-    
+
   }
 
   const InputImageRead=(File)=>{
@@ -123,24 +194,72 @@ export default function RegisterBeneficients(props) {
 
   }
 
+  const placeholder_type = {
+    label: 'Barrio',
+    value: null,
+    color: '#7E72D1',
+    fontFamily:'Montserrat-SemiBold'
+  };
+
+  React.useEffect(()=>{
+    
+     if(userData.coverage_city !== ""){
+       let ArrayFilter=barriosSublist.filter((obj)=> obj.location.toString() === findLocation(userData.coverage_city).toString());
+       setBarrios(ArrayFilter);
+     }
+
+   },[userData])
+  
+
+
+  const GetBarrios=async()=>{
+    setPreloader(true);
+    let result = undefined;
+    result = await getBarrios().catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+      handleError_();
+    }) 
+
+    if (result){
+      setPreloader(false);
+      setBarrios(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+      setBarriosSublist(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+
+    }
+  }
+
+
   const register =async()=>{
     console.log(userData);
     if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood  && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
-        setPreloader(true);
-         let result=await initRegisterBeneficient(userData,token).catch((error)=>{
-           console.log("ERROR",error);
-           setPreloader(false);
-           handleError();
-         })
+         setPreloader(true);
+          let result=await initRegisterBeneficient(userData,token).catch((error)=>{
+            console.log("ERROR",error);
+            setPreloader(false);
+            handleError();
+          })
 
-         if(result !== undefined){
-           setPreloader(false);
-           setSelectBeneficient(null);
-           handleSuccess();
-         }
-    }else{
-      handleInfo();
-    }
+          if(result !== undefined){
+            setPreloader(false);
+            setSelectBeneficient(null);
+            handleSuccess();
+          }
+     }else{
+       handleInfo();
+     }
     
 
 
@@ -161,6 +280,7 @@ export default function RegisterBeneficients(props) {
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
+  const [open5, setOpen5] = React.useState(false);
 
   /* LIST FORM DATA */
 
@@ -182,12 +302,8 @@ export default function RegisterBeneficients(props) {
      {title:"9",data:[{id:22,typeForm:'date',data:[]}]},
      {title:"10",data:[{id:9,type:'phone',placeholder:'Número celular' ,icon:'phone',typeIcon:'font-awesome' ,typeForm:'input',data:[]}]},
      {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
-     {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
-     {title:"13",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
-     {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:[
-       { value: "armenia", label: "Armenia" },
-       { value: "manizales", label: "Manizales" }
-     ],open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+     {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+     {title:"13",data:[{id:12,type:"neighbourhood",placeholder:"Barrio" ,data:barrios,open:open5,setOpen:setOpen5,typeForm:'select'} ]},
      {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
        { value: "Masculino", label: "Masculino" },
        { value: "Femenino", label: "Femenino" }
@@ -331,6 +447,16 @@ export default function RegisterBeneficients(props) {
               <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
           </View>
         );
+      case 'select':
+          return(
+            <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+              <RNPickerSelect
+                      placeholder={placeholder_type}
+                      onValueChange={(value) => InputSelectRead(value,"neighbourhood")}
+                      items={barrios}
+              />
+            </View>
+          )
        
 
       default:

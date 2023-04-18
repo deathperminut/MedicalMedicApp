@@ -185,7 +185,6 @@ const GetActivities=async()=>{
   }))
   setActivities(ACTIVITIES);
   console.log("ACTIVIDADES: ",ACTIVITIES);
-
   setPreloader(false);
 
 

@@ -11,12 +11,67 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import { getBarrios, getWareLocation } from '../../../../services/Auth/Register/EditBeneficient/EditBeneficient';
+import RNPickerSelect from 'react-native-picker-select';
 
 
 export default function RegisterPatient(props) {
 
-  
+
+  /* REACT USESTATE */
+
+  let [barrios,setBarrios]=React.useState([]);
+  let [barriosSublist,setBarriosSublist]=React.useState([]);
+  let [cities,setCities]=React.useState([]);
+  let [citiesComplete,setCitiesComplete]=React.useState([]);
+
+  React.useEffect(()=>{
+    
+    getData()
+
+  },[])
+
+
+  const getData=()=>{
+     getlocations();
+  }
+
+  const getlocations=async()=>{
+   setPreloader(true);
+   let result=undefined;
+   result=await getWareLocation().catch((error)=>{
+    console.log(error);
+    setPreloader(false);
+    handleError_();
+   })
+   if (result){
+      //setPreloader(false);
+      setCities(result.data.map(
+        obj => ({
+          value: obj.location_name,
+          label: obj.location_name,
+        })
+      ))
+      setCitiesComplete(result.data.map(
+        obj => ({
+          value: obj.id,
+          label: obj.location_name,
+        })
+      )) 
+      GetBarrios()    
+   }
+  }
+
+  const findLocation=(location_name)=>{
+
+    for (var i=0;i<citiesComplete.length;i++){
+      if(citiesComplete[i].label === location_name){
+        return citiesComplete[i].value
+      }
+    }
+
+  }
+
   
   /* DATE PICKER */
   const [date, setDate] = React.useState(new Date())
@@ -51,6 +106,12 @@ export default function RegisterPatient(props) {
 
   const handleError = () => {
     setMessage('Cédula o correo ya en uso');
+    setIconName('error');
+    setShowModal(true);
+  };
+
+  const handleError_ = () => {
+    setMessage('Error al cargar datos');
     setIconName('error');
     setShowModal(true);
   };
@@ -96,6 +157,53 @@ export default function RegisterPatient(props) {
     "regime_type":"",
   })
 
+  const placeholder_type = {
+    label: 'Barrio',
+    value: null,
+    color: '#7E72D1',
+    fontFamily:'Montserrat-SemiBold'
+  };
+
+  React.useEffect(()=>{
+    
+    if(userData.coverage_city !== ""){
+      let ArrayFilter=barriosSublist.filter((obj)=> obj.location.toString() === findLocation(userData.coverage_city).toString());
+      setBarrios(ArrayFilter);
+    }
+
+  },[userData])
+  
+
+
+  const GetBarrios=async()=>{
+    setPreloader(true);
+    let result = undefined;
+    result = await getBarrios().catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+      handleError_();
+    }) 
+
+    if (result){
+      setPreloader(false);
+      setBarrios(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+      setBarriosSublist(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+
+    }
+  }
+
 
   /* FUNCTIONS */
 
@@ -106,39 +214,46 @@ export default function RegisterPatient(props) {
   }
 
   const InputSelectRead=(value,type)=>{
-
-    if(value === null){
-      setUserData({...userData,[type]:""});
+    console.log("VALORES: ",value)
+    if(type!=='coverage_city'){
+      if(value === null){
+        setUserData({...userData,[type]:""});
+      }else{
+        setUserData({...userData,[type]:value});
+      }
     }else{
-      setUserData({...userData,[type]:value});
+      if(value === null){
+        setUserData({...userData,[type]:"",['city']:""});
+      }else{
+        setUserData({...userData,[type]:value,['city']:value});
+      }
     }
-    
+
   }
 
   const InputImageRead=(File)=>{
  
-    console.log("ENTRAMOS")
     setUserData({...userData,['photo_profile']:File});
 
   }
 
   const register =async()=>{
     console.log(userData);
-    if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood && userData.password!=="" && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
-        setPreloader(true);
-         let result=await initRegister(userData).catch((error)=>{
-           console.log("ERROR",error);
-           setPreloader(false);
-           handleError();
-         })
+     if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood && userData.password!=="" && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
+         setPreloader(true);
+          let result=await initRegister(userData).catch((error)=>{
+            console.log("ERROR",error);
+            setPreloader(false);
+            handleError();
+          })
 
-         if(result !== undefined){
-           setPreloader(false);
-           handleSuccess();
-         }
-    }else{
-      handleInfo();
-    }
+          if(result !== undefined){
+            setPreloader(false);
+            handleSuccess();
+          }
+     }else{
+       handleInfo();
+     }
     
 
 
@@ -159,6 +274,7 @@ export default function RegisterPatient(props) {
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
+  const [open5, setOpen5] = React.useState(false);
 
   /* LIST FORM DATA */
 
@@ -181,17 +297,14 @@ export default function RegisterPatient(props) {
      {title:"9",data:[{id:22,typeForm:'date',data:[]}]},
      {title:"10",data:[{id:9,type:'phone',placeholder:'Número celular' ,icon:'phone',typeIcon:'font-awesome' ,typeForm:'input',data:[]}]},
      {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
-     {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
-     {title:"13",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
-     {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:[
-       { value: "armenia", label: "Armenia" },
-       { value: "manizales", label: "Manizales" }
-     ],open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+    //  {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
+     {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+     {title:"13",data:[{id:12,type:"neighbourhood",placeholder:"Barrio" ,data:cities,open:open5,setOpen:setOpen5,typeForm:'select'} ]},
      {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
        { value: "Masculino", label: "Masculino" },
        { value: "Femenino", label: "Femenino" }
      ],open:open4,setOpen:setOpen4 ,typeForm:'dropdown'}]},
-
+    
      {title:"16",data:[{id:15,type:'address',placeholder:'Dirección' ,icon:'directions' ,typeIcon:'',typeForm:'input',data:[]}]},
 
      {title:"17",data:[{id:16,type:'eps',placeholder:'eps' ,icon:'hospital' ,typeIcon:'font-awesome-5',typeForm:'input',data:[]}]},
@@ -330,6 +443,17 @@ export default function RegisterPatient(props) {
               <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
           </View>
         );
+      
+      case 'select':
+        return(
+          <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+            <RNPickerSelect
+                    placeholder={placeholder_type}
+                    onValueChange={(value) => InputSelectRead(value,"neighbourhood")}
+                    items={barrios}
+            />
+          </View>
+        )
        
 
       default:
@@ -343,7 +467,7 @@ export default function RegisterPatient(props) {
      <LoadingScreen/>
      :
      <></>
-     }
+    }
     <View style={styles.container}>
       <View style={styles.IconContainer}>
         <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Start')}></Icon>

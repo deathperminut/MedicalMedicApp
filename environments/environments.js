@@ -30,4 +30,8 @@ export const environment = {
   getActiveDate:'citas/retrieve-appointment-service-app/',
   getCompleteDates:'citas/retrieve-complete-appointment-service-app/',
   socket_date:socket_date,
+
+  // LOCATIONS
+  getLocations:'inventario/retrieve-warehouse-location/',
+  getBarriosLocation:'citas/retrieve-allowed-neighbourhood/',
 }
