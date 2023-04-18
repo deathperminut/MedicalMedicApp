@@ -120,9 +120,20 @@ export default function HistoryDates(props) {
      })
      if(result!==undefined){
       if(result.data.length!==0){
-        console.log("HISTORIA CITA: ",result.data[0].appointments)
+        console.log("HISTORIA CITA: ",result.data)
         //let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
-        setHistoryDates(result.data[0].appointments);
+        let dates=[];
+        let copyData=[...result.data];
+        for (var i = 0 ; i<copyData.length ; i++){
+            let UserName=GetName(copyData[i]);
+            
+            dates=dates.concat(copyData[i].appointments.map(function(appointment) {
+              appointment.userName = UserName;
+              return appointment;
+            }))
+        }
+        console.log("LISTA RESULTANTE: ",dates);
+        setHistoryDates(dates);
 
       }else{
         setHistoryDates(result.data);
@@ -198,7 +209,7 @@ export default function HistoryDates(props) {
                         />
                         <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearFecha(faq?.appointment_date)}</Text>
                       </View>
-                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{'Dr Juan Sebastian Mendez Rondon'}</Text>
+                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(faq?.doctor_info)}</Text>
                       <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{'DNI. '+faq?.doctor_info.identification}</Text>
                     </View>
                     </View>
@@ -209,6 +220,7 @@ export default function HistoryDates(props) {
                       <TouchableOpacity style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,backgroundColor:'#1AE494',borderRadius: 10, marginBottom:20,justifyContent:'center',marginTop:20}}>
                         <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>{'Terminado ' + formatearHora(faq?.appointment_date)}</Text>  
                       </TouchableOpacity>
+                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center',marginBottom:20,width:'100%'}}>{faq.userName}</Text>
                       <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
                           <Icon
                             name="check"

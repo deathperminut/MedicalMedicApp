@@ -327,7 +327,7 @@ const handleCancel = () => {
                                   />
                                   <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearFecha(currentDate?.appointment_date)}</Text>
                                 </View>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>Dr Sebastian Mendez Rondon </Text>
+                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.doctor_info)}</Text>
                                 <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{formatearHora(currentDate?.appointment_date)}</Text>
                               </View>
                             </View>
