@@ -64,7 +64,7 @@ const handleCancel = () => {
 
  const ChoosePatient=()=>{
 
-  if(currentDate===null){
+  if(currentDate===null || currentDate?.status==="COMPLETADA"){
     navigation.navigate('SelectPatient')
   }else{
     handleInfo()

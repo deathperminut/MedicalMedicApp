@@ -172,7 +172,9 @@ const handleCancel = () => {
       let ArrayDates=result.data;
       if(ArrayDates.length!==0){
          setCurrentDate(ArrayDates[0]);
-         if(ArrayDates[0].status==="ACEPTADA"){
+         if(ArrayDates[0].status==="INGRESADA"){
+          setStep(0)
+         }else if(ArrayDates[0].status==="ACEPTADA"){
           setStep(1)
          }else if(ArrayDates[0].status==="AGENDADA"){
           setStep(2)
