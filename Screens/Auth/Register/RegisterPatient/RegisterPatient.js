@@ -62,6 +62,8 @@ export default function RegisterPatient(props) {
    }
   }
 
+  
+
   const findLocation=(location_name)=>{
 
     for (var i=0;i<citiesComplete.length;i++){
@@ -70,6 +72,35 @@ export default function RegisterPatient(props) {
       }
     }
 
+  }
+
+  const GetBarrios=async()=>{
+    setPreloader(true);
+    let result = undefined;
+    result = await getBarrios().catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+      handleError_();
+    }) 
+
+    if (result){
+      setPreloader(false);
+      setBarrios(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+      setBarriosSublist(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+
+    }
   }
 
   
@@ -105,9 +136,11 @@ export default function RegisterPatient(props) {
   };
 
   const handleError = () => {
+
     setMessage('Cédula o correo ya en uso');
     setIconName('error');
     setShowModal(true);
+    
   };
 
   const handleError_ = () => {
@@ -175,34 +208,7 @@ export default function RegisterPatient(props) {
   
 
 
-  const GetBarrios=async()=>{
-    setPreloader(true);
-    let result = undefined;
-    result = await getBarrios().catch((error)=>{
-      console.log(error);
-      setPreloader(false);
-      handleError_();
-    }) 
 
-    if (result){
-      setPreloader(false);
-      setBarrios(result.data.map(
-        obj => ({
-          value: obj.neighbourhood,
-          label: obj.neighbourhood,
-          location:obj.location_id,
-        })
-      ))
-      setBarriosSublist(result.data.map(
-        obj => ({
-          value: obj.neighbourhood,
-          label: obj.neighbourhood,
-          location:obj.location_id,
-        })
-      ))
-
-    }
-  }
 
 
   /* FUNCTIONS */

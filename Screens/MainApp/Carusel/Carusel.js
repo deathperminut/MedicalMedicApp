@@ -32,7 +32,7 @@ export default function Carusel({data,props}) {
   })
 
   return (
-    <Animated.ScrollView onScroll={onScroll} scrollEventThrottle={16} decelerationRate={'fast'} snapToInterval={size} horizontal showsHorizontalScrollIndicator={false} bounces={false} style={{maxHeight:200,paddingTop:20,marginBottom:20}} >
+    <Animated.ScrollView onScroll={onScroll} scrollEventThrottle={16} decelerationRate={'fast'} snapToInterval={size} horizontal showsHorizontalScrollIndicator={false} bounces={false} style={{maxHeight:250,paddingTop:50,marginBottom:20}} >
       {newData.map((item,index)=>{
         //eslint-disable-next-line react-hooks/rules-of-hooks
         const style= useAnimatedStyle(()=>{

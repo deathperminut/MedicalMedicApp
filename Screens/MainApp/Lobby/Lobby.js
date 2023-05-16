@@ -38,15 +38,15 @@ const ServicesData=[
     navigate:'HistoryDates'
 
   },
-  {
-    image:'../../../assets/Home/Tarjeta-Reportar.png',
-    id:'2',
-    text_1:'Reportar',
-    text_2:'Estado del paciente o novedades',
-    text_3:'',
-    navigate:'Reports'
+  // {
+  //   image:'../../../assets/Home/Tarjeta-Reportar.png',
+  //   id:'2',
+  //   text_1:'Reportar',
+  //   text_2:'Estado del paciente o novedades',
+  //   text_3:'',
+  //   navigate:'Reports'
 
-  },
+  // },
   {
     image:'../../../assets/Home//Tarjeta-Servicios.png',
     id:'3',
@@ -194,14 +194,13 @@ const handleCancel = () => {
   const socket_control=async(User)=>{
     console.log("PFFFFFFFFFFFF",User);
     var DATAUSER=User
-    const socket = new WebSocket(environment.socket_date+token);
+    const socket = new WebSocket(environment.socket_date+''+'/?token='+token);
     socket.onopen = () => {
       console.log('WebSocket connected');
     };
     socket.onmessage = (event) => {
       console.log('Received message: ' ,JSON.parse(event.data));
       let data=JSON.parse(event.data);
-      if(data.user_id ===  DATAUSER.identification){
         console.log("User data",data.user_id,DATAUSER)
         if (data.type==="appointment_state"){
           if(data.state==="CANCELADA"){
@@ -219,7 +218,7 @@ const handleCancel = () => {
           }
         }
 
-      }
+      
       
     };
 
@@ -283,19 +282,19 @@ const handleCancel = () => {
                 {currentDate!== null ? 
                 <>
                 {currentDate.status==="COMPLETADA" ? 
-                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ultima cita</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Ultima cita</Text>
                 :
-                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Cita</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Cita</Text>
                 }
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                        <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'flex-start'}}>
+                        <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                           {currentDate?.status==="INGRESADA" || currentDate?.status==="ACEPTADA" || currentDate?.state==="INGRESADA" || currentDate?.state==="ACEPTADA"   ?
-                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                             <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
                               <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
                             </View>
-                            <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                            <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
                               <View>
                                 <View style={{flexDirection:'row',alignItems:'center'}}>
                                   <Icon
@@ -313,11 +312,11 @@ const handleCancel = () => {
                             </View>
                           </View>
                           :
-                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center'}}>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                             <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
                               <Image source={{uri:currentDate?.doctor_info?.photo_profile}} style={{resizeMode:'cover',width:70,height:70}}></Image>
                             </View>
-                            <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                            <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
                               <View>
                                 <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                                   <Icon
@@ -358,7 +357,7 @@ const handleCancel = () => {
 
                 <Carusel data={ServicesData}  props={props.props}></Carusel>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ayuda</Text>
-                <ScrollView horizontal={true} style={{width:'100%',height:240,paddingTop:30}} showsHorizontalScrollIndicator={false}>
+                <ScrollView horizontal={true} style={{width:'100%',height:220,paddingTop:30}} showsHorizontalScrollIndicator={false}>
                   <View style={{width:"100%",flexDirection:'row'}}>
                     <View style={{maxHeight:100,flexDirection:'row'}}>
                       <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>openWhatsApp()}>

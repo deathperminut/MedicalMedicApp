@@ -22,24 +22,28 @@ const initLogin=async(User)=>{
 
 const GetName=(Date)=>{
     
-    let Dates={...Date};
-    let name=Date.name;
-    if(Dates.second_name===null){
-      Dates['second_name']='';
-    }
-    if(Dates.last_name===null){
-      Dates['last_name']='';
-    }
-    if(Dates.second_last_name===null){
-      Dates['second_last_name']='';
+    if(Date !== undefined){
+      console.log("DATE: ",Date);
+      let Dates={...Date};
+      let name=Date.name;
+      if(Dates.second_name===null){
+        Dates['second_name']='';
+      }
+      if(Dates.last_name===null){
+        Dates['last_name']='';
+      }
+      if(Dates.second_last_name===null){
+        Dates['second_last_name']='';
+      }
+      try {
+        name=name+' '+Dates.second_name+' '+Dates.last_name+' '+Dates.second_last_name;
+      } catch (error) {
+        name=name;
+      }
+      return name;
     }
 
-    try {
-      name=name+' '+Dates.second_name+' '+Dates.last_name+' '+Dates.second_last_name;
-    } catch (error) {
-      name=name;
-    }
-    return name;
+    return "";
 }
 
 const GetName_Beneficient=(Date)=>{

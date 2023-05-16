@@ -126,7 +126,7 @@ const handleExpand = (index) => {
             {filteredFaqs.map((faq, index) => (
             <View key={index} style={styles.cardContainer}>
                 <TouchableOpacity activeOpacity={0.99}  onPress={() => handleExpand(index)}>
-                  <View style={{ padding:10,alignItems:'center',flexDirection:'column',minWidth:'98%',maxWidth:'98%',maxWidth:500,height: expanded[index] ? 'auto' : 'auto',backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow,minHeight:60,justifyContent:'center'}} >
+                  <View style={{ padding:10,alignItems:'center',flexDirection:'column',minWidth:'98%',maxWidth:'98%',maxWidth:300,height: expanded[index] ? 'auto' : 'auto',backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow,minHeight:60,justifyContent:'center'}} >
                         <Text style={{ ...Globalstyles.Purple, ...Globalstyles.Semibold, fontSize: 15, marginBottom:5,textAlign:'center' }} >
                             {faq.title}
                         </Text>
