@@ -120,8 +120,6 @@ export default function HistoryDates(props) {
      })
      if(result!==undefined){
       if(result.data.length!==0){
-        console.log("HISTORIA CITA: ",result.data)
-        //let ArrayDates=result.data.beneficiaries_appointment.concat(result.data.user_appointment);
         let dates=[];
         let copyData=[...result.data];
         for (var i = 0 ; i<copyData.length ; i++){
@@ -132,7 +130,6 @@ export default function HistoryDates(props) {
               return appointment;
             }))
         }
-        console.log("LISTA RESULTANTE: ",dates);
         setHistoryDates(dates);
 
       }else{

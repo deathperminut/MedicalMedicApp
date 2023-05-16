@@ -23,7 +23,6 @@ const initLogin=async(User)=>{
 const GetName=(Date)=>{
     
     if(Date !== undefined){
-      console.log("DATE: ",Date);
       let Dates={...Date};
       let name=Date.name;
       if(Dates.second_name===null){

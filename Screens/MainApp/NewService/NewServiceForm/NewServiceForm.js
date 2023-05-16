@@ -65,11 +65,9 @@ export default function NewServiceForm(props) {
  const [show_time,setShow_time]  = React.useState(false);
 
  const showMode_date= (currentMode)=>{
-  console.log("DATOS");
   setShow(true);
  }
  const showMode_time= (currentMode)=>{ 
-  console.log("DATOS2");
   setShow_time(true);
  }
  const onChangeDate=(event,selectedDate)=>{
@@ -80,14 +78,12 @@ export default function NewServiceForm(props) {
   setService({...service,['desired_date']:fDate});
  }
  const onChangeTime=(event,selectedDate)=>{
-  console.log("VALOR OBTENIDO: ",selectedDate)
   setShow_time(false);
   const currentDate=selectedDate || date;
   let hora = currentDate.getHours();
   let minutos = currentDate.getMinutes();
 
   let horaConMinutos = hora.toString().padStart(2, "0") + ":" + minutos.toString().padStart(2, "0");
-  console.log("HORA OBTENIDA: ",horaConMinutos);
   setService({...service,['desired_hour']:horaConMinutos});
 
 }
@@ -130,7 +126,6 @@ export default function NewServiceForm(props) {
  }
 
  const InputSelectRead=(value,type)=>{
-  console.log("SELECT: ",value);
   if(value === null){
       setService({...service,[type]:""});
     }else{
@@ -184,7 +179,6 @@ const GetActivities=async()=>{
     label: obj.name,
   }))
   setActivities(ACTIVITIES);
-  console.log("ACTIVIDADES: ",ACTIVITIES);
   setPreloader(false);
 
 
@@ -204,7 +198,6 @@ const GetActivities=async()=>{
       handleError();
     })
     if(result!==undefined){
-      console.log({...result.data,'user_info':patient});
       setPreloader(false);
       handleSuccess();
       setCurrentDate({...result.data,'user_info':patient});
@@ -268,7 +261,7 @@ const GetActivities=async()=>{
           />
         </View>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2},width:'100%'}}>
-       <Input onTouchStart={() => {console.log("entramos");showMode_date('date')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} placeholderTextColor="#B0A8EA80" containerStyle={{ marginVertical: 10 }} placeholder='Fecha deseada' editable={true} value={service.desired_date} leftIcon={
+       <Input onTouchStart={() => {showMode_date('date')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} placeholderTextColor="#B0A8EA80" containerStyle={{ marginVertical: 10 }} placeholder='Fecha deseada' editable={true} value={service.desired_date} leftIcon={
              <Icon
                name='calendar'
                type='font-awesome'
@@ -291,7 +284,7 @@ const GetActivities=async()=>{
        )}
         </View>
         <View style={{...styles.InputsDesignContainer,...Globalstyles.Purple,...{['marginTop']:2},...{['marginBottom']:2},width:'100%'}}>
-       <Input onTouchStart={() => {console.log("entramos 2");showMode_time('time')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} placeholderTextColor="#B0A8EA80" containerStyle={{ marginVertical: 10 }} placeholder='Hora deseada' editable={true} value={service.desired_hour} leftIcon={
+       <Input onTouchStart={() => {showMode_time('time')} } inputContainerStyle={{ borderBottomColor: '#7E72D1', borderBottomWidth: 0.4 }} inputStyle={{...Globalstyles.Purple,...Globalstyles.Medium,...{['paddingLeft']:15}}} placeholderTextColor="#B0A8EA80" containerStyle={{ marginVertical: 10 }} placeholder='Hora deseada' editable={true} value={service.desired_hour} leftIcon={
              <Icon
                name='calendar'
                type='font-awesome'

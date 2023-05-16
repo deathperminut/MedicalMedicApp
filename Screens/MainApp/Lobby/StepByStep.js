@@ -30,7 +30,6 @@ const VerticalStepIndicator = () => {
       >
         {steps.map((step, index) => {
          
-         console.log(step)
 
         return (
           <ProgressStep

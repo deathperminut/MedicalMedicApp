@@ -169,7 +169,6 @@ export default function RegisterBeneficients(props) {
   }
 
   const InputSelectRead=(value,type)=>{
-    console.log("VALORES: ",value)
 
     if(type!=='coverage_city'){
       if(value === null){
@@ -188,8 +187,7 @@ export default function RegisterBeneficients(props) {
   }
 
   const InputImageRead=(File)=>{
- 
-    console.log("ENTRAMOS")
+
     setUserData({...userData,['photo_profile']:File});
 
   }
@@ -243,7 +241,7 @@ export default function RegisterBeneficients(props) {
 
 
   const register =async()=>{
-    console.log(userData);
+
     if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood  && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
          setPreloader(true);
           let result=await initRegisterBeneficient(userData,token).catch((error)=>{

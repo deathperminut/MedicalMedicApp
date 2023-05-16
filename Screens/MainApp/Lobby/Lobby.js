@@ -129,7 +129,6 @@ const handleCancel = () => {
 
       setPreloader(true);
       let result=undefined;
-      console.log(reason);
       result=await cancelService(currentDate,reason,token).catch((error)=>{
 
         console.log(error);
@@ -167,8 +166,6 @@ const handleCancel = () => {
       setPreloader(false);
     })
     if (result!==undefined){
-      
-      console.log("DATA: ",result.data)
       let ArrayDates=result.data;
       if(ArrayDates.length!==0){
          setCurrentDate(ArrayDates[0]);
@@ -192,28 +189,23 @@ const handleCancel = () => {
   }
 
   const socket_control=async(User)=>{
-    console.log("PFFFFFFFFFFFF",User);
-    var DATAUSER=User
-    const socket = new WebSocket(environment.socket_date+''+'/?token='+token);
+    const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
     socket.onopen = () => {
-      console.log('WebSocket connected');
+        console.log('WebSocket connected');
     };
     socket.onmessage = (event) => {
       console.log('Received message: ' ,JSON.parse(event.data));
       let data=JSON.parse(event.data);
-        console.log("User data",data.user_id,DATAUSER)
         if (data.type==="appointment_state"){
           if(data.state==="CANCELADA"){
-            console.log('Received message: ENTRAMOS?');
             setCurrentDate(null);
             handleCancelWeb(data);
           }else if(data.state==="ACEPTADA"){
-            //console.log("CURRENT DATE: ",currentDate);
-            // console.log('Received message: ENTRAMOS? x2',{...currentDate,['status']:"ACEPTADA"});
-            setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'ACEPTADA' }));
+            console.log("CURRENDATE",currentDate);
+            setCurrentDate({ ...currentDate, status: 'ACEPTADA' });
             setStep(1);
           }else if(data.state==="AGENDADA"){
-            setCurrentDate(prevCurrentDate => ({ ...prevCurrentDate, status: 'AGENDADA' }));
+            setCurrentDate({ ...currentDate, status: 'AGENDADA' });
             setStep(2);
           }
         }

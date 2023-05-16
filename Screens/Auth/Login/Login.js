@@ -56,7 +56,6 @@ export default function Login(props) {
   /* REACT USE EFFECT */
 
   React.useEffect(()=>{
-    console.log("useEFFECT");
     if(userData!==null){
       navigation.navigate('Drawer');
     }
@@ -92,14 +91,12 @@ export default function Login(props) {
     if(user.identification!=="" && user.password!==""){
       setPreloader(true);
     let result=undefined;
-    console.log(user);
     result=await initLogin(user).catch((error)=>{
        console.log("ERROR: ",error,result);
        handleError();
        setPreloader(false);
     })
     if (result!==undefined){
-       console.log("RESULTADOS: ",result.data);
        //handleSuccess();
        setUserData(result.data.datos.datos_usuarios);
        setToken(result.data.datos.token);

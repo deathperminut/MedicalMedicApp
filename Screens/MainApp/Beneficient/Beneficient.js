@@ -45,7 +45,6 @@ export default function Beneficient(props) {
   };
 
   React.useEffect(()=>{
-    console.log("useEFFECT");
     if(token){
       if(selectBeneficient===null || selectBeneficient==={}){
         getData();
@@ -67,7 +66,6 @@ export default function Beneficient(props) {
     })
     if(result){
       setPreloader(false);
-      console.log("DATOS: ",result.data);
       setListBeneficient(result.data);
     }
     

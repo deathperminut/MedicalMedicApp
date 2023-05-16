@@ -119,7 +119,6 @@ export default function EditBeneficient(props) {
 
   const InputImageRead=(File)=>{
  
-    console.log("ENTRAMOS")
     setUserData({...userData,['photo_profile']:File});
 
   }
@@ -185,8 +184,6 @@ export default function EditBeneficient(props) {
 
 
   const renderFormItem = ({ item }) => {
-
-    console.log(item.type,userData[item.type]);
    
     switch (item.typeForm) {
       case 'input':
