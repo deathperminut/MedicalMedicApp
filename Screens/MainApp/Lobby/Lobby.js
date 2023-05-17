@@ -9,6 +9,7 @@ import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
 import Carusel from '../Carusel/Carusel';
+import * as Notifications from 'expo-notifications';
 import VerticalStepIndicator from './StepByStep';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
@@ -182,13 +183,54 @@ const handleCancel = () => {
        }
       setPreloader(false);
       // NOS SUSCRIBIMOS AL SOCKET
-      socket_control(userData);
+       //getNotificationPermission();
+       registerForPushNotificationsAsync(userData).then((token) => {
+
+        console.log(userData,token);
+        // NOS SUSCRIBIMOS AL SOCKET
+        socket_control(userData,token);
+        
+      });
+      
 
     }
 
+
+    
   }
 
-  const socket_control=async(User)=>{
+  const registerForPushNotificationsAsync = async () => {
+
+    let token;
+
+    // Verificar los permisos de notificación
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      // Si los permisos no están otorgados, solicitarlos
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      console.log('Permisos de notificación denegados');
+      return;
+    }
+
+    // Obtener el token de notificación
+    try {
+      token = (await Notifications.getExpoPushTokenAsync({ projectId:'4398c9a5-330e-49bc-ab1b-913a11feac3c'})).data;
+      console.log('Token de notificación:', token);
+    } catch (error) {
+      console.log('Error al obtener el token de notificación:', error);
+    }
+
+    return token;
+  };
+
+  const socket_control=async(User,Token)=>{
+    console.log("SOCKER RECIBIDO: ",User,Token);
     const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
     socket.onopen = () => {
         console.log('WebSocket connected');
@@ -199,19 +241,20 @@ const handleCancel = () => {
         if (data.type==="appointment_state"){
           if(data.state==="CANCELADA"){
             setCurrentDate(null);
+            showNotification('CITA CANCELADA',Token)
             handleCancelWeb(data);
           }else if(data.state==="ACEPTADA"){
-            console.log("CURRENDATE",currentDate);
-            setCurrentDate({ ...currentDate, status: 'ACEPTADA' });
+            setCurrentDate({ ...data, status: 'ACEPTADA',user_info:data.user_info,appointment_date:data.appointment_date,doctor_info:data.doctor_info });
             setStep(1);
           }else if(data.state==="AGENDADA"){
-            setCurrentDate({ ...currentDate, status: 'AGENDADA' });
+            setCurrentDate({ ...data, status: 'AGENDADA',user_info:data.user_info,appointment_date:data.appointment_date,doctor_info:data.doctor_info });
             setStep(2);
+          }else if(data.state==="COMPLETADA"){
+            setCurrentDate({ ...data, status: 'COMPLETADA',user_info:data.user_info,appointment_date:data.appointment_date,doctor_info:data.doctor_info });
+            setStep(3);
           }
         }
 
-      
-      
     };
 
     socket.onerror = (error) => {
@@ -226,6 +269,19 @@ const handleCancel = () => {
       socket.close();
     };
   }
+
+  const showNotification = (message,Token) => {
+    console.log("ENVIANDO NOTIFICACIÓN: ",Token);
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Nuevo mensaje',
+        body: message,
+      },
+      trigger: null,
+      to:Token,
+    });
+  };
+
 
 
   let [reason,setReason]=React.useState("");
