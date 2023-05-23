@@ -20,6 +20,7 @@ import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import { cancelService, getActiveService } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import { environment } from '../../../environments/environments';
+import AlertComponent from '../../../Shared/Icons/AlertComponent';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -33,33 +34,30 @@ const ServicesData=[
 
     image:'../../../assets/Home/Tarjeta-Historial.png',
     id:'1',
-    text_1:'Historial',
-    text_2:'citas',
-    text_3:'',
+    text_1:'Citas',
+    text_2:'Diarias',
     navigate:'HistoryDates'
-
   },
-  // {
-  //   image:'../../../assets/Home/Tarjeta-Reportar.png',
-  //   id:'2',
-  //   text_1:'Reportar',
-  //   text_2:'Estado del paciente o novedades',
-  //   text_3:'',
-  //   navigate:'Reports'
-
-  // },
+  
   {
     image:'../../../assets/Home//Tarjeta-Servicios.png',
     id:'3',
-    text_1:'Nuestros servicios',
-    text_2:'portafolio',
+    text_1:'Turnos',
+    text_2:'Diarios',
     navigate:'OurServices' 
   },
+  //  {
+  //    image:'../../../assets/Home/Tarjeta-Reportar.png',
+  //    id:'2',
+  //    text_1:'Guias',
+  //    text_2:'Practicas',
+  //    navigate:'Reports'
+  // },
   {
     image:'../../../assets/Home/Tarjeta-Solicitar.png',
     id:'4',
-    text_1:'Solicitar',
-    text_2:'Pide una cita', 
+    text_1:'Guias',
+    text_2:'Practicas', 
     navigate:'Swiper'
   },
 
@@ -139,10 +137,8 @@ const handleCancel = () => {
       })
 
       if (result !== undefined){
-
         setPreloader(false);
         setCurrentDate(null);
-
       }
 
     }else{
@@ -152,9 +148,7 @@ const handleCancel = () => {
 
   React.useEffect(()=>{
     if(token && currentDate===null){
-
       getData();
-
     }
   },[userData])
 
@@ -181,8 +175,8 @@ const handleCancel = () => {
          }
          //handleCita()
        }
-      setPreloader(false);
-      // NOS SUSCRIBIMOS AL SOCKET
+       setPreloader(false);
+       // NOS SUSCRIBIMOS AL SOCKET
        //getNotificationPermission();
        registerForPushNotificationsAsync(userData).then((token) => {
 
@@ -304,13 +298,17 @@ const handleCancel = () => {
           :
           <></>
         }
-        <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
+        <ImageBackground source={require('../../../assets/Home/BG-Particular.png')} style={styles.imageBackground}>
         </ImageBackground>
         <ScrollView showsVerticalScrollIndicator={false} style={{height:'100%',height:'100%',position:'absolute'}}>
             <View style={styles.LobbyContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.navBar}>
-                  {userData?.genre?.toLowerCase()==="masculino" ? 
+                  
+                  <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                    <Image source={{uri:userData?.photo}} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                  </View>
+                  {/* {userData?.genre?.toLowerCase()==="masculino" ? 
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
                     <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
                   </View>
@@ -319,7 +317,7 @@ const handleCancel = () => {
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
                    <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
                   </View>
-                  }
+                  } */}
                   <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
                 </View>
                 <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
@@ -401,31 +399,30 @@ const handleCancel = () => {
                 </>
                 }
                 
-                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Servicios</Text>
-
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Módulos</Text>
                 <Carusel data={ServicesData}  props={props.props}></Carusel>
-                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Ayuda</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Eventos</Text>
                 <ScrollView horizontal={true} style={{width:'100%',height:220,paddingTop:30}} showsHorizontalScrollIndicator={false}>
                   <View style={{width:"100%",flexDirection:'row'}}>
                     <View style={{maxHeight:100,flexDirection:'row'}}>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>openWhatsApp()}>
-                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                            <ContactIcon style={{width:15,height:15}}></ContactIcon>
-                        </View>
-                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Contacto</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('FrecuentQuestions')}}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:150}} onPress={()=>openWhatsApp()}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                             <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
                         </View>
-                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Preguntas</Text>
-                        <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Frecuentes</Text>
+                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Chat</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow}} onPress={()=>{navigation.navigate('Beneficient')}}>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:150}} onPress={()=>{navigation.navigate('FrecuentQuestions')}}>
                         <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                            <Text style={{textAlign:'center',...Globalstyles.Purple,textAlignVertical:'center'}}>+</Text>
+                            <ContactIcon style={{width:15,height:15}}></ContactIcon>
                         </View>
-                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Beneficiarios</Text>
+                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Reunión</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:150}} onPress={()=>{navigation.navigate('Beneficient')}}>
+                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
+                           
+                           <AlertComponent style={{width:15,height:15}}></AlertComponent>
+                        </View>
+                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Alertas</Text>
                       </TouchableOpacity>
                     </View>
                   </View>

@@ -32,6 +32,11 @@ export default function Login(props) {
     setIconName('error');
     setShowModal(true);
   };
+  const handleError_2 = () => {
+    setMessage('No tiene permisos de médico asignados');
+    setIconName('error');
+    setShowModal(true);
+  };
   const handleInfo = () => {
     setMessage('Faltan campos por completar');
     setIconName('error');
@@ -98,10 +103,18 @@ export default function Login(props) {
     })
     if (result!==undefined){
        //handleSuccess();
-       setUserData(result.data.datos.datos_usuarios);
-       setToken(result.data.datos.token);
-       setPreloader(false);
-       navigation.navigate('Drawer');
+       console.log("DATOS USUARIOS",result.data.datos.datos_usuarios)
+
+       if(result.data.datos.datos_usuarios['roles'][0] === 'Médico'){
+        setUserData(result.data.datos.datos_usuarios);
+        setToken(result.data.datos.token);
+        setPreloader(false);
+        navigation.navigate('Drawer');
+       }else{
+        setPreloader(false);
+        handleError_2();
+       }
+       
       }
 
     }else{
@@ -166,9 +179,9 @@ export default function Login(props) {
             <TouchableOpacity style={styles.buttonIn} onPress={logIn}  disabled={valid}>
                   <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
+            {/* <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
                   <Text style={{...styles.buttonText,...Globalstyles.Medium,...Globalstyles.PurpleWhite}}>Registrarse</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
         
         

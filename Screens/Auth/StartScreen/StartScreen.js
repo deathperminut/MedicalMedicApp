@@ -22,9 +22,9 @@ export default function StartScreen(props) {
           <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Login')}>
               <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
+          {/* <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
               <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrarse</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
       </View>
     </View>

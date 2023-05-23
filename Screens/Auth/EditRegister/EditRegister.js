@@ -269,15 +269,6 @@ const renderFormItem = ({ item }) => {
   }
 };
 
-// React.useEffect(()=>{
-//   if(userData!==null){
-//     setUserData_(userData);
-//   }
-// },[userData])
-
-
-
-
 const DeleteBeneficient=async()=>{
   setPreloader(true);
   let result=undefined;
@@ -298,7 +289,6 @@ const DeleteBeneficient=async()=>{
 const UPDATEBeneficient=async()=>{
   setPreloader(true);
   let result=undefined;
-  editUser
   result=await editUser(userData_,token).catch((error)=>{
     console.log(error);
     setPreloader(false);
@@ -307,7 +297,8 @@ const UPDATEBeneficient=async()=>{
   if(result){
     setSelectBeneficient(null);
     handleSuccess();
-    setUserData(result.data)
+    console.log("DATOS ACTUALIZADOS",result.data);
+    setUserData({...result.data,['photo']:result.data['photo_profile']})
     setPreloader(false);
   }
   

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     width: 300,
     justifyContent:'center',
     alignItems:'center',
-    marginBottom:25
+    marginTop:50
   },
   buttonUp: {
     backgroundColor: 'transparent',

@@ -87,8 +87,8 @@ export default function Carusel({data,props}) {
                   </>
                   :
                   <>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.green,bottom:20}}>{item.text_1}</Text>
-                  <Text style={{...Globalstyles.Semibold,...Globalstyles.white,bottom:20}}>{item.text_2}</Text>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.green}}>{item.text_1}</Text>
+                  <Text style={{...Globalstyles.Semibold,...Globalstyles.white}}>{item.text_2}</Text>
                   <Text style={{...Globalstyles.Semibold,...Globalstyles.white,position:'absolute',top:150,left:45}}>Ver +</Text>
                   </>
                   }
