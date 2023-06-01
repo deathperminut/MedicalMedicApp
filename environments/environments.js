@@ -34,4 +34,7 @@ export const environment = {
   // LOCATIONS
   getLocations:'inventario/retrieve-warehouse-location/',
   getBarriosLocation:'citas/retrieve-allowed-neighbourhood/',
+
+  //SERVICIOS DEL MÉDICO
+  getMedicDates:'citas/retrieve-appointment-service-by-doctor/',
 }

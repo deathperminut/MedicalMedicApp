@@ -11,59 +11,12 @@ import { GetName } from '../../../services/Auth/Login/Login';
 import { AppContext } from '../../../AppContext/Context';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
-import { getCompleteDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
+import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
+import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
   let {navigation}=props
-
-  const DatesArray = [
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-    {
-      Date: '28 de Julio de 2022',
-      Doctor: 'Dr Pedro Pablo Ruiz',
-      Hour:'8:00 Am - 9:00 Am'
-    },
-  ];
 
   /* EXPAND */
   const [expanded, setExpanded] = useState({});
@@ -113,27 +66,29 @@ export default function HistoryDates(props) {
     
      setPreloader(true);
      let result=undefined;
-     result= await getCompleteDates(userData,token).catch((error)=>{
-       console.log(error);
+     result= await getMedicDates(token).catch((error)=>{
+       console.log(error.response);
        setPreloader(false);
        handleError();
      })
      if(result!==undefined){
       if(result.data.length!==0){
-        let dates=[];
-        let copyData=[...result.data];
-        for (var i = 0 ; i<copyData.length ; i++){
-            let UserName=GetName(copyData[i]);
+        console.log(result.data)
+        // let dates=[];
+        // let copyData=[...result.data];
+        // for (var i = 0 ; i<copyData.length ; i++){
+        //     let UserName=GetName(copyData[i]);
             
-            dates=dates.concat(copyData[i].appointments.map(function(appointment) {
-              appointment.userName = UserName;
-              return appointment;
-            }))
-        }
-        setHistoryDates(dates);
+        //     dates=dates.concat(copyData[i].appointments.map(function(appointment) {
+        //       appointment.userName = UserName;
+        //       return appointment;
+        //     }))
+        // }
+        setHistoryDates(result.data);
 
       }else{
-        setHistoryDates(result.data);
+        console.log("DATOS CITAS",result.data)
+        //setHistoryDates(result.data);
       }
       
       setPreloader(false);
@@ -141,6 +96,7 @@ export default function HistoryDates(props) {
      }
     
    }
+
 
 
   return (
@@ -164,36 +120,35 @@ export default function HistoryDates(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
           <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
-            {currentDate?.status!=='COMPLETADA' ?  
-            <>
             <View style={{width:14,height:14,backgroundColor:'#BDFC97', borderRadius:10 ,marginRight:10}}></View>
-            <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:50}}>Cita activa</Text>
-            </>
-            :
-            <></>
-            }
-            <Text style={{...Globalstyles.Medium,color:'#FFFFFF'}}>Historial</Text>
-            <View style={{minWidth:20,minHeight:20,backgroundColor:'#867BD8', borderRadius:2 ,marginLeft:10,alignItems:'center',justifyContent:'center',padding:5}}>
+            <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:10}}>Citas asignadas</Text>
+            <View style={{minWidth:20,minHeight:20,backgroundColor:'#867BD8', borderRadius:2 ,marginLeft:1,alignItems:'center',justifyContent:'center',padding:5}}>
               <Text style={{...Globalstyles.Medium,fontSize:10,color:'#FFFF'}}>{historyDates.length}</Text>
             </View>
+            <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold,marginLeft:10,color:'#FFFF'}}>{formatearFecha(new Date())}</Text>
           </View>
         </View>
         <LinearGradient colors={['#FFFFFF', '#B2ACDC91']} style={{...styles.FormContainer,alignItems:'center'}}>
-          <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginBottom:20}}>Historial de citas medicas</Text>
           {historyDates.length===0 ?
-            <Text style={{...Globalstyles.Medium,...Globalstyles.gray,marginTop:'50%'}}>No se han cargado citas completadas</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,marginTop:'50%'}}>No se han cargado citas para hoy</Text>
           :
+          
           <ScrollView style={{width:'100%',marginBottom:5,maxWidth:470,maxHeight:'100%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
-              
+              <Text style={{...Globalstyles.Medium,...Globalstyles.gray}}>{}</Text>
               {historyDates.map((faq, index) => (
-               
               <View style={{width:'100%',flexDirection:'column',alignItems:'center',justifyContent:'center'}} key={index}>
                 <View  style={{flexDirection:'column', marginBottom:5,width:'90%',minHeight:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:5,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
                   <TouchableOpacity style={{flexDirection:'row',width:'100%',height:90,padding:10,alignItems:'flex-start',justifyContent:'center'}} onPress={() => handleExpand(index)}>
-                    <View style={{width:70,height:70,padding:10,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                      <Image source={{uri:faq.doctor_info?.photo_profile}} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                    </View>
+                      {faq?.genre?.toLowerCase()==="masculino" ? 
+                        <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                          <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
+                        </View>
+                        :
+                        <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                          <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
+                        </View>
+                      }
                     <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
                     <View>
                       <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -204,26 +159,21 @@ export default function HistoryDates(props) {
                           size={14}
                           style={{marginRight:10}}
                         />
-                        <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearFecha(faq?.appointment_date)}</Text>
+                        <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearHora(faq.datetime_start) + ' - ' + formatearHora(faq.datetime_end)}</Text>
                       </View>
-                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(faq?.doctor_info)}</Text>
-                      <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{'DNI. '+faq?.doctor_info.identification}</Text>
+                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(faq)}</Text>
+                      <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{faq.identification_type + ' ' +faq.identification}</Text>
                     </View>
                     </View>
                   </TouchableOpacity>
-                 
                   {expanded[index] && (
                     <>
-                      <TouchableOpacity style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,backgroundColor:'#1AE494',borderRadius: 10, marginBottom:20,justifyContent:'center',marginTop:20}}>
-                        <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>{'Terminado ' + formatearHora(faq?.appointment_date)}</Text>  
-                      </TouchableOpacity>
-                      <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center',marginBottom:20,width:'100%'}}>{faq.userName}</Text>
-                      <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
+                      {/* <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
                           <Icon
-                            name="check"
+                            name="home"
                             type="font-awesome"
                             color="#00000029"
-                            size={14}
+                            size={16}
                             containerStyle={{
                                 backgroundColor: "transparent",
                                 borderRadius: 50,
@@ -233,105 +183,16 @@ export default function HistoryDates(props) {
                             }}
                             /> 
                             <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Recomendaciones</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Encuentra aquí las recomendaciones que te dejo el médico</Text>
+                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Dirección</Text>
+                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>{faq.address}</Text>
                             </View>   
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
-                          <Icon
-                            name="check"
-                            type="font-awesome"
-                            color="#00000029"
-                            size={14}
-                            containerStyle={{
-                                backgroundColor: "transparent",
-                                borderRadius: 50,
-                                padding: 8,
-                                borderWidth:1,
-                                borderColor:'#00000029'
-                            }}
-                            /> 
-                            <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Formula médica</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Descarga la formula en formato PDF</Text>
-                            </View>   
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
-                          <Icon
-                            name="check"
-                            type="font-awesome"
-                            color="#00000029"
-                            size={14}
-                            containerStyle={{
-                                backgroundColor: "transparent",
-                                borderRadius: 50,
-                                padding: 8,
-                                borderWidth:1,
-                                borderColor:'#00000029'
-                            }}
-                            /> 
-                            <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Incapacidad</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Si te dieron una incapacidad la puedes descargar aquí</Text>
-                            </View>   
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
-                          <Icon
-                            name="check"
-                            type="font-awesome"
-                            color="#00000029"
-                            size={14}
-                            containerStyle={{
-                                backgroundColor: "transparent",
-                                borderRadius: 50,
-                                padding: 8,
-                                borderWidth:1,
-                                borderColor:'#00000029'
-                            }}
-                            /> 
-                            <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Hospitalización</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Si te asignaron una orden de hospitalización descargala aquí</Text>
-                            </View>   
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
-                          <Icon
-                            name="check"
-                            type="font-awesome"
-                            color="#00000029"
-                            size={14}
-                            containerStyle={{
-                                backgroundColor: "transparent",
-                                borderRadius: 50,
-                                padding: 8,
-                                borderWidth:1,
-                                borderColor:'#00000029'
-                            }}
-                            /> 
-                            <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Factura</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Descarga tu factura desde aquí</Text>
-                            </View>   
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
-                          <Icon
-                            name="check"
-                            type="font-awesome"
-                            color="#00000029"
-                            size={14}
-                            containerStyle={{
-                                backgroundColor: "transparent",
-                                borderRadius: 50,
-                                padding: 8,
-                                borderWidth:1,
-                                borderColor:'#00000029'
-                            }}
-                            /> 
-                            <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Calificar el servicio</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>Califica el servicio del personal que te atendio</Text>
-                            </View>   
-                      </TouchableOpacity>
+                      </View> */}
+                      <View style={{width:'100%',display:'flex',alignItems:'center'}}>
+                        <TouchableOpacity style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,borderColor:'#1AE494',borderWidth:2,borderRadius: 20, marginBottom:20,justifyContent:'center',marginTop:20}}>
+                          <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>Aceptar</Text>  
+                        </TouchableOpacity>
+                      </View>
+                      
                     </>
                         )}
                 </View>

@@ -103,7 +103,7 @@ export default function Login(props) {
     })
     if (result!==undefined){
        //handleSuccess();
-       console.log("DATOS USUARIOS",result.data.datos.datos_usuarios)
+       console.log("DATOS USUARIOS",result.data.datos.token)
 
        if(result.data.datos.datos_usuarios['roles'][0] === 'Médico'){
         setUserData(result.data.datos.datos_usuarios);
