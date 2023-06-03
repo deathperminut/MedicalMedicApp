@@ -81,5 +81,52 @@ const getActivities=async(token)=>{
   }
 
 
+  const UpdateDate=async (DATE,Token)=>{
+    const path=environment.api+environment.updateAppointment;
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    };
+    /* SOLO ACTUALIZAMOS EL STATUS */
+    DATE['status']='EN CAMINO';
+    return await axios.post(path,DATE,config);
+  }
 
-  export {getActivities,generateService,cancelService,getActiveService};
+  const retrieveMedicalSchedule = async(token) => {
+    const path = environment.api + environment.getAllEmployeeSchedule;
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      }
+    };
+    return await axios.get(path,config);
+  };
+
+  const DatesDoctors=(Dates)=>{
+    if(Dates.length===0){
+      return [];
+    }else{
+      let DatesCalendar=[];
+      for (var i=0;i<Dates.length;i++){
+  
+        //let name=GetName(Dates[i]);
+        //let title=name+'/'+getAge(ArrayDatesWithDoctor[i].birthday)+" Años"+'/'+ArrayDatesWithDoctor[i].address+'/'+'#AF49E1';
+        let event={
+          //title:title,
+          start:new Date(Dates[i].start),
+          end:new Date(Dates[i].end),
+          resourceId:Dates[i].user_id,
+          isDraggable:true,
+          id:Dates[i].id,
+        }
+        DatesCalendar.push(event);
+      }
+      return DatesCalendar;
+    }
+    
+  };
+
+
+
+  export {getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors};

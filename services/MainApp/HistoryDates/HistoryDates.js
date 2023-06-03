@@ -11,6 +11,6 @@ const getMedicDates=async(token)=>{
       },
     };
     return await axios.get(path,config);
-  }
+}
 
 export {getMedicDates};

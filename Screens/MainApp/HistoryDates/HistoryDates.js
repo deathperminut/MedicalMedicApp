@@ -14,6 +14,8 @@ import CustomModal from '../../../Shared/Alerts/Alert';
 import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
 import { environment } from '../../../environments/environments';
 import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
+import { UpdateDate } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
@@ -51,6 +53,12 @@ export default function HistoryDates(props) {
     setShowModal(true);
   };
 
+  const handleError_2 = () => {
+    setMessage('Error al aceptar cita');
+    setIconName('error');
+    setShowModal(true);
+  };
+
   const handleAcceptError = () => {
     setMessage('Ya tienes una consulta aceptada');
     setIconName('error');
@@ -79,7 +87,7 @@ export default function HistoryDates(props) {
     if(currentDate!==null){
       handleAcceptError();
     }else{
-      setCurrentDate(DateAccepted);
+      UPDATE_DATE(DateAccepted)
     }
     
 
@@ -150,6 +158,25 @@ export default function HistoryDates(props) {
     };
   }
 
+  /* UPDATE DATE */
+
+  const UPDATE_DATE=async(DATE)=>{
+
+     setPreloader(true);
+     let result=undefined;
+     result=await UpdateDate(DATE,token).catch((error)=>{
+      console.log(error);
+      handleError_2();
+      setPreloader(false);
+     })
+     if (result!==undefined){
+       setPreloader(false);
+       console.log("Cita actualizada: ",result.data);
+       setCurrentDate(result.data);
+       navigation.navigate('Drawer');
+     }
+
+  }
 
 
   return (

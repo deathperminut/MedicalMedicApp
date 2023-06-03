@@ -266,16 +266,6 @@ const handleCancel = () => {
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
                     <Image source={{uri:userData?.photo}} style={{resizeMode:'cover',width:70,height:70}}></Image>
                   </View>
-                  {/* {userData?.genre?.toLowerCase()==="masculino" ? 
-                  <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
-                    <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
-                  </View>
-                  
-                  :
-                  <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
-                   <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
-                  </View>
-                  } */}
                   <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
                 </View>
                 <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
@@ -285,9 +275,9 @@ const handleCancel = () => {
               <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={[styles.FormContainer, { minHeight: windowHeight - 200 }]}>
                 {currentDate!== null ? 
                 <>
-                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Ultima cita</Text>
+                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Cita Aceptada</Text>
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
-                  <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                  <View style={{width:'100%',flexDirection:'row',alignItems:'flex-start',justifyContent:'flex-start'}}>
                         <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                         <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                               {currentDate?.genre?.toLowerCase()==="masculino" ? 
@@ -299,9 +289,6 @@ const handleCancel = () => {
                                   <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
                                 </View>
                               }
-                              {/* <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
-                                <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                              </View> */}
                               <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
                                 <View>
                                   <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -312,10 +299,10 @@ const handleCancel = () => {
                                       size={14}
                                       style={{marginRight:10}}
                                     />
-                                    <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>Esperando asignación...</Text>
+                                    <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearHora(currentDate?.datetime_start) + ' - ' + formatearHora(currentDate?.datetime_end)}</Text>
                                   </View>
-                                  <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.user_info)}</Text>
-                                  <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate?.user_info.identification_type+" "+currentDate?.user_info.identification}</Text>
+                                  <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate)}</Text>
+                                  <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate.identification_type + ' ' +currentDate.identification}</Text>
                                 </View>
                               </View>
                             </View>
@@ -325,7 +312,6 @@ const handleCancel = () => {
                 </>
                 :
                 <>
-                  
                 </>
                 }
                 

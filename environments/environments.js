@@ -26,7 +26,9 @@ export const environment = {
   //NewService
   datesActivities:'citas/retrieve-medical-appointment-service-list/',
   generateService:'citas/insert-appointment-service-app/',
+  updateAppointment:'citas/update-appointment-service/',
   cancelService:'citas/cancel-appointment-service-app/',
+  getAllEmployeeSchedule:'gestion-humana/retrieve-employee-schedule/',
   getActiveDate:'citas/retrieve-appointment-service-app-by-user/',
   getCompleteDates:'citas/retrieve-complete-appointment-service-app/',
   socket_date:socket_date,
