@@ -12,6 +12,7 @@ import { AppContext } from '../../../AppContext/Context';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
+import { environment } from '../../../environments/environments';
 import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
 
 export default function HistoryDates(props) {
@@ -21,6 +22,9 @@ export default function HistoryDates(props) {
   /* EXPAND */
   const [expanded, setExpanded] = useState({});
   const [preloader,setPreloader] = React.useState(false);
+
+  /*SOCKET*/
+  const [Socket, setSocket] = useState(null);
 
   const handleExpand = (index) => {
     setExpanded({
@@ -47,6 +51,12 @@ export default function HistoryDates(props) {
     setShowModal(true);
   };
 
+  const handleAcceptError = () => {
+    setMessage('Ya tienes una consulta aceptada');
+    setIconName('error');
+    setShowModal(true);
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -61,6 +71,19 @@ export default function HistoryDates(props) {
    },[])
 
   // /* FUNCTIONS */
+
+
+  const AcceptDate=(DateAccepted)=>{
+   
+    console.log("CITA ACEPTADA: ",DateAccepted);
+    if(currentDate!==null){
+      handleAcceptError();
+    }else{
+      setCurrentDate(DateAccepted);
+    }
+    
+
+  }
 
    const getData=async()=>{
     
@@ -90,12 +113,42 @@ export default function HistoryDates(props) {
         console.log("DATOS CITAS",result.data)
         //setHistoryDates(result.data);
       }
+
+      socket_control(userData,token);
       
       setPreloader(false);
 
      }
     
    }
+
+
+   /** SISTEMA DE SOCKET */
+
+   const socket_control=async(User,Token)=>{
+    console.log("SOCKER RECIBIDO: ",User,Token);
+    const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
+    setSocket(socket);
+    socket.onopen = () => {
+        console.log('WebSocket connected');
+    };
+    socket.onmessage = (event) => {
+      console.log('Received message: ' ,JSON.parse(event.data));
+      let data=JSON.parse(event.data);
+    };
+
+    socket.onerror = (error) => {
+      console.log('WebSocket error: ' + error.message);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket disconnected');
+    };
+
+    return () => {
+      socket.close();
+    };
+  }
 
 
 
@@ -112,7 +165,10 @@ export default function HistoryDates(props) {
         <View style={styles.iconContainer}>
           <View style={styles.navBar}>
             <TouchableOpacity>
-              <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
+              <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>{
+                navigation.navigate('Drawer');
+                Socket.onclose();
+              }}></Icon>
             </TouchableOpacity>
             <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
           </View>
@@ -149,7 +205,7 @@ export default function HistoryDates(props) {
                           <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
                         </View>
                       }
-                    <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
+                    <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start',marginLeft:20}}>
                     <View>
                       <View style={{flexDirection:'row',alignItems:'center'}}>
                         <Icon
@@ -188,7 +244,7 @@ export default function HistoryDates(props) {
                             </View>   
                       </View> */}
                       <View style={{width:'100%',display:'flex',alignItems:'center'}}>
-                        <TouchableOpacity style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,borderColor:'#1AE494',borderWidth:2,borderRadius: 20, marginBottom:20,justifyContent:'center',marginTop:20}}>
+                        <TouchableOpacity onPress={()=>AcceptDate(faq)} style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,borderColor:'#1AE494',borderWidth:2,borderRadius: 20, marginBottom:20,justifyContent:'center',marginTop:20}}>
                           <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>Aceptar</Text>  
                         </TouchableOpacity>
                       </View>

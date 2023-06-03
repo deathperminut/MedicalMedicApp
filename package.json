@@ -26,6 +26,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.71.4",
+    "react-native-big-calendar": "^3.4.1",
     "react-native-date-picker": "^4.2.10",
     "react-native-drawer": "^2.5.1",
     "react-native-drawer-layout": "^3.2.0",

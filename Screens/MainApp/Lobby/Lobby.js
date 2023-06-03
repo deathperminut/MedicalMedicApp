@@ -19,7 +19,6 @@ import CustomModal from '../../../Shared/Alerts/Alert';
 import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import { cancelService, getActiveService } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
-import { environment } from '../../../environments/environments';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
 
 const openWhatsApp = () => {
@@ -179,12 +178,8 @@ const handleCancel = () => {
        // NOS SUSCRIBIMOS AL SOCKET
        //getNotificationPermission();
        registerForPushNotificationsAsync(userData).then((token) => {
-
-        console.log(userData,token);
         // NOS SUSCRIBIMOS AL SOCKET
-        socket_control(userData,token);
-        
-      });
+       });
       
 
     }
@@ -223,46 +218,6 @@ const handleCancel = () => {
     return token;
   };
 
-  const socket_control=async(User,Token)=>{
-    console.log("SOCKER RECIBIDO: ",User,Token);
-    const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-    socket.onmessage = (event) => {
-      console.log('Received message: ' ,JSON.parse(event.data));
-      let data=JSON.parse(event.data);
-        if (data.type==="appointment_state"){
-          if(data.state==="CANCELADA"){
-            setCurrentDate(null);
-            showNotification('CITA CANCELADA',Token)
-            handleCancelWeb(data);
-          }else if(data.state==="ACEPTADA"){
-            setCurrentDate({ ...data, status: 'ACEPTADA',user_info:data.user_info,appointment_date:data.appointment_date,doctor_info:data.doctor_info });
-            setStep(1);
-          }else if(data.state==="AGENDADA"){
-            setCurrentDate({ ...data, status: 'AGENDADA',user_info:data.user_info,appointment_date:data.appointment_date,doctor_info:data.doctor_info });
-            setStep(2);
-          }else if(data.state==="COMPLETADA"){
-            setCurrentDate({ ...data, status: 'COMPLETADA',user_info:data.user_info,appointment_date:data.appointment_date,doctor_info:data.doctor_info });
-            setStep(3);
-          }
-        }
-
-    };
-
-    socket.onerror = (error) => {
-      console.log('WebSocket error: ' + error.message);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-
-    return () => {
-      socket.close();
-    };
-  }
 
   const showNotification = (message,Token) => {
     console.log("ENVIANDO NOTIFICACIÓN: ",Token);
@@ -285,6 +240,9 @@ const handleCancel = () => {
     setReason(Text);
 
   }
+
+
+  
 
 
 
@@ -327,68 +285,40 @@ const handleCancel = () => {
               <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={[styles.FormContainer, { minHeight: windowHeight - 200 }]}>
                 {currentDate!== null ? 
                 <>
-                {currentDate.status==="COMPLETADA" ? 
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Ultima cita</Text>
-                :
-                <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Cita</Text>
-                }
                 <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
                   <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                         <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
-                          {currentDate?.status==="INGRESADA" || currentDate?.status==="ACEPTADA" || currentDate?.state==="INGRESADA" || currentDate?.state==="ACEPTADA"   ?
-                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
-                            <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
-                              <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                            </View>
-                            <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
-                              <View>
-                                <View style={{flexDirection:'row',alignItems:'center'}}>
-                                  <Icon
-                                    name='calendar'
-                                    type='font-awesome'
-                                    color='#FFA500'
-                                    size={14}
-                                    style={{marginRight:10}}
-                                  />
-                                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>Esperando asignación...</Text>
+                        <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                              {currentDate?.genre?.toLowerCase()==="masculino" ? 
+                                <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                                  <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
                                 </View>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.user_info)}</Text>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate?.user_info.identification_type+" "+currentDate?.user_info.identification}</Text>
+                                :
+                                <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                                  <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
+                                </View>
+                              }
+                              {/* <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10,backgroundColor:'#C8C1F8'}}>
+                                <Image source={require('../../../assets/user-warning.png')} style={{resizeMode:'cover',width:70,height:70}}></Image>
+                              </View> */}
+                              <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
+                                <View>
+                                  <View style={{flexDirection:'row',alignItems:'center'}}>
+                                    <Icon
+                                      name='calendar'
+                                      type='font-awesome'
+                                      color='#FFA500'
+                                      size={14}
+                                      style={{marginRight:10}}
+                                    />
+                                    <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>Esperando asignación...</Text>
+                                  </View>
+                                  <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.user_info)}</Text>
+                                  <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate?.user_info.identification_type+" "+currentDate?.user_info.identification}</Text>
+                                </View>
                               </View>
                             </View>
-                          </View>
-                          :
-                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
-                            <View style={{width:70,height:70,padding:20,alignItems:'center',borderRadius:500,overflow:'hidden',justifyContent:'center',marginRight:10}}>
-                              <Image source={{uri:currentDate?.doctor_info?.photo_profile}} style={{resizeMode:'cover',width:70,height:70}}></Image>
-                            </View>
-                            <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
-                              <View>
-                                <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                                  <Icon
-                                    name='calendar'
-                                    type='font-awesome'
-                                    color='#FFA500'
-                                    size={14}
-                                    style={{marginRight:10}}
-                                  />
-                                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearFecha(currentDate?.appointment_date)}</Text>
-                                </View>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate?.doctor_info)}</Text>
-                                <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{formatearHora(currentDate?.appointment_date)}</Text>
-                              </View>
-                            </View>
-                          </View>
-                          }
-                          
-                          <VerticalStepIndicator></VerticalStepIndicator>
-                          {currentDate.status ==='COMPLETADA' ?
-                          <></>
-                          :
-                          <TouchableOpacity style={styles.buttonDelete} onPress={handleCancel}>
-                                      <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Cancelar</Text>
-                          </TouchableOpacity>
-                          }
                         </View>
                   </View>
                 </View>
