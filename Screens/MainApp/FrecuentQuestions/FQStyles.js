@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
       iconContainer:{
         flexDirection:'column',
         height:250,
-        minHeight:80,
+        minHeight:60,
         width:'100%',
         padding:20,
         maxWidth:700,

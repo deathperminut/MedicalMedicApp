@@ -57,7 +57,7 @@ const ServicesData=[
     id:'4',
     text_1:'Guias',
     text_2:'Practicas', 
-    navigate:'Swiper'
+    navigate:'FrecuentQuestions'
   },
 
 ]

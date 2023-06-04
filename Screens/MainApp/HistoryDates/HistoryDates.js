@@ -251,31 +251,11 @@ export default function HistoryDates(props) {
                   </TouchableOpacity>
                   {expanded[index] && (
                     <>
-                      {/* <View style={{padding:10,alignItems:'center',flexDirection:'row',width:'100%',maxWidth:500,height:70,backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:10}}>
-                          <Icon
-                            name="home"
-                            type="font-awesome"
-                            color="#00000029"
-                            size={16}
-                            containerStyle={{
-                                backgroundColor: "transparent",
-                                borderRadius: 50,
-                                padding: 8,
-                                borderWidth:1,
-                                borderColor:'#00000029'
-                            }}
-                            /> 
-                            <View style={{width:'70%',height:'100%',justifyContent:'center',alignItems:'flex-start',marginLeft:10,}}>
-                              <Text style={{...Globalstyles.Purple,...Globalstyles.Semibold,fontSize:15}}>Dirección</Text>
-                              <Text style={{...Globalstyles.gray,...Globalstyles.Medium,fontSize:10}}>{faq.address}</Text>
-                            </View>   
-                      </View> */}
                       <View style={{width:'100%',display:'flex',alignItems:'center'}}>
                         <TouchableOpacity onPress={()=>AcceptDate(faq)} style={{padding:5,alignItems:'center',flexDirection:'row',width:'50%',maxWidth:500,height:30,borderColor:'#1AE494',borderWidth:2,borderRadius: 20, marginBottom:20,justifyContent:'center',marginTop:20}}>
                           <Text style={{...Globalstyles.Purple,...Globalstyles.bold,fontSize:12}}>Aceptar</Text>  
                         </TouchableOpacity>
                       </View>
-                      
                     </>
                         )}
                 </View>

@@ -7,10 +7,18 @@ import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import styles from './FQStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
+import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
+import { AppContext } from '../../../AppContext/Context';
+import { GetName } from '../../../services/Auth/Login/Login';
+import { getAge } from '../../../services/DateManagement/DateManagement';
+import Documents from '../../../Shared/Icons/Documents';
 
 export default function FQ(props) {
 
   
+    /* USE CONTEXT */
+
+  const {userData}=React.useContext(AppContext);
     /* PANTALLA */
   const windowHeight = Dimensions.get('window').height;
   const newHeight = windowHeight  - 100;
@@ -110,50 +118,32 @@ const handleExpand = (index) => {
             </TouchableOpacity>
             <LogoMedicalComplete style={{ width: 160, height: 100 }}></LogoMedicalComplete>
           </View>
+          <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
         </View>
-        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center', minHeight: newHeight}}>
-            <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,fontSize:20,marginBottom:20}}>Preguntas frecuentes</Text>
+        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'flex-start', minHeight: newHeight}}>
+            <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,fontSize:20,marginBottom:20}}>Guías</Text>
             <View style={{...styles.searchBarContainer,...styles_shadow}}>
               <Icon name="search" size={20} color="#c4c4c4" style={{marginRight:10}}/>
                 <TextInput
-                    placeholder="Buscar preguntas"
+                    placeholder="Buscar guías"
                     onChangeText={handleSearch}
                     value={searchText}
                     style={{ ...Globalstyles.gray, fontSize:14,...Globalstyles.Medium,width:'90%'}}
-
                 />
             </View>
             {filteredFaqs.map((faq, index) => (
-            <View key={index} style={styles.cardContainer}>
-                <TouchableOpacity activeOpacity={0.99}  onPress={() => handleExpand(index)}>
-                  <View style={{ padding:10,alignItems:'center',flexDirection:'column',minWidth:'98%',maxWidth:'98%',maxWidth:300,height: expanded[index] ? 'auto' : 'auto',backgroundColor:'#F6F4FF',borderRadius: 10, marginBottom:16,...styles_shadow,minHeight:60,justifyContent:'center'}} >
-                        <Text style={{ ...Globalstyles.Purple, ...Globalstyles.Semibold, fontSize: 15, marginBottom:5,textAlign:'center' }} >
-                            {faq.title}
+            <TouchableOpacity key={index} style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#FAFAFB',borderRadius: 14, marginBottom:16, ...styles_shadow}}>
+                <View style={{width:'100%',height:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10,justifyContent:'center'}}>
+                        <Documents style={{width:50,height:50}}></Documents>
+                        <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:14,marginLeft:20,width:'75%',flexDirection:'column'}}>
+                          <Text style={{width:'100%',fontWeight:900}}>Documento</Text>
+                          {'\n'}
+                          <Text style={{width:'100%',...Globalstyles.gray}}>Nombre del archivo</Text>
                         </Text>
-                        <QuestionIcon style={{width:20,height:20,marginBottom:5,marginTop:5}}></QuestionIcon>
-                      {expanded[index] && (
-                      <View style={{ marginBottom: 10 ,minWidth:'98%',maxWidth:'98%',alignItems:'center',justifyContent:'center'}}>
-                          <Text style={{ ...Globalstyles.gray, fontSize: 10, marginBottom: 2,...Globalstyles.Medium}} >
-                              {faq.description}
-                          </Text> 
-                          <Text style={{ ...Globalstyles.gray,fontSize: 10 , marginTop: 10 , marginBottom:20,...Globalstyles.Semibold}}>
-                              {faq.content}
-                          </Text>
-                          {faq.link!=="" ?
-                          <TouchableOpacity style={{ ...Globalstyles.blueWhite,fontSize:10 , marginTop: 10 , marginBottom:20,...Globalstyles.bold}} onPress={()=>Linking.openURL(faq.link)}>
-                              <Text style={{ ...Globalstyles.blueWhite,fontSize:10,...Globalstyles.bold}}>{faq.link_text}</Text>
-                          </TouchableOpacity>
-                          :
-                          <>
-
-                          </>
-                          }
-                          
-                      </View>
-                      )}
-                  </View>
-                </TouchableOpacity>
-            </View>
+                </View>
+            </TouchableOpacity>
             ))}
         </LinearGradient>
       </View>
