@@ -134,7 +134,6 @@ export default function HistoryDates(props) {
    /** SISTEMA DE SOCKET */
 
    const socket_control=async(User,Token)=>{
-    console.log("SOCKER RECIBIDO: ",User,Token);
     const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
     setSocket(socket);
     socket.onopen = () => {

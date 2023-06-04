@@ -6,19 +6,19 @@ import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import styles from './FQStyles';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
-import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
-import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { getAge } from '../../../services/DateManagement/DateManagement';
 import Documents from '../../../Shared/Icons/Documents';
+import { getAreas, getDocumentsByArea } from '../../../services/Guias/Guias';
+import LoadingScreen from '../../../Shared/Alerts/Loader';
 
 export default function FQ(props) {
 
   
     /* USE CONTEXT */
 
-  const {userData}=React.useContext(AppContext);
+  const {userData,token}=React.useContext(AppContext);
     /* PANTALLA */
   const windowHeight = Dimensions.get('window').height;
   const newHeight = windowHeight  - 100;
@@ -31,83 +31,87 @@ export default function FQ(props) {
 
   const handleSearch = (text) => {
     setSearchText(text);
+    if(text===""){
+      setFilterDocuments(documents);
+    }else{
+      setFilterDocuments(documents.filter((obj)=>obj?.filename.toLowerCase().includes(text.toLowerCase())));
+    }
   };
+  /* OBTENEMOS LOS DOCUMENTOS */
 
-  /* FAQS */
-  const faqs = [
-    {
-      title: '¿Qué servicios médicos ofrecen en el domicilio?',
-      description: 'Ofrecemos una amplia variedad de servicios médicos en el domicilio, incluyendo ',
-      content:'1) Consulta médica.\n\n 2) Fisioterapia .\n\n 3) Terapia respiratoria.\n\n 4) Terapia ocupacional.\n\n 5) Terapia del lenguaje.\n\n 6) Consulta de psicología.\n\n 7) Nutrición.\n\n 8) Consulta de especialidades por telemedicina.\n\n 9) Orientación médica telefónica.\n\n 10) Cuidados paliativos.\n\n 11) Trabajo social.\n\n 12) Hospitalización en casa para patologías de menor complejidad.\n\n 13) Curaciones de mayor y menor complejidad.\n\n 14) Curaciones de mayor y menor complejidad.\n\n 15) Actividades de enfermería.\n\n 16) Hidratación por vía intravenosa.\n\n 17) Exámenes de laboratorio.\n\n 18) Ecografías.\n\n 19) Electrocardiograma.\n\n 20) Trasporte asistencial básico.\n\n',
-      link:'',
-    },
-    {
-      title: '¿Cuánto tiempo tardan en llegar a mi domicilio después de solicitar el servicio?',
-      description: '',
-      content:'El tiempo de llegada puede variar dependiendo de varios factores como condiciones climáticas, alteraciones de movilidad o del orden público y la ubicación de su domicilio, sin embargo, nuestra promesa de servicio es de máximo 120 minutos para la consulta médica.',
-      link:'',
-    },
-    {
-      title: '¿Ofrecen servicios médicos los fines de semana y días festivos',
-      description: '',
-      content:'Sí, ofrecemos servicios médicos los fines de semana y días festivos las 24 horas para brindar atención médica de calidad y en momentos críticos.',
-      link:'',
-    },
-    {
-      title: '¿Cuál es la tarifa por los servicios de atención médica domiciliaria?',
-      description: '',
-      content:'Si eres afiliado tu copago de consulta médica es de $50.000, en áreas de cobertura y el 20% de descuento en nuestros demás servicios.  Si deseas conocer nuestras tarifas particulares puedes dar click en el siguiente enlace',
-      link:'',
-    },
-    {
-      title: '¿Cómo puedo pagar por los servicios de atención médica domiciliaria?',
-      description: 'Nuestra empresa se encuentra comprometida con la supresión del efectivo en las transacciones con el fin de eliminar la contaminación cruzada entre domicilios y proteger la salud de nuestros pacientes. Aunque recibimos efectivo, le sugerimos cancelar nuestros servicios por medios electrónicos.',
-      content:'Puede pagar con código QR disponible para Davivienda, Daviplata, Bancolombia y Nequi. O hacer transferencia electrónica a nuestras cuentas bancarias: \n\n-Cuenta corriente de Davivienda 086769999995 \n-Cuenta corriente de Bancolombia 623-000004-03. \n-Cuenta corriente de BBVA 537028193.\n\nTambién puedes pagar por medio de PSE:\n\nDebes ingresar a la página web: \n\n http://www.medicalhomecarecolombia.com \n\n en la sección servicios ir al botón realizar pago y en la parte izquierda ir al botón PSE. Seguir las instrucciones  y enviar comprobante del pago',
-      link:'',
-    },
-    {
-      title: '¿Cuál es el horario de atención al cliente?',
-      description: '',
-      content:'Nuestra atención para consulta prioritaria es los 7 días de la semana las 24 horas del día.  Nuestro horario de atención al cliente es de lunes a jueves de 7:00 a.m. a 6:00 p.m y viernes de 7:00 a.m. a 4:00 p.m.  para pacientes del programa de cuidado crónico. ',
-      link:'',
-    },
-    {
-      title: '¿Cómo puedo hacer una queja o reclamo sobre el servicio que recibí?',
-      description: '',
-      content:'¡¡Su opinión es muy importante para nosotros!! Si tiene alguna felicitación, petición, queja, reclamo o sugerencia sobre el servicio que recibió, por favor contáctenos inmediatamente a través de nuestro número de teléfono o diligencie la siguiente encuesta:',
-      link:'https://docs.google.com/forms/d/e/1FAIpQLSfKsTGR8n4eoIS6liRYytLQ_KcDqbtRA_Tw0yepYqUsFVQ6EA/viewform?embedded=true',
-      link_text:'Realizar encuesta',
-    },
-    {
-      title: '¿Ofrecen servicios de atención médica a pacientes pediátricos?',
-      description: '',
-      content:'Sí, ofrecemos servicios de atención médica domiciliaria presencial para pacientes pediátricos, con atención de médico general.  Contamos además con consulta bajo la modalidad de telemedicina de pediatría y otras 13 especialidades médicas. ',
-      link:'',
-    },
-  ];
+  React.useEffect(() => {
+    
+    if(token){
+      getData();
+    }
+    
 
-const [expanded, setExpanded] = useState({});
+  }, [token]);
 
-const handleExpand = (index) => {
-  setExpanded({
-    ...expanded,
-    [index]: !expanded[index]
-  });
-};
+  /* USE STATE */
 
+  let [preloader,setPreloader]=React.useState(false);
+  let [DocumentsAreas,setDocumentsAreas]=React.useState([]);
+  let [documents,setDocuments]=React.useState([]);
+  let [filterDocuments,setFilterDocuments]=React.useState([]);
 
-  const filteredFaqs = faqs.filter((faq) => {
-    const title = faq.title.toLowerCase();
-    const description = faq.description.toLowerCase();
-    const searchTextLower = searchText.toLowerCase();
-    return (
-      title.includes(searchTextLower) || description.includes(searchTextLower)
-    );
-  });
+  const getData=async()=>{
+
+    let result=undefined;
+    setPreloader(true);
+    result=await getAreas(token).catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+    })
+
+    if(result){
+      setDocumentsAreas(result.data);
+      setPreloader(false);
+      getDocuments(result.data)
+    }
+  }
+
+  const getDocuments=async(areas)=>{
+ 
+    let result=undefined;
+    setPreloader(true);
+    let filterArea=areas.filter((obj)=>{
+      if(obj.area==="GUÍAS PRÁCTICAS"){
+        return obj
+      }
+    })
+    console.log("CONSOLA: ",filterArea);
+    result=await getDocumentsByArea(filterArea[0].id,token).catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+    })
+    
+    if(result){
+      console.log("Data documentos: ",result.data);
+      setDocuments(result.data);
+      setFilterDocuments(result.data);
+      setPreloader(false);
+    }
+
+  }
+
+  const handleOpenDocument = (dc) => {
+    const documentUrl = dc.path; // URL del documento que deseas abrir
+
+    Linking.openURL(documentUrl)
+      .catch((error) => {
+        console.log('Error al abrir el documento:', error);
+      });
+  };
 
 
   return (
   <View style={styles.container}>
+  {preloader ? 
+      <LoadingScreen/>
+      :
+      <></>
+  }
   <ImageBackground source={require('../../../assets/Bienvenida-Ingreso/BG-Menú-Ingresar.png')} style={styles.imageBackground}>
     <ScrollView showsVerticalScrollIndicator={false} style={{}}>
       <View style={styles.LobbyContainer}>
@@ -133,14 +137,14 @@ const handleExpand = (index) => {
                     style={{ ...Globalstyles.gray, fontSize:14,...Globalstyles.Medium,width:'90%'}}
                 />
             </View>
-            {filteredFaqs.map((faq, index) => (
-            <TouchableOpacity key={index} style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#FAFAFB',borderRadius: 14, marginBottom:16, ...styles_shadow}}>
+            {filterDocuments.map((faq, index) => (
+            <TouchableOpacity onPress={()=>handleOpenDocument(faq)} key={index} style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#FAFAFB',borderRadius: 14, marginBottom:16, ...styles_shadow}}>
                 <View style={{width:'100%',height:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10,justifyContent:'center'}}>
                         <Documents style={{width:50,height:50}}></Documents>
                         <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:14,marginLeft:20,width:'75%',flexDirection:'column'}}>
                           <Text style={{width:'100%',fontWeight:900}}>Documento</Text>
                           {'\n'}
-                          <Text style={{width:'100%',...Globalstyles.gray}}>Nombre del archivo</Text>
+                          <Text style={{width:'100%',...Globalstyles.gray}}>{faq?.filename}</Text>
                         </Text>
                 </View>
             </TouchableOpacity>

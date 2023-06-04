@@ -39,4 +39,15 @@ export const environment = {
 
   //SERVICIOS DEL MÉDICO
   getMedicDates:'citas/retrieve-appointment-service-by-doctor/',
+  
+  /* DOCUMENTOS */
+  createArea:'gestion-humana/insert-area/',
+  getAreas:'gestion-humana/retrieve-area/',
+  deleteArea:'gestion-humana/delete-area/',
+  updateArea:'gestion-humana/update-area/',
+  pushDocument:'gestion-humana/insert-area-document/',
+  returnDocuments:'gestion-humana/retrieve-area-document/',
+  returnDocumentsByArea:'gestion-humana/retrieve-area-document/',
+  deleteDocument:'gestion-humana/delete-area-document/',
+
 }
