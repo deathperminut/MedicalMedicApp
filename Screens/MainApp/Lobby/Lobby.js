@@ -18,7 +18,7 @@ import { formatearFecha, formatearHora, getAge } from '../../../services/DateMan
 import CustomModal from '../../../Shared/Alerts/Alert';
 import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
-import { cancelService, getActiveService } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { cancelService, getActiveService, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
 import { color } from 'react-native-reanimated';
 import { getActiveDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
@@ -71,7 +71,7 @@ const ServicesData=[
 export default function Lobby(props) {
 
   /* APP CONTEXT */
-  var {userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep} =React.useContext(AppContext);
+  var {activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep} =React.useContext(AppContext);
 
   /* NAVIGATE */
   var {navigation}=props.props
@@ -122,10 +122,10 @@ const handleCancel = () => {
   /* NEW SERVICE LOGIC */
 
   React.useEffect(()=>{
-    if(token && currentDate===null){
+    if(token && currentDate===null && activities.length!==0){
       getData();
     }
-  },[userData])
+  },[userData,activities])
 
   const getData=async()=>{
     setPreloader(true);
@@ -153,6 +153,44 @@ const handleCancel = () => {
 
 
     
+  }
+
+  React.useEffect(()=>{
+    if(token){
+      GetActivities();
+    }
+    
+  },[])
+  
+  const GetActivities=async()=>{
+   
+    setPreloader(true);
+    let result=undefined;
+    result=await getActivities(token).catch((error)=>{
+     console.log("error",error);
+     handleError();
+     setPreloader(false);
+    })
+  
+    if (result!==undefined){
+     console.log("ACTIVIDADES: ",result.data);
+     let ACTIVITIES=result['data'].map(obj => ({
+      value: obj.id,
+      label: obj.name,
+    }))
+    setActivities(ACTIVITIES);
+    setPreloader(false);
+    }
+  }
+
+  const GetActividad=(ActivityId)=>{
+
+   console.log("actividad: ",ActivityId);
+   let FilterArray = activities.filter((obj)=>obj.value.toString() === ActivityId.toString());
+
+   console.log("ARREGLO FILTRADO: ",FilterArray);
+   return FilterArray[0].label
+
   }
 
   const registerForPushNotificationsAsync = async () => {
@@ -209,7 +247,7 @@ const handleCancel = () => {
   }
 
   /* OBTENEMOS LAS ACTIVIDADES */
-  
+
 
 
   
@@ -286,6 +324,9 @@ const handleCancel = () => {
                                 </View>
                               </View>
                           </View>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <Text style={{...Globalstyles.text,...Globalstyles.gray,textAlign:'center'}}>{GetActividad(currentDate?.activity)}</Text>
+                          </View>
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                                 <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                                   <Text style={{width:120,...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{'Autorización'}</Text>
@@ -311,10 +352,8 @@ const handleCancel = () => {
                                 </View>
                           </View>
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
-                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center'}}>{'CRA 5A NÚMERO 48-31 EDIFICIO LORENA APTO 301 AL PIE DEL ACQUA'}</Text>
-                          </View>
-                          
-
+                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center'}}>{currentDate?.address}</Text>
+                          </View>                          
                 </View>
                 </>
                 :

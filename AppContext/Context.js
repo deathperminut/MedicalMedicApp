@@ -19,6 +19,7 @@ const AppWrapper = (props) => {
   var [listBeneficient,setListBeneficient]=useState([]);
   var [listNotifications,setListNotifications]=useState([{id:1}]);
   var [selectBeneficient,setSelectBeneficient]=useState(null);
+  let [activities,setActivities]=React.useState([]);
 
   // DATEMANAGEMENT
 
@@ -36,12 +37,14 @@ const AppWrapper = (props) => {
     setListBeneficient([])
     setSelectBeneficient(null)
     setPatient(null)
+    setActivities([])
 
   }
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
     <AppContext.Provider value={{ 
+      activities,setActivities,
       listNotifications,setListNotifications,
       Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
     patient,setPatient,step,setStep}}>
