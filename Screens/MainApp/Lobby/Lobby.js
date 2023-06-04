@@ -22,6 +22,8 @@ import { cancelService, getActiveService, getActivities } from '../../../service
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
 import { color } from 'react-native-reanimated';
 import { getActiveDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
+import MapView, { Marker, Polyline } from 'react-native-maps';
+
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -353,7 +355,33 @@ const handleCancel = () => {
                           </View>
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                                 <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center'}}>{currentDate?.address}</Text>
-                          </View>                          
+                          </View> 
+                          <MapView
+                            style={{ flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:500,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}
+                            initialRegion={{
+                              latitude: 37.78825, // Latitud inicial del mapa
+                              longitude: -122.4324, // Longitud inicial del mapa
+                              latitudeDelta: 0.0922,
+                              longitudeDelta: 0.0421,
+                            }}
+                          >
+                            <Marker
+                              coordinate={{ latitude: 37.78825, longitude: -122.4324 }} // Coordenadas de tu posición actual
+                              title="Mi posición actual"
+                            />
+                            <Marker
+                              coordinate={{ latitude: 37.7896386, longitude: -122.421646 }} // Coordenadas de la segunda posición
+                              title="Destino"
+                            />
+                            <Polyline
+                              coordinates={[
+                                { latitude: 37.78825, longitude: -122.4324 },
+                                { latitude: 37.7896386, longitude: -122.421646 },
+                              ]}
+                              strokeWidth={4}
+                              strokeColor="#FF0000"
+                            />
+                          </MapView>                         
                 </View>
                 </>
                 :
