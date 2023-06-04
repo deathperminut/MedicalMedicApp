@@ -208,6 +208,9 @@ const handleCancel = () => {
 
   }
 
+  /* OBTENEMOS LAS ACTIVIDADES */
+  
+
 
   
 
@@ -255,7 +258,7 @@ const handleCancel = () => {
                 {currentDate!== null ? 
                 <>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Cita Aceptada</Text>
-                <View style={{width:'100%',flexDirection:'row',alignItems:'flex-start',justifyContent:'center'}}>
+                <View style={{width:'100%',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                               {currentDate?.genre?.toLowerCase()==="masculino" ? 
                                 <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden',marginRight:15}}>
@@ -283,6 +286,35 @@ const handleCancel = () => {
                                 </View>
                               </View>
                           </View>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                                  <Text style={{width:120,...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{'Autorización'}</Text>
+                                  <View style={{borderColor:'#FF0057',borderWidth:1,borderRadius:20, padding:5,justifyContent:'center',marginLeft:20,minWidth:200}}>
+                                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,fontSize:10,textAlign:'center'}}>{"#"+currentDate.authorization_id}</Text>
+                                  </View>
+                                </View>
+                          </View>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                                  <Text style={{width:120,...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{'Copago'}</Text>
+                                  <View style={{borderColor:'#BDFC97',borderWidth:1,borderRadius:20, padding:5,justifyContent:'center',marginLeft:20,minWidth:200}}>
+                                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,fontSize:10,textAlign:'center'}}>{"$"+currentDate.copay}</Text>
+                                  </View>
+                                </View>
+                          </View>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <View style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+                                  <Text style={{width:120,...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{'C. moderadora'}</Text>
+                                  <View style={{borderColor:'#BDFC97',borderWidth:1,borderRadius:20, padding:5,justifyContent:'center',marginLeft:20,minWidth:200}}>
+                                    <Text style={{...Globalstyles.Medium,...Globalstyles.gray,fontSize:10,textAlign:'center'}}>{"$"+currentDate.moderator_fee}</Text>
+                                  </View>
+                                </View>
+                          </View>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center'}}>{'CRA 5A NÚMERO 48-31 EDIFICIO LORENA APTO 301 AL PIE DEL ACQUA'}</Text>
+                          </View>
+                          
+
                 </View>
                 </>
                 :
