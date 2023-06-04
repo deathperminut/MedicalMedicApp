@@ -119,7 +119,7 @@ export default function HistoryDates(props) {
 
       }else{
         console.log("DATOS CITAS",result.data)
-        //setHistoryDates(result.data);
+        setHistoryDates(result.data);
       }
 
       socket_control(userData,token);
@@ -142,6 +142,9 @@ export default function HistoryDates(props) {
     socket.onmessage = (event) => {
       console.log('Received message: ' ,JSON.parse(event.data));
       let data=JSON.parse(event.data);
+      if(data.type==="appointment_doctor"){
+        setHistoryDates(data.services)
+      }
     };
 
     socket.onerror = (error) => {

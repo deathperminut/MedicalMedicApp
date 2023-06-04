@@ -17,6 +17,7 @@ const AppWrapper = (props) => {
   //BENEFICIENT
 
   var [listBeneficient,setListBeneficient]=useState([]);
+  var [listNotifications,setListNotifications]=useState([{id:1}]);
   var [selectBeneficient,setSelectBeneficient]=useState(null);
 
   // DATEMANAGEMENT
@@ -40,7 +41,9 @@ const AppWrapper = (props) => {
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
-    <AppContext.Provider value={{ Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
+    <AppContext.Provider value={{ 
+      listNotifications,setListNotifications,
+      Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
     patient,setPatient,step,setStep}}>
       {props.children}
     </AppContext.Provider>

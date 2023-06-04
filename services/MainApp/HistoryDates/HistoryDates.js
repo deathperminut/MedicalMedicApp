@@ -4,7 +4,6 @@ import { environment } from "../../../environments/environments";
 
 const getMedicDates=async(token)=>{
     const path=environment.api+environment.getMedicDates;
-    console.log(path)
     let config = {
       headers: {
         Authorization: 'Bearer ' + token,
@@ -13,4 +12,15 @@ const getMedicDates=async(token)=>{
     return await axios.get(path,config);
 }
 
-export {getMedicDates};
+const getActiveDates=async(token)=>{
+  const path=environment.api+environment.getActiveDate;
+  let config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await axios.get(path,config);
+
+}
+
+export {getMedicDates,getActiveDates};

@@ -11,6 +11,27 @@ shadowRadius: 14.78,
 
 elevation: 5,
 })
+
+export const styles_shadow2=StyleSheet.create({
+  shadowColor: "#003",
+  shadowOffset: {
+    width: 0,
+    height: 3,
+  },
+  elevation: 10,
+  })
+
+ export const stylesNew = StyleSheet.create({
+    container: {
+      flex: 1,
+      // Agrega otros estilos necesarios
+    },
+    overlay: {
+      ...StyleSheet.absoluteFillObject,
+      opacity: 0.2,
+      // Ajusta otros estilos según tus necesidades
+    },
+  });
 const styles = StyleSheet.create({
     container: {
         width:'100%',

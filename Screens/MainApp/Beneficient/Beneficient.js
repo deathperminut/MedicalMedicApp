@@ -12,12 +12,15 @@ import { getAge } from '../../../services/DateManagement/DateManagement';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import { getBeneficients } from '../../../services/MainApp/Beneficient/Beneficient';
+import { styles_shadow2 } from '../OurServices/OurServicesStyles';
+import AlertComponent from '../../../Shared/Icons/AlertComponent';
+import { stylesNew } from '../OurServices/OurServicesStyles';
 
 
 export default function Beneficient(props) {
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
+  let {listNotifications,setListNotifications,userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient} =React.useContext(AppContext);
   
   /* NAVIGATE */
   let {navigation}=props
@@ -44,37 +47,9 @@ export default function Beneficient(props) {
     setShowModal(false);
   };
 
-  React.useEffect(()=>{
-    if(token){
-      if(selectBeneficient===null || selectBeneficient==={}){
-        getData();
-      }
-    }
-  },[selectBeneficient])
 
   /* FUNCTIONS */
 
-  const getData=async()=>{
-    
-    setPreloader(true);
-    let result=undefined;
-    result= await getBeneficients(userData,token).catch((error)=>{
-      
-      console.log(error);
-      setPreloader(false);
-      handleError();
-    })
-    if(result){
-      setPreloader(false);
-      setListBeneficient(result.data);
-    }
-    
-  }
-
-  const EDITBeneficient=(beneficient)=>{
-    setSelectBeneficient(beneficient);
-    navigation.navigate('EditBeneficient');
-  }
 
   return (
     <View style={styles.container}>
@@ -97,40 +72,30 @@ export default function Beneficient(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
         </View>
         <LinearGradient colors={['#FFFFFF', '#695F9766']} style={{...styles.FormContainer,alignItems:'center'}}>
-          <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginBottom:20}}>Beneficiarios</Text>
-          <View style={{width:'100%',alignItems:'center'}}>
-            <View>
-                <TouchableOpacity style={{width:30,height:30,borderRadius:30,backgroundColor:'#F19420',alignItems:'center',justifyContent:'center',marginBottom:20}} onPress={()=>{navigation.navigate('RegisterBeneficient')}}>
-                        <Text style={{textAlign:'center',...Globalstyles.white,textAlignVertical:'center',...Globalstyles.Title,position:'relative',bottom:7}}>+</Text>
-                </TouchableOpacity>
-            </View>
-          </View>
+          <Text style={{...Globalstyles.Semibold,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginBottom:20}}>Notificaciones</Text>
           <ScrollView style={{width:'100%',marginBottom:0,maxWidth:470,maxHeight:'160%',height:'140%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
-                
-              {listBeneficient.map((beneficient, index) => (
-                <View key={index} style={{width:'100%',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-                      <TouchableOpacity onPress={()=>EDITBeneficient(beneficient)}  style={{flexDirection:'row', marginBottom:5,width:'90%',height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
-                        {beneficient?.genre.toLowerCase()==="masculino" ? 
-                          <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
-                           <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
-                          </View>
-                          
-                          :
-                          <View style={{borderRadius:60,maxWidth:68,maxHeight:68,overflow:'hidden',marginRight:10}}>
-                           <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
-                          </View>
-                        }
-                        <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View style={{alignItems:'center',justifyContent:'center',flex:1}}>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:17,textAlign:'center'}}>{GetName(beneficient)}</Text>
-                          <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text}}>{beneficient.identification_type+'. '+beneficient.identification}</Text>
+                <View style={{width:'100%',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+                  {listNotifications.map((notifications, index) => (
+                     <TouchableOpacity key={index}  style={{flexDirection:'row',marginBottom:5,width:'90%',height:90,backgroundColor:'#F3F2F8',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
+                        <View style={{width:'20%',height:'100%',alignItems:'center',justifyContent:'center',backgroundColor:'transparent'}}>
+                          <AlertComponent style={{width:25,height:25}}></AlertComponent>
                         </View>
+                        <View style={{width:'80%',height:'100%',alignItems:'flex-start',justifyContent:'center',backgroundColor:'transparent'}}>
+                          <View style={{alignItems:'flex-start',justifyContent:'center',flex:1,groundColor:'transparent',}}>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:15,textAlign:'left',color:'#414D55'}}>{'Mantenimiento preventivo'}</Text>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,flexDirection:'row',color:'black',marginBottom:2}}>
+                               <Text style={{color:'#414D55',fontSize:12}}>Dias restantes: </Text> 
+                               <View>
+                                <Text style={{backgroundColor:'#F96767',borderRadius:20,padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:10,color:'white'}}>20</Text>
+                               </View>
+                             </Text>
+                             <Text style={{...Globalstyles.text,color:'#414D55'}}>Item: <Text style={{padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:12,...Globalstyles.gray}}>Tasa de lixiviados</Text></Text>
+                          </View>
                         </View>
-                      </TouchableOpacity>
+                     </TouchableOpacity>
+                  ))}
                 </View>
-              ))}
-                
             </View>
           </ScrollView>
           

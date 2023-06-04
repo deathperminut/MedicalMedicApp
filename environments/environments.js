@@ -50,4 +50,8 @@ export const environment = {
   returnDocumentsByArea:'gestion-humana/retrieve-area-document/',
   deleteDocument:'gestion-humana/delete-area-document/',
 
+  /* CITA ACTIVA MEDICO */
+
+  getActiveDate:'citas/retrieve-activate-appointment-service/',
+
 }

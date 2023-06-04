@@ -12,15 +12,105 @@ import ImageInput from '../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { initRegisterBeneficient } from '../../../services/Auth/Register/RegisterBeneficient/RegisterBeneficient';
-import { deleteBeneficient, editBeneficient, editUser } from '../../../services/Auth/Register/EditBeneficient/EditBeneficient';
+import { deleteBeneficient, editBeneficient, editUser, getBarrios, getWareLocation } from '../../../services/Auth/Register/EditBeneficient/EditBeneficient';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function EditRegister(props) {
 
-  let {navigation}=props
+  const handleError_ = () => {
+    setMessage('Error al cargar datos');
+    setIconName('error');
+    setShowModal(true);
+  };
+
   
-  /* USE STATE */
-  let [showPassword,setShowPassword]=React.useState(true);
-  let [showPassword2,setShowPassword2]=React.useState(true);
+  /* REACT USESTATE */
+
+  let [barrios,setBarrios]=React.useState([]);
+  let [barriosSublist,setBarriosSublist]=React.useState([]);
+  let [cities,setCities]=React.useState([]);
+  let [citiesComplete,setCitiesComplete]=React.useState([]);
+
+  React.useEffect(()=>{
+    
+    getData()
+
+  },[])
+
+
+  const getData=()=>{
+     getlocations();
+  }
+ 
+  const getlocations=async()=>{
+   setPreloader(true);
+   let result=undefined;
+   result=await getWareLocation().catch((error)=>{
+    console.log(error);
+    setPreloader(false);
+    handleError_();
+   })
+   if (result){
+      //setPreloader(false);
+      setCities(result.data.map(
+        obj => ({
+          value: obj.location_name,
+          label: obj.location_name,
+        })
+      ))
+      setCitiesComplete(result.data.map(
+        obj => ({
+          value: obj.id,
+          label: obj.location_name,
+        })
+      )) 
+      GetBarrios()    
+   }
+  }
+
+  
+
+  const findLocation=(location_name)=>{
+
+    console.log("DATOS OJO",location_name);
+    // for (var i=0;i<citiesComplete.length;i++){
+    //   if(citiesComplete[i].label.toLowerCase() === location_name.toLowerCase()){
+    //     return citiesComplete[i].value
+    //   }
+    // }
+
+  }
+
+  const GetBarrios=async()=>{
+    setPreloader(true);
+    let result = undefined;
+    result = await getBarrios().catch((error)=>{
+      console.log(error);
+      setPreloader(false);
+      handleError_();
+    }) 
+
+    if (result){
+      setPreloader(false);
+      setBarrios(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+      setBarriosSublist(result.data.map(
+        obj => ({
+          value: obj.neighbourhood,
+          label: obj.neighbourhood,
+          location:obj.location_id,
+        })
+      ))
+
+    }
+  }
+
+  let {navigation}=props
 
   /* APP CONTEXT */
  let {token, userData,setUserData, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
@@ -75,11 +165,16 @@ export default function EditRegister(props) {
  };
  
 
-
+ const placeholder_type = {
+  label: 'Barrio',
+  value: null,
+  color: '#7E72D1',
+  fontFamily:'Montserrat-SemiBold'
+};
 
  /* USESTATE */
 
- let [userData_,setUserData_]=React.useState(userData)
+ let [userData_,setUserData_]=React.useState({...userData})
 
  /* FUNCTIONS */
 
@@ -94,6 +189,7 @@ export default function EditRegister(props) {
    if(value === null){
      setUserData_({...userData,[type]:""});
    }else{
+     console.log("VALOR A CAMBIAR: ",value);
      setUserData_({...userData_,[type]:value});
    }
    
@@ -120,6 +216,7 @@ export default function EditRegister(props) {
  const [open2, setOpen2] = React.useState(false);
  const [open3, setOpen3] = React.useState(false);
  const [open4, setOpen4] = React.useState(false);
+ const [open5, setOpen5] = React.useState(false);
 
  /* LIST FORM DATA */
 
@@ -142,11 +239,8 @@ export default function EditRegister(props) {
     {title:"10",data:[{id:9,type:'phone',placeholder:'Número celular' ,icon:'phone',typeIcon:'font-awesome' ,typeForm:'input',data:[]}]},
     {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
     {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
-    {title:"13",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
-    {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:[
-      { value: "armenia", label: "Armenia" },
-      { value: "manizales", label: "Manizales" }
-    ],open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+    {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+    {title:"13",data:[{id:12,type:"neighbourhood",placeholder:"Barrio" ,data:cities,open:open5,setOpen:setOpen5,typeForm:'select'} ]},
     {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
       { value: "Masculino", label: "Masculino" },
       { value: "Femenino", label: "Femenino" }
@@ -162,6 +256,15 @@ export default function EditRegister(props) {
     ],open:open,setOpen:setOpen,typeForm:'dropdown'}]},
     {title:'19',data:[{typeForm:'submit'}]},
 ]
+
+React.useEffect(()=>{
+  console.log("ciudad de cobertura: ",userData_);
+  // if(userData_.coverage_city !== ""){
+  //     let ArrayFilter=barriosSublist.filter((obj)=> obj.location === findLocation(userData_.coverage_city));
+  //     setBarrios(ArrayFilter);
+  //  }
+
+},[userData_])
 
 const renderFormItem = ({ item }) => {
  
@@ -255,6 +358,17 @@ const renderFormItem = ({ item }) => {
             <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
         </View>
       );
+    case 'select':
+        return(
+          <View style={{width:'100%',maxWidth:500,marginBottom:20}}>
+            <RNPickerSelect
+                    placeholder={placeholder_type}
+                    onValueChange={(value) => InputSelectRead(value,"neighbourhood")}
+                    items={barrios}
+            />
+          </View>
+        )
+       
     case 'delete':
         return(
           <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
@@ -324,9 +438,6 @@ const UPDATEBeneficient=async()=>{
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Editar Perfil</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>dale click al boton de actualizar para confirmar los cambios</Text>
-        {/* <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-                        <ImageInput ReturnFile={InputImageRead}></ImageInput>
-         </View> */}
          <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

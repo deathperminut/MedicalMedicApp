@@ -20,6 +20,8 @@ import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import { cancelService, getActiveService } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
+import { color } from 'react-native-reanimated';
+import { getActiveDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -119,32 +121,6 @@ const handleCancel = () => {
 
   /* NEW SERVICE LOGIC */
 
-  const cancelDate=async()=>{
-
-    setShowModalCancel(false);
-    
-    if(currentDate.status==="INGRESADA"){
-
-      setPreloader(true);
-      let result=undefined;
-      result=await cancelService(currentDate,reason,token).catch((error)=>{
-
-        console.log(error);
-        setPreloader(false);
-        handleError();
-
-      })
-
-      if (result !== undefined){
-        setPreloader(false);
-        setCurrentDate(null);
-      }
-
-    }else{
-      handleInfo();
-    }
-  }
-
   React.useEffect(()=>{
     if(token && currentDate===null){
       getData();
@@ -154,34 +130,25 @@ const handleCancel = () => {
   const getData=async()=>{
     setPreloader(true);
     let result=undefined
-    result= await getActiveService(userData,token).catch((error)=>{
+    result= await getActiveDates(token).catch((error)=>{
       console.log(error);
       handleError();
       setPreloader(false);
     })
     if (result!==undefined){
-      let ArrayDates=result.data;
-      if(ArrayDates.length!==0){
-         setCurrentDate(ArrayDates[0]);
-         if(ArrayDates[0].status==="INGRESADA"){
-          setStep(0)
-         }else if(ArrayDates[0].status==="ACEPTADA"){
-          setStep(1)
-         }else if(ArrayDates[0].status==="AGENDADA"){
-          setStep(2)
-         }else{
-          setStep(3)
-         }
-         //handleCita()
-       }
-       setPreloader(false);
+      console.log("DatesActive",result.data)
+      console.log("ActiveDate: ",result.data.name);
+      if(result.data.name){
+        let DateActive=result.data;
+        setCurrentDate(DateActive);
+      }
+      
+      setPreloader(false);
        // NOS SUSCRIBIMOS AL SOCKET
        //getNotificationPermission();
-       registerForPushNotificationsAsync(userData).then((token) => {
+      registerForPushNotificationsAsync(userData).then((token) => {
         // NOS SUSCRIBIMOS AL SOCKET
-       });
-      
-
+      });
     }
 
 
@@ -276,22 +243,20 @@ const handleCancel = () => {
                 {currentDate!== null ? 
                 <>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30,marginBottom:10}}>Cita Aceptada</Text>
-                <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
-                  <View style={{width:'100%',flexDirection:'row',alignItems:'flex-start',justifyContent:'flex-start'}}>
-                        <View  style={{flexDirection:'column', marginBottom:5,width:'100%',height:393,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
-                        <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                <View style={{width:'100%',flexDirection:'row',alignItems:'flex-start',justifyContent:'center'}}>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,height:90,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                               {currentDate?.genre?.toLowerCase()==="masculino" ? 
-                                <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                                <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden',marginRight:15}}>
                                   <ImageBackground source={require('../../../assets/Male-User.png')} style={styles.photo}></ImageBackground>
                                 </View>
                                 :
-                                <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
+                                <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden',marginRight:15}}>
                                   <ImageBackground source={require('../../../assets/Female-User.png')} style={styles.photo}></ImageBackground>
                                 </View>
                               }
-                              <View style={{maxWidth:250,alignItems:'flex-start',justifyContent:'flex-start',backgroundColor:'#FFFFFF'}}>
-                                <View>
-                                  <View style={{flexDirection:'row',alignItems:'center'}}>
+                              <View style={{maxWidth:250,alignItems:'center',justifyContent:'center',backgroundColor:'#FFFFFF'}}>
+                                <View style={{width:'100%'}}>
+                                  <View style={{flexDirection:'row',alignItems:'center',width:'100%',justifyContent:'center'}}>
                                     <Icon
                                       name='calendar'
                                       type='font-awesome'
@@ -305,9 +270,7 @@ const handleCancel = () => {
                                   <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate.identification_type + ' ' +currentDate.identification}</Text>
                                 </View>
                               </View>
-                            </View>
-                        </View>
-                  </View>
+                          </View>
                 </View>
                 </>
                 :
@@ -321,22 +284,18 @@ const handleCancel = () => {
                 <ScrollView horizontal={true} style={{width:'100%',height:220,paddingTop:30}} showsHorizontalScrollIndicator={false}>
                   <View style={{width:"100%",flexDirection:'row'}}>
                     <View style={{maxHeight:100,flexDirection:'row'}}>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:150}} onPress={()=>openWhatsApp()}>
-                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                            <QuestionIcon style={{width:15,height:15}}></QuestionIcon>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:250}} onPress={()=>openWhatsApp()}>
+                        <View style={{width:50,height:50,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
+                            <QuestionIcon style={{width:25,height:25}}></QuestionIcon>
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Chat</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:150}} onPress={()=>{navigation.navigate('FrecuentQuestions')}}>
-                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                            <ContactIcon style={{width:15,height:15}}></ContactIcon>
+                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:250}} onPress={()=>{navigation.navigate('Beneficient')}}>
+                        <View style={{marginBottom:4,minWidth:23,minHeight:20,padding:3,borderRadius:30,backgroundColor:'#F96767',alignItems:'center',justifyContent:'center',position:'relative',top:20,left:20}}>
+                           <Text style={{color:'white'}}>0</Text>
                         </View>
-                        <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Reunión</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={{...styles.options,...styles_shadow,width:150}} onPress={()=>{navigation.navigate('Beneficient')}}>
-                        <View style={{width:30,height:30,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
-                           
-                           <AlertComponent style={{width:15,height:15}}></AlertComponent>
+                        <View style={{width:50,height:50,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
+                           <AlertComponent style={{width:25,height:25}}></AlertComponent>
                         </View>
                         <Text style={{...Globalstyles.bold,...Globalstyles.SubTitle_2,...Globalstyles.Purple}}>Alertas</Text>
                       </TouchableOpacity>
@@ -347,7 +306,6 @@ const handleCancel = () => {
             </View>
           </ScrollView>
           <CustomModal visible={showModal} onClose={()=>setShowModal(false)} message={message} iconName={iconName}></CustomModal>
-          <CustomModalCancel readInputReason={readInputReason} visible={showModalCancel} cancel={cancelDate} onClose={()=>setShowModalCancel(false)} message={message} iconName={iconName}></CustomModalCancel>
         </View>
 
       
