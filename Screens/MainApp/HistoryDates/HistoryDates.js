@@ -122,7 +122,7 @@ export default function HistoryDates(props) {
         setHistoryDates(result.data);
       }
 
-      socket_control(userData,token);
+      //socket_control(userData,token);
       
       setPreloader(false);
 
@@ -133,32 +133,32 @@ export default function HistoryDates(props) {
 
    /** SISTEMA DE SOCKET */
 
-   const socket_control=async(User,Token)=>{
-    const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
-    setSocket(socket);
-    socket.onopen = () => {
-        console.log('WebSocket connected');
-    };
-    socket.onmessage = (event) => {
-      console.log('Received message: ' ,JSON.parse(event.data));
-      let data=JSON.parse(event.data);
-      if(data.type==="appointment_doctor"){
-        setHistoryDates(data.services)
-      }
-    };
+  //  const socket_control=async(User,Token)=>{
+  //   const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
+  //   setSocket(socket);
+  //   socket.onopen = () => {
+  //       console.log('WebSocket connected');
+  //   };
+  //   socket.onmessage = (event) => {
+  //     console.log('Received message: ' ,JSON.parse(event.data));
+  //     let data=JSON.parse(event.data);
+  //     if(data.type==="appointment_doctor"){
+  //       setHistoryDates(data.services)
+  //     }
+  //   };
 
-    socket.onerror = (error) => {
-      console.log('WebSocket error: ' + error.message);
-    };
+  //   socket.onerror = (error) => {
+  //     console.log('WebSocket error: ' + error.message);
+  //   };
 
-    socket.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
+  //   socket.onclose = () => {
+  //     console.log('WebSocket disconnected');
+  //   };
 
-    return () => {
-      socket.close();
-    };
-  }
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }
 
   /* UPDATE DATE */
 
@@ -196,7 +196,7 @@ export default function HistoryDates(props) {
             <TouchableOpacity>
               <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>{
                 navigation.navigate('Drawer');
-                Socket.onclose();
+                //Socket.onclose();
               }}></Icon>
             </TouchableOpacity>
             <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>

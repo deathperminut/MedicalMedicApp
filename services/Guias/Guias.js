@@ -38,6 +38,7 @@ const getAreas = async(token) => {
     return await axios.get(path,config);
 };
 const getDocumentsByArea = async(AreaId,token) => {
+    console.log(AreaId)
     const path = environment.api + environment.returnDocumentsByArea+AreaId;
     let config = {
       headers: {

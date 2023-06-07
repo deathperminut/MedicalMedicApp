@@ -93,6 +93,31 @@ const getActivities=async(token)=>{
     return await axios.post(path,DATE,config);
   }
 
+  const UpdateDate_Arrive=async (DATE,Token)=>{
+    const path=environment.api+environment.updateAppointment;
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    };
+    /* SOLO ACTUALIZAMOS EL STATUS */
+    DATE['datetime_arrival']=new Date();
+    return await axios.post(path,DATE,config);
+  }
+
+  const UpdateDate_FINISH=async (DATE,Token)=>{
+    const path=environment.api+environment.updateAppointment;
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + Token,
+      },
+    };
+    /* SOLO ACTUALIZAMOS EL STATUS */
+    DATE['datetime_output']=new Date();
+    DATE['status']='FINALIZADO';
+    return await axios.post(path,DATE,config);
+  }
+
   const retrieveMedicalSchedule = async(token) => {
     const path = environment.api + environment.getAllEmployeeSchedule;
     let config = {
@@ -129,4 +154,4 @@ const getActivities=async(token)=>{
 
 
 
-  export {getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors};
+  export {getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors,UpdateDate_Arrive,UpdateDate_FINISH};

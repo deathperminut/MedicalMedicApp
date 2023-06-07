@@ -65,6 +65,7 @@ export default function FQ(props) {
     })
 
     if(result){
+      console.log("Documentos: ",result.data)
       setDocumentsAreas(result.data);
       setPreloader(false);
       getDocuments(result.data)
@@ -76,7 +77,7 @@ export default function FQ(props) {
     let result=undefined;
     setPreloader(true);
     let filterArea=areas.filter((obj)=>{
-      if(obj.area==="GUÍAS PRÁCTICAS"){
+      if(obj.area==="DOCUMENTOS DE GUÍAS PRÁCTICAS"){
         return obj
       }
     })

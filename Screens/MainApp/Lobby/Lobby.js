@@ -18,12 +18,14 @@ import { formatearFecha, formatearHora, getAge } from '../../../services/DateMan
 import CustomModal from '../../../Shared/Alerts/Alert';
 import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
-import { cancelService, getActiveService, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { UpdateDate_Arrive, UpdateDate_FINISH, cancelService, getActiveService, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
 import { color } from 'react-native-reanimated';
-import { getActiveDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
+import { getActiveDates, getNotifications } from '../../../services/MainApp/HistoryDates/HistoryDates';
 import MapView, { Marker, Polyline } from 'react-native-maps';
-
+import * as Location from 'expo-location';
+import axios from 'axios';
+import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -73,7 +75,7 @@ const ServicesData=[
 export default function Lobby(props) {
 
   /* APP CONTEXT */
-  var {activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep} =React.useContext(AppContext);
+  var {activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep,currentPosition, setCurrentPosition} =React.useContext(AppContext);
 
   /* NAVIGATE */
   var {navigation}=props.props
@@ -110,6 +112,18 @@ const handleCancel = () => {
   setShowModalCancel(true);
 };
 
+const handleArrive = () => {
+  setMessage('Llegada registrada correctamente');
+  setIconName('check-circle');
+  setShowModal(true);
+};
+
+const handleFinish = () => {
+  setMessage('Cita finalizada correctamente');
+  setIconName('check-circle');
+  setShowModal(true);
+};
+
  const handleInfo = () => {
    setMessage('Solo es posible cancelar mientras no haya sido agendada, en caso distinto comuniquese con la central, en el apartado de contacto.');
    setIconName('error');
@@ -125,9 +139,40 @@ const handleCancel = () => {
 
   React.useEffect(()=>{
     if(token && currentDate===null && activities.length!==0){
-      getData();
+      if(currentPosition===null){
+        requestLocationPermission();
+      }else{
+        getData();
+      }
     }
   },[userData,activities])
+
+
+  const requestLocationPermission = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permiso de ubicación denegado');
+    } else {
+      getData();
+      //getCurrentLocation();
+      startUpdatingLocation();
+    }
+  };
+
+  const getCurrentLocation = async () => {
+    try {
+      let location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+      console.log(latitude, longitude)
+      setCurrentPosition({ latitude, longitude });
+      getData();
+      //startUpdatingLocation();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //setInterval(getCurrentLocation, 10000);
 
   const getData=async()=>{
     setPreloader(true);
@@ -138,11 +183,12 @@ const handleCancel = () => {
       setPreloader(false);
     })
     if (result!==undefined){
-      console.log("DatesActive",result.data)
-      console.log("ActiveDate: ",result.data.name);
+
       if(result.data.name){
         let DateActive=result.data;
+        
         setCurrentDate(DateActive);
+        
       }
       
       setPreloader(false);
@@ -160,10 +206,34 @@ const handleCancel = () => {
   React.useEffect(()=>{
     if(token){
       GetActivities();
+      GetNotifications();
     }
     
   },[])
   
+
+  
+  const GetNotifications=async()=>{
+   
+    setPreloader(true);
+    let result=undefined;
+    result=await getNotifications(token).catch((error)=>{
+     console.log("error",error);
+     handleError();
+     setPreloader(false);
+    })
+  
+    if (result!==undefined){
+      console.log("NOTIFICATIONS: ",result.data)
+    //  let ACTIVITIES=result['data'].map(obj => ({
+    //   value: obj.id,
+    //   label: obj.name,
+    // }))
+    // setActivities(ACTIVITIES);
+    setPreloader(false);
+    }
+  }
+
   const GetActivities=async()=>{
    
     setPreloader(true);
@@ -175,7 +245,6 @@ const handleCancel = () => {
     })
   
     if (result!==undefined){
-     console.log("ACTIVIDADES: ",result.data);
      let ACTIVITIES=result['data'].map(obj => ({
       value: obj.id,
       label: obj.name,
@@ -186,11 +255,8 @@ const handleCancel = () => {
   }
 
   const GetActividad=(ActivityId)=>{
-
-   console.log("actividad: ",ActivityId);
    let FilterArray = activities.filter((obj)=>obj.value.toString() === ActivityId.toString());
 
-   console.log("ARREGLO FILTRADO: ",FilterArray);
    return FilterArray[0].label
 
   }
@@ -238,6 +304,54 @@ const handleCancel = () => {
     });
   };
 
+  const UPDATE_DATE=async()=>{
+
+    setPreloader(true);
+    let result=undefined;
+    result=await UpdateDate_Arrive(currentDate,token).catch((error)=>{
+     console.log(error);
+     handleError();
+     setPreloader(false);
+    })
+    if (result!==undefined){
+      setPreloader(false);
+      handleArrive();
+      console.log("Cita actualizada: ",result.data);
+      setCurrentDate(result.data);
+    }
+ }
+
+ const startUpdatingLocation = async () => {
+  Location.watchPositionAsync(
+    {
+      accuracy: Location.Accuracy.High,
+      distanceInterval: 1, // Actualiza la posición cada 10 metros
+    },
+    (location) => {
+      const { latitude, longitude } = location.coords;
+      console.log("DATOS DE UBICACIÓN: ",{latitude,longitude})
+      setCurrentPosition({ latitude, longitude });
+    }
+  );
+};
+
+ const UPDATE_DATE_FINISH=async()=>{
+
+  setPreloader(true);
+  let result=undefined;
+  result=await UpdateDate_FINISH(currentDate,token).catch((error)=>{
+   console.log(error);
+   handleError();
+   setPreloader(false);
+  })
+  if (result!==undefined){
+    setPreloader(false);
+    handleFinish();
+    console.log("Cita actualizada: ",result.data);
+    setCurrentDate(null);
+  }
+}
+
 
 
   let [reason,setReason]=React.useState("");
@@ -248,14 +362,49 @@ const handleCancel = () => {
 
   }
 
-  /* OBTENEMOS LAS ACTIVIDADES */
+  /* OBTENEMOS LAS COORDENADAS */
+  const [destinationCoordinates, setDestinationCoordinates] = React.useState(null);
+  const getCoordinates = async (address,neighborhood,city, country) => {
+    try {
+      //let address = address.split(' ').join('+');
+      let newAddress = address.replace('#', 'No.');
+      newAddress += ', ' + city + ', '+country;
+      console.log(newAddress);
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${newAddress}&key=AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w`
+      try {
+        const response = await axios.get(url);
+        const { results } = response.data;
+        
+        if (results.length > 0) {
+          const firstResult = results[0];
+          const { lat, lng } = firstResult.geometry.location;
+          
+          console.log('Latitud:', lat);
+          console.log('Longitud:', lng);
+          setDestinationCoordinates({ lat: lat, lng: lng });
+        } else {
+          console.log('No se encontraron resultados para la dirección proporcionada.');
+        }
+      } catch (error) {
+        console.error('Error al llamar a la API de Google:', error);
+      }
 
+    } catch (error) {
+        console.log(error);
+    }
+  };
 
+  React.useEffect(()=>{
 
-  
-
-
-
+    console.log("Datos cita: ",currentDate)
+    if(currentDate!==null){
+      if(currentDate.name!==undefined){
+        getCoordinates(currentDate?.address,currentDate?.city,'Colombia');
+      }
+    }
+    
+    
+  },[currentDate])
 
    
   return (
@@ -272,7 +421,6 @@ const handleCancel = () => {
             <View style={styles.LobbyContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.navBar}>
-                  
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
                     <Image source={{uri:userData?.photo}} style={{resizeMode:'cover',width:70,height:70}}></Image>
                   </View>
@@ -354,34 +502,54 @@ const handleCancel = () => {
                                 </View>
                           </View>
                           <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
-                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center'}}>{currentDate?.address}</Text>
+                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center',...Globalstyles.Semibold}}>{currentDate?.address}</Text>
                           </View> 
+
+                          {destinationCoordinates !== null ?
                           <MapView
                             style={{ flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:500,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}
                             initialRegion={{
-                              latitude: 37.78825, // Latitud inicial del mapa
-                              longitude: -122.4324, // Longitud inicial del mapa
+                              latitude: currentPosition.latitude, // Latitud inicial del mapa
+                              longitude: currentPosition.longitude, // Longitud inicial del mapa
                               latitudeDelta: 0.0922,
                               longitudeDelta: 0.0421,
                             }}
                           >
                             <Marker
-                              coordinate={{ latitude: 37.78825, longitude: -122.4324 }} // Coordenadas de tu posición actual
+                              coordinate={{ latitude: currentPosition?.latitude, longitude: currentPosition?.longitude}} // Coordenadas de tu posición actual
                               title="Mi posición actual"
                             />
                             <Marker
-                              coordinate={{ latitude: 37.7896386, longitude: -122.421646 }} // Coordenadas de la segunda posición
+                              coordinate={{ latitude: destinationCoordinates?.lat, longitude: destinationCoordinates?.lng }} // Coordenadas de la segunda posición
                               title="Destino"
                             />
                             <Polyline
                               coordinates={[
-                                { latitude: 37.78825, longitude: -122.4324 },
-                                { latitude: 37.7896386, longitude: -122.421646 },
+                                { latitude: currentPosition?.latitude, longitude: currentPosition?.longitude },
+                                { latitude: destinationCoordinates?.lat, longitude: destinationCoordinates?.lng },
                               ]}
-                              strokeWidth={4}
+                              strokeWidth={2}
                               strokeColor="#FF0000"
                             />
-                          </MapView>                         
+                          </MapView>  
+                          :
+                          <View style={{flexDirection:'column', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center',...Globalstyles.Medium,...Globalstyles.gray}}>{'No fue posible encontrar la dirección en google maps'}</Text>
+                                <ConsultaDomestica style={{width:30,height:30}}></ConsultaDomestica>
+                          </View> 
+                          }
+
+                          {currentDate?.datetime_arrival!==null ?
+                          <TouchableOpacity style={{...styles.buttonDelete,borderColor:'#3A9EE9'}} onPress={UPDATE_DATE_FINISH}>
+                                      <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#3A9EE9'}}>Finalizar consulta</Text>
+                          </TouchableOpacity>
+                          :
+                          <TouchableOpacity style={styles.buttonDelete} onPress={UPDATE_DATE}>
+                                      <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Llegada a destino</Text>
+                          </TouchableOpacity>  
+                          }
+                          
+                                                 
                 </View>
                 </>
                 :
@@ -403,7 +571,7 @@ const handleCancel = () => {
                       </TouchableOpacity>
                       <TouchableOpacity style={{...styles.options,...styles_shadow,width:250}} onPress={()=>{navigation.navigate('Beneficient')}}>
                         <View style={{marginBottom:4,minWidth:23,minHeight:20,padding:3,borderRadius:30,backgroundColor:'#F96767',alignItems:'center',justifyContent:'center',position:'relative',top:20,left:20}}>
-                           <Text style={{color:'white'}}>0</Text>
+                           <Text style={{color:'white'}}>1</Text>
                         </View>
                         <View style={{width:50,height:50,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                            <AlertComponent style={{width:25,height:25}}></AlertComponent>

@@ -9,12 +9,40 @@ import { ConfirmationAlert } from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import { AppContext } from '../../../AppContext/Context';
+import * as Location from 'expo-location';
+
 
 export default function Login(props) {
 
   /* APP CONTEXT */
 
-  let { userData, setUserData, token, setToken }=React.useContext(AppContext); 
+  let { userData, setUserData, token, setToken,currentPosition, setCurrentPosition }=React.useContext(AppContext);
+
+  React.useEffect(() => {
+  //   // Solicitar permisos de ubicación
+     requestLocationPermission();
+  }, []);
+
+  const requestLocationPermission = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permiso de ubicación denegado');
+    } else {
+      getCurrentLocation();
+    }
+  };
+
+  const getCurrentLocation = async () => {
+    try {
+      let location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+      console.log(latitude, longitude)
+      setCurrentPosition({ latitude, longitude });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   /* MODAL */
   const [showModal, setShowModal] = React.useState(false);

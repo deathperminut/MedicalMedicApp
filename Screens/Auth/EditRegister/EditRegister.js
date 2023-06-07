@@ -52,36 +52,14 @@ export default function EditRegister(props) {
    })
    if (result){
       //setPreloader(false);
-      setCities(result.data.map(
-        obj => ({
-          value: obj.location_name,
-          label: obj.location_name,
-        })
-      ))
-      setCitiesComplete(result.data.map(
-        obj => ({
-          value: obj.id,
-          label: obj.location_name,
-        })
-      )) 
-      GetBarrios()    
+      console.log("Locations: ",result.data);
+      let CityUser=result.data.filter((obj)=>obj.location_name.toLowerCase().includes(userData.coverage_city.toLowerCase()))
+      GetBarrios(CityUser[0].id)    
    }
   }
 
-  
 
-  const findLocation=(location_name)=>{
-
-    console.log("DATOS OJO",location_name);
-    // for (var i=0;i<citiesComplete.length;i++){
-    //   if(citiesComplete[i].label.toLowerCase() === location_name.toLowerCase()){
-    //     return citiesComplete[i].value
-    //   }
-    // }
-
-  }
-
-  const GetBarrios=async()=>{
+  const GetBarrios=async(idCity)=>{
     setPreloader(true);
     let result = undefined;
     result = await getBarrios().catch((error)=>{
@@ -92,21 +70,14 @@ export default function EditRegister(props) {
 
     if (result){
       setPreloader(false);
-      setBarrios(result.data.map(
+      let BarriosFiltrados=result.data.filter((obj)=>obj.location_id.toString() === idCity.toString())
+      setBarrios(BarriosFiltrados.map(
         obj => ({
           value: obj.neighbourhood,
           label: obj.neighbourhood,
           location:obj.location_id,
         })
       ))
-      setBarriosSublist(result.data.map(
-        obj => ({
-          value: obj.neighbourhood,
-          label: obj.neighbourhood,
-          location:obj.location_id,
-        })
-      ))
-
     }
   }
 
@@ -164,9 +135,15 @@ export default function EditRegister(props) {
    setShowModal(false);
  };
  
-
  const placeholder_type = {
-  label: 'Barrio',
+  label: userData.neighbourhood!==null || undefined ? userData.neighbourhood:"Barrio",
+  value: userData.neighbourhood!==null || undefined ? userData.neighbourhood:"Barrio",
+  color: '#7E72D1',
+  fontFamily:'Montserrat-SemiBold'
+};
+
+const placeholder_type_2 = {
+  label: 'Ciudad de cobertura',
   value: null,
   color: '#7E72D1',
   fontFamily:'Montserrat-SemiBold'
@@ -189,8 +166,12 @@ export default function EditRegister(props) {
    if(value === null){
      setUserData_({...userData,[type]:""});
    }else{
-     console.log("VALOR A CAMBIAR: ",value);
      setUserData_({...userData_,[type]:value});
+    // if(type==="coverage_city"){
+    //    let DATA=citiesComplete.filter((obj)=>obj.label.toLowerCase() === value.toLowerCase())[0].value;
+    //    let ArrayFilter=barriosSublist.filter((obj)=> obj.location === DATA);
+    //    setBarrios(ArrayFilter);
+    // }
    }
    
  }
@@ -239,7 +220,7 @@ export default function EditRegister(props) {
     {title:"10",data:[{id:9,type:'phone',placeholder:'Número celular' ,icon:'phone',typeIcon:'font-awesome' ,typeForm:'input',data:[]}]},
     {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
     {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
-    {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'dropdown'} ]},
+    // {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'select_2'} ]},
     {title:"13",data:[{id:12,type:"neighbourhood",placeholder:"Barrio" ,data:cities,open:open5,setOpen:setOpen5,typeForm:'select'} ]},
     {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
       { value: "Masculino", label: "Masculino" },
@@ -257,14 +238,6 @@ export default function EditRegister(props) {
     {title:'19',data:[{typeForm:'submit'}]},
 ]
 
-React.useEffect(()=>{
-  console.log("ciudad de cobertura: ",userData_);
-  // if(userData_.coverage_city !== ""){
-  //     let ArrayFilter=barriosSublist.filter((obj)=> obj.location === findLocation(userData_.coverage_city));
-  //     setBarrios(ArrayFilter);
-  //  }
-
-},[userData_])
 
 const renderFormItem = ({ item }) => {
  
@@ -437,7 +410,7 @@ const UPDATEBeneficient=async()=>{
             source={require("../../../assets/Registro/Icono-Mano-Registro.png")}
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Editar Perfil</Text>
-        <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>dale click al boton de actualizar para confirmar los cambios</Text>
+        <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10},textAlign:'center'}}>La ciudad de cobertura se debe solicitar con el administrador de la plataforma</Text>
          <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

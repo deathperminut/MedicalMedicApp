@@ -29,7 +29,6 @@ const AppWrapper = (props) => {
   //Logout
 
   const Logout=()=>{
-   
     setUserData(null)
     setToken(null)
     setCurrentDate(null)
@@ -38,12 +37,17 @@ const AppWrapper = (props) => {
     setSelectBeneficient(null)
     setPatient(null)
     setActivities([])
-
+    //setCurrentPosition(null);
   }
+
+  // LOCATION
+
+  const [currentPosition, setCurrentPosition] = useState(null);
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
     <AppContext.Provider value={{ 
+      currentPosition, setCurrentPosition,
       activities,setActivities,
       listNotifications,setListNotifications,
       Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,

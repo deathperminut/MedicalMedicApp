@@ -54,4 +54,7 @@ export const environment = {
 
   getActiveDate:'citas/retrieve-activate-appointment-service/',
 
+  /* NOTIFICACIONES DOCTOR */
+  getNotifications:'inventario/retrieve-stock-warning-by-doctor/',
+
 }
