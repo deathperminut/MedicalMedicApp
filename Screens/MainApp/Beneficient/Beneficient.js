@@ -102,7 +102,7 @@ export default function Beneficient(props) {
                             <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,flexDirection:'row',color:'black',marginBottom:2}}>
                                <Text style={{color:'#414D55',fontSize:12}}>Dias restantes: </Text> 
                                <View>
-                                <Text style={{backgroundColor:'#F96767',borderRadius:20,padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:10,color:'white'}}>{notifications?.time_left}</Text>
+                                <Text style={{backgroundColor:'#F96767',borderRadius:20,padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:10,color:'white',minWidth:20,minHeight:20,textAlign:'center'}}>{notifications?.time_left}</Text>
                                </View>
                              </Text>
                              <Text style={{...Globalstyles.text,color:'#414D55'}}>Item: <Text style={{padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:12,...Globalstyles.gray}}>{notifications?.device_name}</Text></Text>

@@ -2,7 +2,7 @@
   "expo": {
     "name": "MHC Medicos",
     "slug": "mhc_mobile_app",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/Icon_app.png",
     "userInterfaceStyle": "light",
