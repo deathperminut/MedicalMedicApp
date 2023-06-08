@@ -47,11 +47,9 @@ export default function App(props) {
   return (
      <NavigationContainer>
           <StatusBar hidden />
-          <SafeAreaView style={styles.container}>
-            <AppWrapper>
+          <AppWrapper>
               <Routes></Routes>
-            </AppWrapper>
-          </SafeAreaView>
+          </AppWrapper>
      </NavigationContainer>
     
   );
