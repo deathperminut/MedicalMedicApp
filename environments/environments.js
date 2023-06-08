@@ -56,5 +56,6 @@ export const environment = {
 
   /* NOTIFICACIONES DOCTOR */
   getNotifications:'inventario/retrieve-stock-warning-by-doctor/',
+  getNotificationsMaintenance:'inventario/retrieve-maintenance-warning-by-doctor/',
 
 }

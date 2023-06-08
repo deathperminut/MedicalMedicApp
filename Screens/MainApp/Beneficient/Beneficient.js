@@ -20,7 +20,8 @@ import { stylesNew } from '../OurServices/OurServicesStyles';
 export default function Beneficient(props) {
 
   /* APP CONTEXT */
-  let {listNotifications,setListNotifications,userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient} =React.useContext(AppContext);
+  let {Notification_basic_medic,setNotification_basic_medic,
+    Notification_Maintenance_medic,setNotification_Maintenance_medic,listNotifications,setListNotifications,userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient} =React.useContext(AppContext);
   
   /* NAVIGATE */
   let {navigation}=props
@@ -76,21 +77,36 @@ export default function Beneficient(props) {
           <ScrollView style={{width:'100%',marginBottom:0,maxWidth:470,maxHeight:'160%',height:'140%'}} showsVerticalScrollIndicator={false}>
             <View style={{width:"100%",flexDirection:'column',alignItems:'center'}}>
                 <View style={{width:'100%',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
-                  {listNotifications.map((notifications, index) => (
+                {Notification_basic_medic.map((notification, index) => (
                      <TouchableOpacity key={index}  style={{flexDirection:'row',marginBottom:5,width:'90%',height:90,backgroundColor:'#F3F2F8',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
                         <View style={{width:'20%',height:'100%',alignItems:'center',justifyContent:'center',backgroundColor:'transparent'}}>
                           <AlertComponent style={{width:25,height:25}}></AlertComponent>
                         </View>
                         <View style={{width:'80%',height:'100%',alignItems:'flex-start',justifyContent:'center',backgroundColor:'transparent'}}>
                           <View style={{alignItems:'flex-start',justifyContent:'center',flex:1,groundColor:'transparent',}}>
-                            <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:15,textAlign:'left',color:'#414D55'}}>{'Mantenimiento preventivo'}</Text>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:15,textAlign:'left',color:'#414D55'}}>{'Alerta inventario personal'}</Text>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,flexDirection:'row',color:'black',marginBottom:2}}>
+                               <Text style={{color:'#414D55',fontSize:12}}>{notification.info}</Text> 
+                             </Text>
+                          </View>
+                        </View>
+                     </TouchableOpacity>
+                  ))}
+                  {Notification_Maintenance_medic.map((notifications, index) => (
+                     <TouchableOpacity key={index}  style={{flexDirection:'row',marginBottom:5,width:'90%',height:90,backgroundColor:'#F3F2F8',borderRadius:20,padding:10,alignItems:'flex-start',justifyContent:'center',...styles_shadow}}>
+                        <View style={{width:'20%',height:'100%',alignItems:'center',justifyContent:'center',backgroundColor:'transparent'}}>
+                          <AlertComponent style={{width:25,height:25}}></AlertComponent>
+                        </View>
+                        <View style={{width:'80%',height:'100%',alignItems:'flex-start',justifyContent:'center',backgroundColor:'transparent'}}>
+                          <View style={{alignItems:'flex-start',justifyContent:'center',flex:1,groundColor:'transparent',}}>
+                            <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:15,textAlign:'left',color:'#414D55'}}>{notifications?.maintenance_type}</Text>
                             <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,flexDirection:'row',color:'black',marginBottom:2}}>
                                <Text style={{color:'#414D55',fontSize:12}}>Dias restantes: </Text> 
                                <View>
-                                <Text style={{backgroundColor:'#F96767',borderRadius:20,padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:10,color:'white'}}>20</Text>
+                                <Text style={{backgroundColor:'#F96767',borderRadius:20,padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:10,color:'white'}}>{notifications?.time_left}</Text>
                                </View>
                              </Text>
-                             <Text style={{...Globalstyles.text,color:'#414D55'}}>Item: <Text style={{padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:12,...Globalstyles.gray}}>Tasa de lixiviados</Text></Text>
+                             <Text style={{...Globalstyles.text,color:'#414D55'}}>Item: <Text style={{padding:2,paddingLeft:4,paddingRight:4,position:'relative',top:5,fontSize:12,...Globalstyles.gray}}>{notifications?.device_name}</Text></Text>
                           </View>
                         </View>
                      </TouchableOpacity>

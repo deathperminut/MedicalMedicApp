@@ -34,4 +34,15 @@ const getNotifications=async(token)=>{
 
 }
 
-export {getMedicDates,getActiveDates,getNotifications};
+const getNotificationsMaintenance=async(token)=>{
+  const path=environment.api+environment.getNotificationsMaintenance;
+  let config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await axios.get(path,config);
+
+}
+
+export {getMedicDates,getActiveDates,getNotifications,getNotificationsMaintenance};

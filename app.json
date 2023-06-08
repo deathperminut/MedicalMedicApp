@@ -15,19 +15,27 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ios.medicApp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.deathperminut.mhc_mobile_app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "notification": {
       "color": "#ffffff"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "15737894-0ffe-4258-93de-13f59946d676"
+      }
+    },
+    "owner": "deathperminut"
   }
 }

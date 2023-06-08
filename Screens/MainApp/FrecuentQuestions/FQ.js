@@ -127,7 +127,7 @@ export default function FQ(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
         </View>
-        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'flex-start', minHeight: newHeight}}>
+        <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center', minHeight: newHeight}}>
             <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,fontSize:20,marginBottom:20}}>Guías</Text>
             <View style={{...styles.searchBarContainer,...styles_shadow}}>
               <Icon name="search" size={20} color="#c4c4c4" style={{marginRight:10}}/>
@@ -139,7 +139,7 @@ export default function FQ(props) {
                 />
             </View>
             {filterDocuments.map((faq, index) => (
-            <TouchableOpacity onPress={()=>handleOpenDocument(faq)} key={index} style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:500,height:120,backgroundColor:'#FAFAFB',borderRadius: 14, marginBottom:16, ...styles_shadow}}>
+            <TouchableOpacity onPress={()=>handleOpenDocument(faq)} key={index} style={{padding:10,alignItems:'center',flexDirection:'column',width:'100%',maxWidth:700,height:120,backgroundColor:'#FAFAFB',borderRadius: 14, marginBottom:16, ...styles_shadow}}>
                 <View style={{width:'100%',height:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10,justifyContent:'center'}}>
                         <Documents style={{width:50,height:50}}></Documents>
                         <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:14,marginLeft:20,width:'75%',flexDirection:'column'}}>

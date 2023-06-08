@@ -21,6 +21,11 @@ const AppWrapper = (props) => {
   var [selectBeneficient,setSelectBeneficient]=useState(null);
   let [activities,setActivities]=React.useState([]);
 
+  //NOTIFICATIONS
+
+  let [Notification_basic_medic,setNotification_basic_medic]=React.useState([]);
+  let [Notification_Maintenance_medic,setNotification_Maintenance_medic]=React.useState([]);
+
   // DATEMANAGEMENT
 
   var [patient,setPatient]=useState(null);
@@ -47,6 +52,8 @@ const AppWrapper = (props) => {
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
     <AppContext.Provider value={{ 
+      Notification_basic_medic,setNotification_basic_medic,
+      Notification_Maintenance_medic,setNotification_Maintenance_medic,
       currentPosition, setCurrentPosition,
       activities,setActivities,
       listNotifications,setListNotifications,

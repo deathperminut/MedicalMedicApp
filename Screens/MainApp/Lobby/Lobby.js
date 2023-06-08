@@ -21,7 +21,7 @@ import LoadingScreen from '../../../Shared/Alerts/Loader';
 import { UpdateDate_Arrive, UpdateDate_FINISH, cancelService, getActiveService, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
 import { color } from 'react-native-reanimated';
-import { getActiveDates, getNotifications } from '../../../services/MainApp/HistoryDates/HistoryDates';
+import { getActiveDates, getNotifications, getNotificationsMaintenance } from '../../../services/MainApp/HistoryDates/HistoryDates';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios';
@@ -75,7 +75,8 @@ const ServicesData=[
 export default function Lobby(props) {
 
   /* APP CONTEXT */
-  var {activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep,currentPosition, setCurrentPosition} =React.useContext(AppContext);
+  var {Notification_basic_medic,setNotification_basic_medic,
+    Notification_Maintenance_medic,setNotification_Maintenance_medic,activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep,currentPosition, setCurrentPosition} =React.useContext(AppContext);
 
   /* NAVIGATE */
   var {navigation}=props.props
@@ -194,9 +195,9 @@ const handleFinish = () => {
       setPreloader(false);
        // NOS SUSCRIBIMOS AL SOCKET
        //getNotificationPermission();
-      registerForPushNotificationsAsync(userData).then((token) => {
-        // NOS SUSCRIBIMOS AL SOCKET
-      });
+      // registerForPushNotificationsAsync(userData).then((token) => {
+      //   // NOS SUSCRIBIMOS AL SOCKET
+      // });
     }
 
 
@@ -207,6 +208,7 @@ const handleFinish = () => {
     if(token){
       GetActivities();
       GetNotifications();
+      GetNotificationsMaintenance();
     }
     
   },[])
@@ -224,13 +226,26 @@ const handleFinish = () => {
     })
   
     if (result!==undefined){
-      console.log("NOTIFICATIONS: ",result.data)
-    //  let ACTIVITIES=result['data'].map(obj => ({
-    //   value: obj.id,
-    //   label: obj.name,
-    // }))
-    // setActivities(ACTIVITIES);
-    setPreloader(false);
+      if (Object.keys(result.data).length === 0) {
+        console.log('El objeto está vacío');
+      } else {
+        setNotification_basic_medic([{info:"Debes acercate al almacén para recargar inventario básico"}])
+      }
+    }
+  }
+
+  const GetNotificationsMaintenance=async()=>{
+   
+    setPreloader(true);
+    let result=undefined;
+    result=await getNotificationsMaintenance(token).catch((error)=>{
+     console.log("error",error);
+     handleError();
+     setPreloader(false);
+    })
+    if (result!==undefined){
+      setNotification_Maintenance_medic(result.data);
+      setPreloader(false);
     }
   }
 
@@ -433,12 +448,9 @@ const handleFinish = () => {
                 <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
                 <View style={{width:14,height:14,backgroundColor:'#BDFC97', borderRadius:10 ,marginRight:10}}></View>
                   <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:10}}>Citas activa</Text>
-                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold,marginLeft:10,color:'#FFFF'}}>{formatearFecha(new Date())}</Text>
                 </View>
                 :
-                <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
-                  <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold,color:'#FFFF'}}>{formatearFecha(new Date())}</Text>
-                </View>
+                <></>
                 }
                 
               </View>
@@ -560,7 +572,7 @@ const handleFinish = () => {
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Módulos</Text>
                 <Carusel data={ServicesData}  props={props.props}></Carusel>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.SubTitle_2,...Globalstyles.Purple,marginLeft:30}}>Eventos</Text>
-                <ScrollView horizontal={true} style={{width:'100%',height:220,paddingTop:30}} showsHorizontalScrollIndicator={false}>
+                <ScrollView horizontal={true} style={{width:'100%',height:220,paddingTop:30,paddingLeft:20}} showsHorizontalScrollIndicator={false}>
                   <View style={{width:"100%",flexDirection:'row'}}>
                     <View style={{maxHeight:100,flexDirection:'row'}}>
                       <TouchableOpacity style={{...styles.options,...styles_shadow,width:250}} onPress={()=>openWhatsApp()}>
@@ -571,7 +583,7 @@ const handleFinish = () => {
                       </TouchableOpacity>
                       <TouchableOpacity style={{...styles.options,...styles_shadow,width:250}} onPress={()=>{navigation.navigate('Beneficient')}}>
                         <View style={{marginBottom:4,minWidth:23,minHeight:20,padding:3,borderRadius:30,backgroundColor:'#F96767',alignItems:'center',justifyContent:'center',position:'relative',top:20,left:20}}>
-                           <Text style={{color:'white'}}>1</Text>
+                           <Text style={{color:'white'}}>{Notification_Maintenance_medic.length+Notification_basic_medic.length}</Text>
                         </View>
                         <View style={{width:50,height:50,borderRadius:30,backgroundColor:'#00000029',alignItems:'center',justifyContent:'center'}}>
                            <AlertComponent style={{width:25,height:25}}></AlertComponent>
