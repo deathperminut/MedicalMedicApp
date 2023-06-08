@@ -36,7 +36,6 @@ const initRegisterBeneficient=async(user,token)=>{
     body.append('genre', user.genre);
     body.append("eps",user.eps);
     body.append("regime_type",user.regime_type);
-    console.log(body);
     return await axios.post(path,body,config)
 
 }

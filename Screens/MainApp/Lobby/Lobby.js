@@ -152,7 +152,6 @@ const handleFinish = () => {
   const requestLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
-      console.log('Permiso de ubicación denegado');
     } else {
       getData();
       //getCurrentLocation();
@@ -220,14 +219,13 @@ const handleFinish = () => {
     setPreloader(true);
     let result=undefined;
     result=await getNotifications(token).catch((error)=>{
-     console.log("error",error);
+     console.log(error);
      handleError();
      setPreloader(false);
     })
   
     if (result!==undefined){
       if (Object.keys(result.data).length === 0) {
-        console.log('El objeto está vacío');
       } else {
         setNotification_basic_medic([{info:"Debes acercate al almacén para recargar inventario básico"}])
       }
@@ -239,7 +237,7 @@ const handleFinish = () => {
     setPreloader(true);
     let result=undefined;
     result=await getNotificationsMaintenance(token).catch((error)=>{
-     console.log("error",error);
+     console.log(error);
      handleError();
      setPreloader(false);
     })
@@ -254,7 +252,7 @@ const handleFinish = () => {
     setPreloader(true);
     let result=undefined;
     result=await getActivities(token).catch((error)=>{
-     console.log("error",error);
+     console.log(error);
      handleError();
      setPreloader(false);
     })
@@ -276,48 +274,6 @@ const handleFinish = () => {
 
   }
 
-  const registerForPushNotificationsAsync = async () => {
-
-    let token;
-
-    // Verificar los permisos de notificación
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== 'granted') {
-      // Si los permisos no están otorgados, solicitarlos
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-
-    if (finalStatus !== 'granted') {
-      console.log('Permisos de notificación denegados');
-      return;
-    }
-
-    // Obtener el token de notificación
-    try {
-      token = (await Notifications.getExpoPushTokenAsync({ projectId:'4398c9a5-330e-49bc-ab1b-913a11feac3c'})).data;
-      console.log('Token de notificación:', token);
-    } catch (error) {
-      console.log('Error al obtener el token de notificación:', error);
-    }
-
-    return token;
-  };
-
-
-  const showNotification = (message,Token) => {
-    console.log("ENVIANDO NOTIFICACIÓN: ",Token);
-    Notifications.scheduleNotificationAsync({
-      content: {
-        title: 'Nuevo mensaje',
-        body: message,
-      },
-      trigger: null,
-      to:Token,
-    });
-  };
 
   const UPDATE_DATE=async()=>{
 
@@ -344,7 +300,6 @@ const handleFinish = () => {
     },
     (location) => {
       const { latitude, longitude } = location.coords;
-      console.log("DATOS DE UBICACIÓN: ",{latitude,longitude})
       setCurrentPosition({ latitude, longitude });
     }
   );
@@ -362,7 +317,6 @@ const handleFinish = () => {
   if (result!==undefined){
     setPreloader(false);
     handleFinish();
-    console.log("Cita actualizada: ",result.data);
     setCurrentDate(null);
   }
 }
@@ -393,15 +347,12 @@ const handleFinish = () => {
         if (results.length > 0) {
           const firstResult = results[0];
           const { lat, lng } = firstResult.geometry.location;
-          
-          console.log('Latitud:', lat);
-          console.log('Longitud:', lng);
           setDestinationCoordinates({ lat: lat, lng: lng });
         } else {
           console.log('No se encontraron resultados para la dirección proporcionada.');
         }
       } catch (error) {
-        console.error('Error al llamar a la API de Google:', error);
+        console.error(error);
       }
 
     } catch (error) {
@@ -410,8 +361,6 @@ const handleFinish = () => {
   };
 
   React.useEffect(()=>{
-
-    console.log("Datos cita: ",currentDate)
     if(currentDate!==null){
       if(currentDate.name!==undefined){
         getCoordinates(currentDate?.address,currentDate?.city,'Colombia');

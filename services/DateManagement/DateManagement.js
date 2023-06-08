@@ -36,7 +36,6 @@ function formatearFecha(fecha) {
       "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     ];
 
-    console.log("DESEADA; ",fecha)
     let FECHA=new Date(fecha)
     const dia = FECHA.getDate();
     const mes = meses[FECHA.getMonth()];

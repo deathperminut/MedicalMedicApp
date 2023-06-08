@@ -167,7 +167,7 @@ const GetActivities=async()=>{
   setPreloader(true);
   let result=undefined;
   result=await getActivities(token).catch((error)=>{
-   console.log("error",error);
+   console.log(error);
    handleError();
    setPreloader(false);
   })

@@ -99,15 +99,10 @@ export default function OurServices(props) {
     setPreloader(true);
     let result=undefined;
     result=await retrieveMedicalSchedule(token).catch((error)=>{
-      console.log("error calendario: ",error);
-      // Swal.fire({
-      //   icon: 'error',
-      //   text: 'Error al cargar calendario',
-      // })
+      console.log(error);
       setPreloader(false);
     })
     if(result){
-      console.log("CALENDARIO DATES_ ",result.data)
       setSchedule(DatesDoctors(result.data).filter((obj)=>obj.resourceId === userData.id));
       setPreloader(false);
     }

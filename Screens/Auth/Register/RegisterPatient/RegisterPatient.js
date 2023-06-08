@@ -248,7 +248,7 @@ export default function RegisterPatient(props) {
      if(userData.address!=="" && userData.city!=="" && userData.coverage_city!=="" && userData.date_birth!=="" && userData.department!=="" && userData.email && userData.eps!=="" && userData.first_name!=="" && userData.genre!=="" && userData.identification!=="" && userData.identification_type!=="" && userData.last_name && userData.neighbourhood && userData.password!=="" && userData.phone!=="" && userData.regime_type!=="" && userData.second_last_name!=="" && userData.second_name!==""){
          setPreloader(true);
           let result=await initRegister(userData).catch((error)=>{
-            console.log("ERROR",error);
+            console.log(error);
             setPreloader(false);
             handleError();
           })

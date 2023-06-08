@@ -31,8 +31,6 @@ const editBeneficient=async(user,token)=>{
     };
     /* LOGIN */
     let path=environment.api+environment.editBeneficient
-    /* BODY */
-    console.log("ID: ",user.id)
     const body = new FormData();
     body.append('id',user.id);
     body.append('first_name', user.name);
@@ -71,8 +69,6 @@ const editUser=async(user,token)=>{
   };
   /* LOGIN */
   let path=environment.api+environment.editBeneficient
-  /* BODY */
-  console.log("ID: ",user.id)
   const body = new FormData();
   body.append('id',user.id);
   body.append('first_name', user.name);

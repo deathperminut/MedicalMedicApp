@@ -82,8 +82,6 @@ export default function HistoryDates(props) {
 
 
   const AcceptDate=(DateAccepted)=>{
-   
-    console.log("CITA ACEPTADA: ",DateAccepted);
     if(currentDate!==null){
       handleAcceptError();
     }else{
@@ -104,21 +102,8 @@ export default function HistoryDates(props) {
      })
      if(result!==undefined){
       if(result.data.length!==0){
-        console.log(result.data)
-        // let dates=[];
-        // let copyData=[...result.data];
-        // for (var i = 0 ; i<copyData.length ; i++){
-        //     let UserName=GetName(copyData[i]);
-            
-        //     dates=dates.concat(copyData[i].appointments.map(function(appointment) {
-        //       appointment.userName = UserName;
-        //       return appointment;
-        //     }))
-        // }
         setHistoryDates(result.data);
-
       }else{
-        console.log("DATOS CITAS",result.data)
         setHistoryDates(result.data);
       }
 
@@ -173,7 +158,6 @@ export default function HistoryDates(props) {
      })
      if (result!==undefined){
        setPreloader(false);
-       console.log("Cita actualizada: ",result.data);
        setCurrentDate(result.data);
        navigation.navigate('Drawer');
      }

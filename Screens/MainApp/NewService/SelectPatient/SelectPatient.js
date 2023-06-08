@@ -59,7 +59,6 @@ export default function SelectPatient(props) {
   /* USE-EFFECT */
 
   React.useEffect(()=>{
-    console.log("useEFFECT");
     if(token){
         getData();
     }
@@ -79,7 +78,6 @@ export default function SelectPatient(props) {
     })
     if(result){
       setPreloader(false);
-      console.log("DATOS: ",result.data);
       setListBeneficient(result.data);
     }
     

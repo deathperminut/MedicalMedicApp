@@ -51,8 +51,6 @@ export default function EditRegister(props) {
     handleError_();
    })
    if (result){
-      //setPreloader(false);
-      console.log("Locations: ",result.data);
       let CityUser=result.data.filter((obj)=>obj.location_name.toLowerCase().includes(userData.coverage_city.toLowerCase()))
       GetBarrios(CityUser[0].id)    
    }
@@ -384,7 +382,6 @@ const UPDATEBeneficient=async()=>{
   if(result){
     setSelectBeneficient(null);
     handleSuccess();
-    console.log("DATOS ACTUALIZADOS",result.data);
     setUserData({...result.data,['photo']:result.data['photo_profile']})
     setPreloader(false);
   }

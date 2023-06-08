@@ -65,7 +65,6 @@ export default function FQ(props) {
     })
 
     if(result){
-      console.log("Documentos: ",result.data)
       setDocumentsAreas(result.data);
       setPreloader(false);
       getDocuments(result.data)
@@ -81,14 +80,12 @@ export default function FQ(props) {
         return obj
       }
     })
-    console.log("CONSOLA: ",filterArea);
     result=await getDocumentsByArea(filterArea[0].id,token).catch((error)=>{
       console.log(error);
       setPreloader(false);
     })
     
     if(result){
-      console.log("Data documentos: ",result.data);
       setDocuments(result.data);
       setFilterDocuments(result.data);
       setPreloader(false);
@@ -101,7 +98,7 @@ export default function FQ(props) {
 
     Linking.openURL(documentUrl)
       .catch((error) => {
-        console.log('Error al abrir el documento:', error);
+        console.log(error);
       });
   };
 

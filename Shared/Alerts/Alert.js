@@ -37,6 +37,7 @@ const styles = {
   },
   modal: {
     width: '80%',
+    maxWidth:380,
     backgroundColor: '#fff',
     borderRadius: 25,
     padding: 20,

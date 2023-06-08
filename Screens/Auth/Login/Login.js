@@ -26,7 +26,6 @@ export default function Login(props) {
   const requestLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
-      console.log('Permiso de ubicación denegado');
     } else {
       getCurrentLocation();
     }
@@ -36,7 +35,6 @@ export default function Login(props) {
     try {
       let location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
-      console.log(latitude, longitude)
       setCurrentPosition({ latitude, longitude });
     } catch (error) {
       console.log(error);
@@ -125,14 +123,12 @@ export default function Login(props) {
       setPreloader(true);
     let result=undefined;
     result=await initLogin(user).catch((error)=>{
-       console.log("ERROR: ",error,result);
+       console.log("ERROR: ",error);
        handleError();
        setPreloader(false);
     })
     if (result!==undefined){
        //handleSuccess();
-       console.log("DATOS USUARIOS",result.data.datos.token)
-
        if(result.data.datos.datos_usuarios['roles'][0] === 'Médico'){
         setUserData(result.data.datos.datos_usuarios);
         setToken(result.data.datos.token);

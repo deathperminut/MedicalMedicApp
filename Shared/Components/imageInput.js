@@ -15,7 +15,6 @@ const ImagePicker = (props) => {
         mediaTypes: imagePicker.MediaTypeOptions.Images,
         quality: 1,
       });
-      console.log(result.assets[0].uri);
 
       if (!result.canceled) {
          

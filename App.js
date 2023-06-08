@@ -1,5 +1,4 @@
 import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +6,8 @@ import Routes from './Routes/Routes';
 import AppWrapper from './AppContext/Context';
 import LoadingScreen from './Shared/Alerts/Loader';
 import AppContext from './AppContext/Context';
+import { StatusBar,SafeAreaView } from 'react-native';
+
 
 /* FUENTES */
 import * as Font from 'expo-font';
@@ -38,11 +39,20 @@ export default function App(props) {
   //   return <LoadingScreen />;
   // }
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+  });
   return (
-    <NavigationContainer>
-      <AppWrapper>
-        <Routes></Routes>
-      </AppWrapper>
-    </NavigationContainer>
+     <NavigationContainer>
+          <StatusBar hidden />
+          <SafeAreaView style={styles.container}>
+            <AppWrapper>
+              <Routes></Routes>
+            </AppWrapper>
+          </SafeAreaView>
+     </NavigationContainer>
+    
   );
 };
