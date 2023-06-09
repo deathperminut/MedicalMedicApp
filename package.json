@@ -52,7 +52,8 @@
     "react-native-svg": "12.3.0",
     "react-native-sweet-alert": "^3.5.0",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-web": "~0.18.11"
+    "react-native-web": "~0.18.11",
+    "expo-sms": "~10.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

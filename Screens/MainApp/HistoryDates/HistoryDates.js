@@ -15,7 +15,8 @@ import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDat
 import { environment } from '../../../environments/environments';
 import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
 import { UpdateDate } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
-
+import * as Location from 'expo-location';
+import * as SMS from 'expo-sms';
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
@@ -159,6 +160,13 @@ export default function HistoryDates(props) {
      if (result!==undefined){
        setPreloader(false);
        setCurrentDate(result.data);
+      //  const location = await Location.getCurrentPositionAsync({});
+      //  const { latitude, longitude } = location.coords;
+
+      //  // Crear el mensaje con la ubicación
+      //  const message = `Mi ubicación en tiempo real: https://maps.google.com/?q=${latitude},${longitude}`;
+      //  // Enviar el mensaje por WhatsApp
+      //  await SMS.sendSMSAsync('+57'+result.data.cellphone_number, message);
        navigation.navigate('Drawer');
      }
 

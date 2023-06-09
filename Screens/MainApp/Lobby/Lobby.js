@@ -31,12 +31,6 @@ import * as Speech from 'expo-speech';
 
 
 
-
-const openWhatsApp = () => {
-  Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
-}
-
-
 /* DATA */
 
 const ServicesData=[
@@ -174,6 +168,8 @@ const handleFinish = () => {
       getData();
       //getCurrentLocation();
       startUpdatingLocation();
+      // Crear el mensaje con la ubicación
+      
     }
   };
 
@@ -188,20 +184,11 @@ const handleFinish = () => {
       setPreloader(false);
     })
     if (result!==undefined){
-
       if(result.data.name){
         let DateActive=result.data;
-        
         setCurrentDate(DateActive);
-        
       }
-      
       setPreloader(false);
-        // NOS SUSCRIBIMOS AL SOCKET
-        //getNotificationPermission();
-        // registerForPushNotificationsAsync(userData).then((token) => {
-        //   // NOS SUSCRIBIMOS AL SOCKET
-        // });
     }
 
 
@@ -387,6 +374,8 @@ const handleFinish = () => {
   /* USE STATE */
   let [poliLine,setPoliLine]=React.useState(null);
   let [Indications,setIndications]=React.useState(null);
+  let [time,setTime]=React.useState(null);
+  let [ViewUrl,setViewUrl]=React.useState(null);
 
   /* OBTENER POLI-LINEA */
 
@@ -399,11 +388,14 @@ const handleFinish = () => {
       const data = response.data;
       // Procesa los datos de respuesta para obtener los puntos de latitud y longitud de la ruta
       const ruta = data.routes[0].overview_polyline.points;
+      const duration = data.routes[0].legs[0].duration.text; // Duración estimada de la ruta
+      setTime(duration);
       // Convierte la codificación de puntos a coordenadas
       const coordenadasRuta = decodePolyline(ruta);
       setPoliLine(coordenadasRuta);
 
       const pasos = data.routes[0].legs[0].steps;
+      
       // Reproduce las instrucciones paso a paso 
       if( currentDate?.datetime_arrival===null ){
         let instruccion = pasos[0].html_instructions.replace(/<[^>]+>/g, ' '); // Elimina las etiquetas HTML de la instrucción
@@ -417,11 +409,11 @@ const handleFinish = () => {
              language: 'es-ES', // Establece el idioma de las instrucciones de voz
              pitch: 1, // Establece el tono de voz
              rate: 1, // Establece la velocidad de reproducción
-           });
-        // pasos.forEach((paso) => {
-          
-        // });
+        });
       }
+
+      const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${coordinatesEnd.lat},${coordinatesEnd.lng}&fov=90&heading=235&pitch=10&key=${apiKey}`;
+      setViewUrl(streetViewUrl);
       
 
     } catch (error) {
@@ -471,6 +463,17 @@ const decodePolyline = (polyline) => {
 
   return points;
 };
+
+
+const openWhatsApp = () => {
+
+  if (userData.coverage_city.toLowerCase().includes("Armenia")){
+    Linking.openURL('whatsapp://send?text=Hola!&phone=+573118665272');
+  }else{
+    Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
+  }
+}
+
    
   return (
     
@@ -568,8 +571,18 @@ const decodePolyline = (polyline) => {
                           </View> 
 
                           {destinationCoordinates !== null ?
+                          <>
+
+                          {currentDate?.datetime_arrival!==null ?
+                          <></>
+                          :
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center',...Globalstyles.Semibold,...Globalstyles.BlackPurple}}>{'Tiempo estimado: '+time}</Text>
+                          </View>
+                          }
+                           
                           <MapView
-                            style={{ flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:500,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}
+                            style={{ flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:500,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-end',justifyContent:'flex-end'}}
                             initialRegion={{
                               latitude: currentPosition.latitude, // Latitud inicial del mapa
                               longitude: currentPosition.longitude, // Longitud inicial del mapa
@@ -581,10 +594,19 @@ const decodePolyline = (polyline) => {
                               coordinate={{ latitude: currentPosition?.latitude, longitude: currentPosition?.longitude}} // Coordenadas de tu posición actual
                               title="Mi posición actual"
                             />
+
                             <Marker
                               coordinate={{ latitude: destinationCoordinates?.lat, longitude: destinationCoordinates?.lng }} // Coordenadas de la segunda posición
                               title="Destino"
                             />
+                            {ViewUrl!== null ?
+                              <Image
+                                style={{ width: 130, height: 130}}
+                                source={{ uri: ViewUrl }}
+                              />
+                            :
+                            <></>
+                            }
                             {poliLine!==null ?
                               <Polyline
                               coordinates={poliLine}
@@ -595,7 +617,9 @@ const decodePolyline = (polyline) => {
                             <></>
                             }
                             
-                          </MapView>  
+                          </MapView> 
+
+                          </> 
                           :
                           <View style={{flexDirection:'column', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
                                 <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center',...Globalstyles.Medium,...Globalstyles.gray}}>{'No fue posible encontrar la dirección en google maps'}</Text>
