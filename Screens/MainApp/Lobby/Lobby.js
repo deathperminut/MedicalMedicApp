@@ -386,6 +386,7 @@ const handleFinish = () => {
 
   /* USE STATE */
   let [poliLine,setPoliLine]=React.useState(null);
+  let [Indications,setIndications]=React.useState(null);
 
   /* OBTENER POLI-LINEA */
 
@@ -404,10 +405,10 @@ const handleFinish = () => {
 
       const pasos = data.routes[0].legs[0].steps;
       // Reproduce las instrucciones paso a paso 
-      console.log(currentDate?.datetime_arrival);
       if( currentDate?.datetime_arrival===null ){
         let instruccion = pasos[0].html_instructions.replace(/<[^>]+>/g, ' '); // Elimina las etiquetas HTML de la instrucción
         console.log(instruccion);  
+        setIndications(instruccion);
         instruccion=instruccion.replace('Cra.','Carrera');
         instruccion=instruccion.replace('Cl.','Calle');
         instruccion=instruccion.replace('/',' ');
@@ -607,9 +608,16 @@ const decodePolyline = (polyline) => {
                                       <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#3A9EE9'}}>Finalizar consulta</Text>
                           </TouchableOpacity>
                           :
+                          <>
+                          <View style={{flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
+                                <Text style={{...Globalstyles.text,...Globalstyles.PurpleWhite2,textAlign:'center',...Globalstyles.Semibold}}>{Indications !== null ? Indications : ""}</Text>
+                          </View> 
                           <TouchableOpacity style={styles.buttonDelete} onPress={UPDATE_DATE}>
                                       <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Llegada a destino</Text>
                           </TouchableOpacity>  
+
+                          </>
+                          
                           }
                           
                                                  
