@@ -573,8 +573,8 @@ const decodePolyline = (polyline) => {
                             initialRegion={{
                               latitude: currentPosition.latitude, // Latitud inicial del mapa
                               longitude: currentPosition.longitude, // Longitud inicial del mapa
-                              latitudeDelta: 0.0922,
-                              longitudeDelta: 0.0421,
+                              latitudeDelta: 0.05,
+                              longitudeDelta: 0.05,
                             }}
                           >
                             <Marker

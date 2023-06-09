@@ -94,7 +94,7 @@ export default function FQ(props) {
   }
 
   const handleOpenDocument = (dc) => {
-    const documentUrl = dc.path; // URL del documento que deseas abrir
+    const documentUrl = dc.path; 
 
     Linking.openURL(documentUrl)
       .catch((error) => {
@@ -140,7 +140,7 @@ export default function FQ(props) {
                 <View style={{width:'100%',height:'100%',flexDirection:'row',alignItems:'center',paddingLeft:10,justifyContent:'center'}}>
                         <Documents style={{width:50,height:50}}></Documents>
                         <Text style={{...Globalstyles.Purple,...Globalstyles.Medium,fontSize:14,marginLeft:20,width:'75%',flexDirection:'column'}}>
-                          <Text style={{width:'100%',fontWeight:900}}>Documento</Text>
+                          <Text style={{width:'100%'}}>Documento</Text>
                           {'\n'}
                           <Text style={{width:'100%',...Globalstyles.gray}}>{faq?.filename}</Text>
                         </Text>
