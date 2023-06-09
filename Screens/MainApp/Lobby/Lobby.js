@@ -26,6 +26,11 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
+import * as Speech from 'expo-speech';
+
+
+
+
 
 const openWhatsApp = () => {
   Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
@@ -73,6 +78,19 @@ const ServicesData=[
 
 
 export default function Lobby(props) {
+
+
+  const speakText = async (text) => {
+    try {
+      await Speech.speak(text, {
+        language: 'es-ES', // Establece el idioma
+        pitch: 1, // Establece el tono de voz
+        rate: 0.8, // Establece la velocidad de reproducción
+      });
+    } catch (error) {
+      console.log('Error al reproducir el texto:', error);
+    }
+  };
 
   /* APP CONTEXT */
   var {Notification_basic_medic,setNotification_basic_medic,
@@ -159,19 +177,6 @@ const handleFinish = () => {
     }
   };
 
-  const getCurrentLocation = async () => {
-    try {
-      let location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords;
-      console.log(latitude, longitude)
-      setCurrentPosition({ latitude, longitude });
-      getData();
-      //startUpdatingLocation();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   //setInterval(getCurrentLocation, 10000);
 
   const getData=async()=>{
@@ -192,11 +197,11 @@ const handleFinish = () => {
       }
       
       setPreloader(false);
-       // NOS SUSCRIBIMOS AL SOCKET
-       //getNotificationPermission();
-      // registerForPushNotificationsAsync(userData).then((token) => {
-      //   // NOS SUSCRIBIMOS AL SOCKET
-      // });
+        // NOS SUSCRIBIMOS AL SOCKET
+        //getNotificationPermission();
+        // registerForPushNotificationsAsync(userData).then((token) => {
+        //   // NOS SUSCRIBIMOS AL SOCKET
+        // });
     }
 
 
@@ -296,7 +301,7 @@ const handleFinish = () => {
   Location.watchPositionAsync(
     {
       accuracy: Location.Accuracy.High,
-      distanceInterval: 1, // Actualiza la posición cada 10 metros
+      distanceInterval: 0.5, // Actualiza la posición cada 10 metros
     },
     (location) => {
       const { latitude, longitude } = location.coords;
@@ -370,6 +375,101 @@ const handleFinish = () => {
     
   },[currentDate])
 
+
+  React.useEffect(()=>{
+    if(currentPosition!==null && destinationCoordinates!==null){
+       obtenerRuta(currentPosition,destinationCoordinates);
+    }
+    
+    
+  },[currentPosition,destinationCoordinates])
+
+  /* USE STATE */
+  let [poliLine,setPoliLine]=React.useState(null);
+
+  /* OBTENER POLI-LINEA */
+
+  const obtenerRuta = async (coordinatesStart,coordinatesEnd) => {
+    const apiKey = 'AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w';
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${coordinatesStart.latitude},${coordinatesStart.longitude}&destination=${coordinatesEnd.lat},${coordinatesEnd.lng}&key=${apiKey}&language=es`;
+  
+    try {
+      const response = await axios.get(url);
+      const data = response.data;
+      // Procesa los datos de respuesta para obtener los puntos de latitud y longitud de la ruta
+      const ruta = data.routes[0].overview_polyline.points;
+      // Convierte la codificación de puntos a coordenadas
+      const coordenadasRuta = decodePolyline(ruta);
+      setPoliLine(coordenadasRuta);
+
+      const pasos = data.routes[0].legs[0].steps;
+      // Reproduce las instrucciones paso a paso 
+      console.log(currentDate?.datetime_arrival);
+      if( currentDate?.datetime_arrival===null ){
+        let instruccion = pasos[0].html_instructions.replace(/<[^>]+>/g, ' '); // Elimina las etiquetas HTML de la instrucción
+        console.log(instruccion);  
+        instruccion=instruccion.replace('Cra.','Carrera');
+        instruccion=instruccion.replace('Cl.','Calle');
+        instruccion=instruccion.replace('/',' ');
+        instruccion=instruccion.replace('Av.','Avenida');
+        Speech.speak(instruccion, {
+             language: 'es-ES', // Establece el idioma de las instrucciones de voz
+             pitch: 1, // Establece el tono de voz
+             rate: 1, // Establece la velocidad de reproducción
+           });
+        // pasos.forEach((paso) => {
+          
+        // });
+      }
+      
+
+    } catch (error) {
+      console.error('Error al obtener la ruta:', error);
+    }
+  };
+
+  // Función para decodificar la codificación de polilínea de Google
+// Función para decodificar la codificación de polilínea de Google
+const decodePolyline = (polyline) => {
+  const points = [];
+  let index = 0;
+  let lat = 0;
+  let lng = 0;
+
+  while (index < polyline.length) {
+    let shift = 0;
+    let result = 0;
+    let byte;
+
+    do {
+      byte = polyline.charCodeAt(index++) - 63;
+      result |= (byte & 0x1f) << shift;
+      shift += 5;
+    } while (byte >= 0x20);
+
+    const deltaLat = (result & 1) !== 0 ? ~(result >> 1) : result >> 1;
+    lat += deltaLat;
+
+    shift = 0;
+    result = 0;
+
+    do {
+      byte = polyline.charCodeAt(index++) - 63;
+      result |= (byte & 0x1f) << shift;
+      shift += 5;
+    } while (byte >= 0x20);
+
+    const deltaLng = (result & 1) !== 0 ? ~(result >> 1) : result >> 1;
+    lng += deltaLng;
+
+    points.push({
+      latitude: lat / 1e5,
+      longitude: lng / 1e5,
+    });
+  }
+
+  return points;
+};
    
   return (
     
@@ -484,14 +584,16 @@ const handleFinish = () => {
                               coordinate={{ latitude: destinationCoordinates?.lat, longitude: destinationCoordinates?.lng }} // Coordenadas de la segunda posición
                               title="Destino"
                             />
-                            <Polyline
-                              coordinates={[
-                                { latitude: currentPosition?.latitude, longitude: currentPosition?.longitude },
-                                { latitude: destinationCoordinates?.lat, longitude: destinationCoordinates?.lng },
-                              ]}
+                            {poliLine!==null ?
+                              <Polyline
+                              coordinates={poliLine}
                               strokeWidth={2}
                               strokeColor="#FF0000"
                             />
+                            :
+                            <></>
+                            }
+                            
                           </MapView>  
                           :
                           <View style={{flexDirection:'column', marginBottom:5,width:'90%',maxWidth:450,minHeight:50,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'center',justifyContent:'center'}}>
