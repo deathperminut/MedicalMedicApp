@@ -467,7 +467,7 @@ const decodePolyline = (polyline) => {
 
 const openWhatsApp = () => {
 
-  if (userData.coverage_city.toLowerCase().includes("Armenia")){
+  if (userData.coverage_city.toLowerCase().includes("armenia")){
     Linking.openURL('whatsapp://send?text=Hola!&phone=+573118665272');
   }else{
     Linking.openURL('whatsapp://send?text=Hola!&phone=+573214411673');
