@@ -79,7 +79,7 @@ const editUser=async(user,token)=>{
   body.append('phone', user.phone);
   body.append('identification', user.identification);
   body.append('department', user.department);
-  body.append('city', user.city);
+  body.append('city', user.coverage_city);
   body.append('coverage_city', user.coverage_city);
   body.append('address', user.address);
   body.append('date_birth', user.date_birth);
