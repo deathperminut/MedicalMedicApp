@@ -323,15 +323,41 @@ const handleFinish = () => {
 
   }
 
+  function filtrarDireccionParaGoogleMaps(direccionCompleta) {
+    // Eliminar caracteres especiales y convertir a minúsculas
+    direccionCompleta = direccionCompleta.replace(/[^\w\s]/gi, '').toLowerCase();
+  
+    // Palabras ignoradas y sus sinónimos (opcional)
+    const palabrasIgnoradas = ['calle', 'avenida', 'barrio', 'ciudad', 'número'];
+    const sinonimosIgnorados = ['cl', 'av', 'brr', 'urb', 'urb.', 'urb-', 'nro', 'n', '#'];
+    
+    // // Eliminar palabras ignoradas y sinónimos
+    // palabrasIgnoradas.forEach(palabra => {
+    //   const regex = new RegExp(`\\b${palabra}\\b`, 'g');
+    //   direccionCompleta = direccionCompleta.replace(regex, '').trim();
+    // });
+  
+    // sinonimosIgnorados.forEach(sinonimo => {
+    //   const regex = new RegExp(`\\b${sinonimo}\\b`, 'g');
+    //   direccionCompleta = direccionCompleta.replace(regex, '').trim();
+    // });
+  
+    // Eliminar espacios en blanco adicionales
+    direccionCompleta = direccionCompleta.replace(/\s+/g, ' ').trim();
+  
+    return direccionCompleta;
+  }
+
   /* OBTENEMOS LAS COORDENADAS */
   const [destinationCoordinates, setDestinationCoordinates] = React.useState(null);
   const getCoordinates = async (address,neighborhood,city, country) => {
     try {
-      //let address = address.split(' ').join('+');
-      let newAddress = address.replace('#', 'No.');
-      newAddress += ', ' + city + ', '+country;
-      console.log(newAddress);
-      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${newAddress}&key=AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w`
+      let ADD = filtrarDireccionParaGoogleMaps(address);
+      let Address = address.split(' ').join('+');
+      let newAddress = Address.replace('#', 'No.');
+      ADD += ', ' +neighborhood+', '+city+', '+country;
+      
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${ADD}&key=AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w`
       try {
         const response = await axios.get(url);
         const { results } = response.data;
@@ -600,10 +626,8 @@ const openWhatsApp = () => {
                               title="Destino"
                             />
                             {ViewUrl!== null ?
-                              <Image
-                                style={{ width: 130, height: 130}}
-                                source={{ uri: ViewUrl }}
-                              />
+                             <></>
+
                             :
                             <></>
                             }

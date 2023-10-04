@@ -9,7 +9,10 @@ export default function BeginScreen(props){
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      navigation.navigate('Start');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Start' }],
+      });
     }, 3000);
 
     return () => clearTimeout(timeoutId);

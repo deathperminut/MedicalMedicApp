@@ -52,7 +52,8 @@ export default function EditRegister(props) {
    })
    if (result){
       let CityUser=result.data.filter((obj)=>obj.location_name.toLowerCase().includes(userData.coverage_city.toLowerCase()))
-      GetBarrios(CityUser[0].id)    
+      setPreloader(false);
+      //GetBarrios(CityUser[0].id)    
    }
   }
 
@@ -219,7 +220,7 @@ const placeholder_type_2 = {
     {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
     // {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
     // {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'select_2'} ]},
-    {title:"13",data:[{id:12,type:"neighbourhood",placeholder:"Barrio" ,data:cities,open:open5,setOpen:setOpen5,typeForm:'select'} ]},
+    {title:"11",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
     {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
       { value: "Masculino", label: "Masculino" },
       { value: "Femenino", label: "Femenino" }
