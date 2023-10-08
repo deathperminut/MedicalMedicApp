@@ -55,9 +55,6 @@ const styles = StyleSheet.create({
     bottom:15
 
   },
-  RememberContainer:{
-
-  },
   buttonIn: {
     backgroundColor: '#642B80',
     paddingVertical: 20,

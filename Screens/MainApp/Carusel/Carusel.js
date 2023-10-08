@@ -1,10 +1,9 @@
-import { View, Text ,ScrollView,Image,useWindowDimensions,TouchableOpacity } from 'react-native'
+import { View, Text ,Image,TouchableOpacity } from 'react-native'
 import React,{useState} from 'react'
 import styles from './CaruselStyles'
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import { styles_shadow } from '../OurServices/OurServicesStyles'
-import Animated,{useSharedValue,useAnimatedScrollHandler,useAnimatedScr
-,interpolate,
+import Animated,{useSharedValue,useAnimatedScrollHandler,interpolate,
 useAnimatedStyle} from 'react-native-reanimated'
 
 export default function Carusel({data,props}) {

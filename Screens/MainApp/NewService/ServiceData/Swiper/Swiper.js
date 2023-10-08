@@ -1,5 +1,5 @@
 import { View, Text ,FlatList, StyleSheet ,TouchableOpacity, Animated} from 'react-native'
-import React, {useState,useRef} from 'react'
+import React, {useRef} from 'react'
 import Globalstyles from '../../../../../Shared/Icons/GlobalStyles';
 import SwiperData from './SwiperData';
 import SwiperItem  from './SwiperItem';
@@ -22,27 +22,8 @@ export default function Swiper(props) {
  const [message,setMessage]= React.useState("");
  const [iconName,setIconName]=React.useState("");
 
- const handleSuccess = () => {
-   setMessage('Acción completada con exito');
-   setIconName('check-circle');
-   setShowModal(true);
- };
 
- const handleError = () => {
-   setMessage('Error al completar la acción');
-   setIconName('error');
-   setShowModal(true);
- };
- const handleCita = () => {
-  setMessage('Tienes una cita activa');
-  setIconName('error');
-  setShowModal(true);
-};
-const handleCancel = () => {
-  setMessage('Da un motivo para cancelación');
-  setIconName('error');
-  setShowModalCancel(true);
-};
+
 
  const handleInfo = () => {
    setMessage('Ya tienes una cita activa en estos momentos');
@@ -50,12 +31,8 @@ const handleCancel = () => {
    setShowModal(true);
  };
 
- const handleCloseModal = () => {
-   setShowModal(false);
- };
-
  /* APPCONTEXT */
- let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+ let {currentDate} =React.useContext(AppContext);
 
 
  /* FUNCTIONS */

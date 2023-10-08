@@ -1,27 +1,23 @@
-import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text ,ImageBackground,ScrollView,TouchableOpacity } from 'react-native'
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
-import { Input, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import styles from './BeneficientStyles'
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
-import { GetName, GetName_Beneficient } from '../../../services/Auth/Login/Login';
-import { getAge } from '../../../services/DateManagement/DateManagement';
+import { GetName } from '../../../services/Auth/Login/Login';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
-import { getBeneficients } from '../../../services/MainApp/Beneficient/Beneficient';
-import { styles_shadow2 } from '../OurServices/OurServicesStyles';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
-import { stylesNew } from '../OurServices/OurServicesStyles';
 
 
 export default function Beneficient(props) {
 
   /* APP CONTEXT */
-  let {Notification_basic_medic,setNotification_basic_medic,
-    Notification_Maintenance_medic,setNotification_Maintenance_medic,listNotifications,setListNotifications,userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient} =React.useContext(AppContext);
+  let {Notification_basic_medic,
+    Notification_Maintenance_medic,userData} =React.useContext(AppContext);
   
   /* NAVIGATE */
   let {navigation}=props
@@ -32,21 +28,6 @@ export default function Beneficient(props) {
   const [iconName,setIconName]=React.useState("");
   const [preloader,setPreloader] = React.useState(false);
 
-  const handleSuccess = () => {
-    setMessage('Login exitoso');
-    setIconName('check-circle');
-    setShowModal(true);
-  };
-
-  const handleError = () => {
-    setMessage('Error comprueba los campos');
-    setIconName('error');
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
 
   /* FUNCTIONS */

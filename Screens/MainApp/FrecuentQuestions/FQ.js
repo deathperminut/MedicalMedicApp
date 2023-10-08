@@ -1,7 +1,7 @@
 import { Linking,View, Text,ImageBackground,ScrollView,TouchableOpacity, Dimensions, TextInput } from 'react-native'
 import React, { useState } from 'react';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
-import { Icon, SearchBar  } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import styles from './FQStyles';

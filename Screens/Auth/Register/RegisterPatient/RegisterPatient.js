@@ -1,14 +1,12 @@
-import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal, Platform ,FlatList,SectionList} from 'react-native'
+import { View, Text,StyleSheet,TouchableOpacity,Image,Platform ,SectionList} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles';
 import styles from './RegisterPatientStyle';
-import { AppContext } from '../../../../AppContext/Context';
 import CustomModal from '../../../../Shared/Alerts/Alert';
 import { initRegister } from '../../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { getBarrios, getWareLocation } from '../../../../services/Auth/Register/EditBeneficient/EditBeneficient';
@@ -234,12 +232,6 @@ export default function RegisterPatient(props) {
         setUserData({...userData,[type]:value,['city']:value});
       }
     }
-
-  }
-
-  const InputImageRead=(File)=>{
- 
-    setUserData({...userData,['photo_profile']:File});
 
   }
 
@@ -484,9 +476,6 @@ export default function RegisterPatient(props) {
          />
          <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro</Text>
          <Text style={{...Globalstyles.Semibold,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10,textAlign:'center'}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-         {/* <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-                        <ImageInput ReturnFile={InputImageRead}></ImageInput>
-         </View> */}
         <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

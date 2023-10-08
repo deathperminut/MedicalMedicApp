@@ -17,15 +17,11 @@ export default function StartScreen(props) {
           <LogoMedicalWhite width='100' height="100" style={styles.iconContainer}></LogoMedicalWhite>
           <Text style={{...Globalstyles.Medium , ...Globalstyles.white, ...Globalstyles.Title}} >Bienvenido a</Text>
           <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Title}}>Medical Home Care</Text>
-          <Text style={{...Globalstyles.Medium, ...Globalstyles.white, ...Globalstyles.text , ...{'marginTop':20}}}>En esta app podrás  agendar citas medicas</Text>
-          <Text style={{...Globalstyles.Medium, ...Globalstyles.white, ...Globalstyles.text, ...{'marginBottom':25}}}>en casa con profesionales médicos</Text>
+          <Text style={{...Globalstyles.Medium, ...Globalstyles.white, ...Globalstyles.text , ...{'marginTop':20}}}>En esta app podrás  atender tus citas</Text>
+          <Text style={{...Globalstyles.Medium, ...Globalstyles.white, ...Globalstyles.text, ...{'marginBottom':25}}}>revisar tu agenda y notificaciones</Text>
           <TouchableOpacity style={styles.buttonIn} onPress={() => navigation.navigate('Login')}>
               <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Ingresar</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.buttonUp} onPress={() => navigation.navigate('RegisterPatient')}>
-              <Text style={{...styles.buttonText,...Globalstyles.Medium}}>Registrarse</Text>
-          </TouchableOpacity> */}
-
       </View>
     </View>
 

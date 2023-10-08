@@ -1,22 +1,19 @@
-import { View, Text ,ImageBackground,Image,FlatList,ScrollView,TouchableOpacity } from 'react-native'
+import { View, Text ,ImageBackground,ScrollView,TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
-import { Input, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import styles from './HistoryDatesStyles'
 import { styles_shadow } from '../OurServices/OurServicesStyles';
-import { formatearFecha, formatearHora, getAge } from '../../../services/DateManagement/DateManagement';
+import { formatearFecha, formatearHora} from '../../../services/DateManagement/DateManagement';
 import { GetName } from '../../../services/Auth/Login/Login';
 import { AppContext } from '../../../AppContext/Context';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
-import { environment } from '../../../environments/environments';
-import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
 import { UpdateDate } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
-import * as Location from 'expo-location';
-import * as SMS from 'expo-sms';
+
 
 export default function HistoryDates(props) {
     /* NAVIGATE */
@@ -26,8 +23,6 @@ export default function HistoryDates(props) {
   const [expanded, setExpanded] = useState({});
   const [preloader,setPreloader] = React.useState(false);
 
-  /*SOCKET*/
-  const [Socket, setSocket] = useState(null);
 
   const handleExpand = (index) => {
     setExpanded({
@@ -42,11 +37,6 @@ export default function HistoryDates(props) {
   const [message,setMessage]= React.useState("");
   const [iconName,setIconName]=React.useState("");
 
-  const handleSuccess = () => {
-    setMessage('Login exitoso');
-    setIconName('check-circle');
-    setShowModal(true);
-  };
 
   const handleError = () => {
     setMessage('Error al cargar historial de consultas');
@@ -66,12 +56,9 @@ export default function HistoryDates(props) {
     setShowModal(true);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,historyDates,setHistoryDates,step,setStep} =React.useContext(AppContext);
+  let {userData, token,currentDate,setCurrentDate,historyDates,setHistoryDates} =React.useContext(AppContext);
 
    React.useEffect(()=>{
      if(token){
@@ -117,35 +104,6 @@ export default function HistoryDates(props) {
    }
 
 
-   /** SISTEMA DE SOCKET */
-
-  //  const socket_control=async(User,Token)=>{
-  //   const socket = new WebSocket(environment.socket_date+User.identification+'/?token='+token);
-  //   setSocket(socket);
-  //   socket.onopen = () => {
-  //       console.log('WebSocket connected');
-  //   };
-  //   socket.onmessage = (event) => {
-  //     console.log('Received message: ' ,JSON.parse(event.data));
-  //     let data=JSON.parse(event.data);
-  //     if(data.type==="appointment_doctor"){
-  //       setHistoryDates(data.services)
-  //     }
-  //   };
-
-  //   socket.onerror = (error) => {
-  //     console.log('WebSocket error: ' + error.message);
-  //   };
-
-  //   socket.onclose = () => {
-  //     console.log('WebSocket disconnected');
-  //   };
-
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }
-
   /* UPDATE DATE */
 
   const UPDATE_DATE=async(DATE)=>{
@@ -160,13 +118,7 @@ export default function HistoryDates(props) {
      if (result!==undefined){
        setPreloader(false);
        setCurrentDate(result.data);
-      //  const location = await Location.getCurrentPositionAsync({});
-      //  const { latitude, longitude } = location.coords;
 
-      //  // Crear el mensaje con la ubicación
-      //  const message = `Mi ubicación en tiempo real: https://maps.google.com/?q=${latitude},${longitude}`;
-      //  // Enviar el mensaje por WhatsApp
-      //  await SMS.sendSMSAsync('+57'+result.data.cellphone_number, message);
        navigation.navigate('Drawer');
      }
 
@@ -188,7 +140,6 @@ export default function HistoryDates(props) {
             <TouchableOpacity>
               <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>{
                 navigation.navigate('Drawer');
-                //Socket.onclose();
               }}></Icon>
             </TouchableOpacity>
             <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>

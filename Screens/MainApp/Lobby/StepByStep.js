@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ProgressSteps,ProgressStep } from 'react-native-progress-steps';
-import { Icon } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import { AppContext } from '../../../AppContext/Context';
 
 const VerticalStepIndicator = () => {
 
-  let {step,setStep} =React.useContext(AppContext);
+  let {step} =React.useContext(AppContext);
   const steps = [
     { label: 'Solicitud del servicio', icon: { name: 'user', type: 'font-awesome' } },
     { label: 'En proceso de agendamiento', icon: { name: 'envelope', type: 'font-awesome' } },

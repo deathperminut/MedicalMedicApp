@@ -39,16 +39,9 @@ export default function SwiperItem(props) {
         <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Title,marginBottom:'35%'}}>{props.item.title}</Text>
         <View style={{...styles.whiteBox,alignItems:'center'}}>
             <View style={{...styles.PointersContainer}}>
-                {/* <View style={styles.Pointer_1}></View>
-                <View style={styles.Pointer_2}></View>
-                <View style={styles.Pointer_3}></View> */}
             </View> 
             <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Title, ...{marginTop:'0%'}, ...{color:'#642B80'}}}>{props.item.title}</Text>
             <Text style={{...Globalstyles.bold, ...Globalstyles.white, ...Globalstyles.Medium, ...{marginTop:'5%'},...{paddingHorizontal:'10%'}, ...{color:'#9D91F4'},textAlign:'center'}}>{props.item.text}</Text>
-            {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NewServices')}>
-              <Icon name="chevron-right" type="font-awesome" size={20} color="#fff" style={{position:'relative'}} />
-              <Text style={{...styles.buttonText,...Globalstyles.Medium,}}>Siguiente</Text>
-            </TouchableOpacity> */}
 
         </View>
             

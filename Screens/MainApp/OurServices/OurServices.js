@@ -1,22 +1,11 @@
-import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,TextInput,StyleSheet,Dimensions } from 'react-native'
+import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,Dimensions } from 'react-native'
 import React, { useState } from 'react';
 import styles from './OurServicesStyles';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import { Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
-import RNPickerSelect from "react-native-picker-select";
-import ConsultaDomestica from '../../../Shared/Icons/OurServices/ConsultaDomestica';
-import CuidadoAgudo from '../../../Shared/Icons/OurServices/CuidadoAgudo';
-import CuidadoCronico from '../../../Shared/Icons/OurServices/CuidadoCronico';
-import Fonoaudiologia from '../../../Shared/Icons/OurServices/Fonoaudiología';
-import Hospitalizacion from '../../../Shared/Icons/OurServices/Hospitalizacion';
-import Nutricion from '../../../Shared/Icons/OurServices/Nutricion';
-import Orientacion from '../../../Shared/Icons/OurServices/OrientacionVideofónica';
-import TerapiaFisica from '../../../Shared/Icons/OurServices/TerapiaFisica';
-import TerapiaOcupacional from '../../../Shared/Icons/OurServices/TerapiaOcupacional';
-import TerapiaRespiratoria from '../../../Shared/Icons/OurServices/TerapiaRespiratoria';
-import { styles_shadow } from './OurServicesStyles';
+
 import { Calendar } from 'react-native-big-calendar';
 import { AppContext } from '../../../AppContext/Context';
 import { retrieveMedicalSchedule, DatesDoctors } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
@@ -63,19 +52,8 @@ export default function OurServices(props) {
 
   let {navigation}=props;
 
-  /* SELECTS */
-  const placeholder = {
-    label: 'Seleccione una novedad',
-    value: null,
-    color: '#9EA0A4',
-    fontFamily:'Montserrat-SemiBold'
-  };
-
   const [texto, setTexto] = useState('');
 
-  const handleTexto = (texto) => {
-    setTexto(texto);
-  };
   React.useEffect(()=>{
 
     if(token!==null){
@@ -145,32 +123,3 @@ export default function OurServices(props) {
     
   )
 }
-
-
-/* STILOS SELECT */
-const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-        fontSize: 16,
-        fontFamily:'Montserrat-SemiBold',
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: '#9D91F4',
-        borderRadius: 4,
-        color: '#9D91F4',
-        paddingRight: 30 // to ensure the text is never behind the icon
-    },
-    inputAndroid: {
-        fontSize: 16,
-        fontFamily:'Montserrat-SemiBold',
-        paddingHorizontal: 10,
-        paddingVertical: 8,
-        borderWidth: 0.5,
-        borderColor: '#9D91F4',
-        borderRadius: 8,
-        color: '#9D91F4',
-        width:'100%',
-        maxWidth:500,
-        paddingRight: 30 // to ensure the text is never behind the icon
-    }
-});

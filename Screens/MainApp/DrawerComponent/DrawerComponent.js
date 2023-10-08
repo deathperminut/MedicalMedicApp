@@ -1,9 +1,8 @@
-import { View, Text ,TouchableOpacity,Button} from 'react-native'
+import { View, Text ,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Drawer } from 'react-native-drawer-layout';
 import Lobby from '../Lobby/Lobby';
 import { Icon } from 'react-native-elements';
-import LogotipoMedicalColor from '../../../Shared/Icons/Logotipo-Medical-Color';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import LogoMedicalWhite from '../../../Shared/Icons/LogoMedicalWhite';
 import { AppContext } from '../../../AppContext/Context';
@@ -14,7 +13,7 @@ export default function DrawerComponent(props) {
   
   function DrawerC(props){
 
-    let { userData, setUserData, token, setToken,Logout }=React.useContext(AppContext); 
+    let { Logout }=React.useContext(AppContext); 
 
     /* NAVIGATION */
     let {navigation}=props.props
@@ -39,17 +38,7 @@ export default function DrawerComponent(props) {
                     />
                     <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Editar Perfil</Text>
                   </TouchableOpacity>
-                  {/* <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('Beneficient')}>
-                    <Icon
-                      name='users'
-                      type='font-awesome'
-                      size={20}
-                      color='#3E4898'
-                      style={{marginRight:13}}
 
-                    />
-                    <Text style={{color:'blue',...Globalstyles.white,...Globalstyles.Medium}}>Beneficiarios</Text>
-                  </TouchableOpacity> */}
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>{
                     Logout()
                     navigation.navigate('Start')
@@ -75,9 +64,7 @@ export default function DrawerComponent(props) {
     <Drawer
       statusBarAnimation='fade'
       open={open}
-      // swipeEdgeWidth={50}
-      //drawerType={'slide'}
-      drawerStyle={{backgroundColor:'#090131',width:180}} //090131
+      drawerStyle={{backgroundColor:'#090131',width:180}}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderDrawerContent={() => {

@@ -36,7 +36,7 @@ export default function Reports(props) {
   };
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate} =React.useContext(AppContext);
+  let {userData} =React.useContext(AppContext);
 
   return (
     <>

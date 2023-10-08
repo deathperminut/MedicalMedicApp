@@ -19,24 +19,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height:'100%',
   },
-  //tittle
-  tittleContainer: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // paddingHorizontal: 16,
-    // width: '100%',
-    // paddingTop:150,
-    // marginVertical:10,
-  },
-  title: { 
-    // fontSize: 30.36,
-    // // fontFamily: 'Montserrat-SemiBold',
-    // textAlign: 'center',
-    // color: '#FFF',
-    // paddingLeft:60,
-    // paddingRight:60, 
-  },
   MainContainer: {
      
     width:'100%',
@@ -120,15 +102,6 @@ const styles = StyleSheet.create({
     paddingTop:30,
     paddingLeft:10,
     paddingRight:10,
-  },
-  //buttons
-  buttonContainerWrapper: {
-    // flex: 1,
-    // flexDirection: 'column',
-    // justifyContent: 'flex-end',
-    // width: '100%',
-    // paddingBottom:40,
-
   },
   buttonContainerIn: {
 

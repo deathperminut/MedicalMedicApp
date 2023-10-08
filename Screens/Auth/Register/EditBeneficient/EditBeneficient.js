@@ -1,4 +1,4 @@
-import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal, Platform ,FlatList,SectionList} from 'react-native'
+import { View, Text,StyleSheet,TouchableOpacity,Image,Platform ,SectionList} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -6,19 +6,16 @@ import Globalstyles from '../../../../Shared/Icons/GlobalStyles';
 import styles from './EditBeneficientStyle';
 import { AppContext } from '../../../../AppContext/Context';
 import CustomModal from '../../../../Shared/Alerts/Alert';
-import { initRegister } from '../../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { initRegisterBeneficient } from '../../../../services/Auth/Register/RegisterBeneficient/RegisterBeneficient';
 import { deleteBeneficient, editBeneficient } from '../../../../services/Auth/Register/EditBeneficient/EditBeneficient';
 
 
 export default function EditBeneficient(props) {
 
  /* APP CONTEXT */
- let {token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
+ let {token,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
   
 
   
@@ -69,8 +66,6 @@ export default function EditBeneficient(props) {
     setShowModal(false);
   };
   
-  /* USE STATE */
-  let [showPassword,setShowPassword]=React.useState(true);
 
 
   /* USESTATE */
@@ -115,12 +110,6 @@ export default function EditBeneficient(props) {
       setUserData({...userData,[type]:value});
     }
     
-  }
-
-  const InputImageRead=(File)=>{
- 
-    setUserData({...userData,['photo_profile']:File});
-
   }
 
 
@@ -353,9 +342,6 @@ export default function EditBeneficient(props) {
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Editar Beneficiario</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>dale click al boton de actualizar para confirmar los cambios</Text>
-        {/* <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-                        <ImageInput ReturnFile={InputImageRead}></ImageInput>
-         </View> */}
          <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

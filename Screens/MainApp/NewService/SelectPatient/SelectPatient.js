@@ -1,11 +1,10 @@
-import { View, Text ,ImageBackground,ScrollView,Dimensions,TouchableOpacity,Modal, StyleSheet,Image} from 'react-native'
+import { View, Text ,ImageBackground,ScrollView,Dimensions,TouchableOpacity} from 'react-native'
 import React, { useState } from 'react';
 import {LinearGradient} from 'expo-linear-gradient';
-import { Input, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import LogoMedicalComplete from '../../../../Shared/Icons/LogoMedicalComplete';
 import styles from './SelectPatientStyle'
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
-import RNPickerSelect from "react-native-picker-select";
 import { styles_shadow } from '../../OurServices/OurServicesStyles';
 import { AppContext } from '../../../../AppContext/Context';
 import { GetName } from '../../../../services/Auth/Login/Login';
@@ -21,11 +20,6 @@ export default function SelectPatient(props) {
    const [iconName,setIconName]=React.useState("");
    const [preloader,setPreloader] = React.useState(false);
  
-   const handleSuccess = () => {
-     setMessage('Login exitoso');
-     setIconName('check-circle');
-     setShowModal(true);
-   };
  
    const handleError = () => {
      setMessage('Error comprueba los campos');
@@ -33,9 +27,6 @@ export default function SelectPatient(props) {
      setShowModal(true);
    };
  
-   const handleCloseModal = () => {
-     setShowModal(false);
-   };
 
    /* PANTALLA */
    const windowHeight = Dimensions.get('window').height;
@@ -54,7 +45,7 @@ export default function SelectPatient(props) {
   let {navigation}=props;
 
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,patient,setPatient} =React.useContext(AppContext);
+  let {userData, token,listBeneficient,setListBeneficient,setPatient} =React.useContext(AppContext);
 
   /* USE-EFFECT */
 

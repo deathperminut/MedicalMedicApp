@@ -6,13 +6,10 @@ import styles from './EditRegisterStyles';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import { AppContext } from '../../../AppContext/Context';
 import CustomModal from '../../../Shared/Alerts/Alert';
-import { initRegister } from '../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ImageInput from '../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { initRegisterBeneficient } from '../../../services/Auth/Register/RegisterBeneficient/RegisterBeneficient';
-import { deleteBeneficient, editBeneficient, editUser, getBarrios, getWareLocation } from '../../../services/Auth/Register/EditBeneficient/EditBeneficient';
+import { deleteBeneficient, editUser, getBarrios, getWareLocation } from '../../../services/Auth/Register/EditBeneficient/EditBeneficient';
 import RNPickerSelect from 'react-native-picker-select';
 
 export default function EditRegister(props) {
@@ -27,9 +24,6 @@ export default function EditRegister(props) {
   /* REACT USESTATE */
 
   let [barrios,setBarrios]=React.useState([]);
-  let [barriosSublist,setBarriosSublist]=React.useState([]);
-  let [cities,setCities]=React.useState([]);
-  let [citiesComplete,setCitiesComplete]=React.useState([]);
 
   React.useEffect(()=>{
     
@@ -51,34 +45,11 @@ export default function EditRegister(props) {
     handleError_();
    })
    if (result){
-      let CityUser=result.data.filter((obj)=>obj.location_name.toLowerCase().includes(userData.coverage_city.toLowerCase()))
       setPreloader(false);
-      //GetBarrios(CityUser[0].id)    
    }
   }
 
 
-  const GetBarrios=async(idCity)=>{
-    setPreloader(true);
-    let result = undefined;
-    result = await getBarrios().catch((error)=>{
-      console.log(error);
-      setPreloader(false);
-      handleError_();
-    }) 
-
-    if (result){
-      setPreloader(false);
-      let BarriosFiltrados=result.data.filter((obj)=>obj.location_id.toString() === idCity.toString())
-      setBarrios(BarriosFiltrados.map(
-        obj => ({
-          value: obj.neighbourhood,
-          label: obj.neighbourhood,
-          location:obj.location_id,
-        })
-      ))
-    }
-  }
 
   let {navigation}=props
 
@@ -124,15 +95,7 @@ export default function EditRegister(props) {
    setShowModal(true);
  };
 
- const handleInfo = () => {
-   setMessage('Faltan campos por completar');
-   setIconName('error');
-   setShowModal(true);
- };
 
- const handleCloseModal = () => {
-   setShowModal(false);
- };
  
  const placeholder_type = {
   label: userData.neighbourhood!==null || undefined ? userData.neighbourhood:"Barrio",
@@ -166,20 +129,11 @@ const placeholder_type_2 = {
      setUserData_({...userData,[type]:""});
    }else{
      setUserData_({...userData_,[type]:value});
-    // if(type==="coverage_city"){
-    //    let DATA=citiesComplete.filter((obj)=>obj.label.toLowerCase() === value.toLowerCase())[0].value;
-    //    let ArrayFilter=barriosSublist.filter((obj)=> obj.location === DATA);
-    //    setBarrios(ArrayFilter);
-    // }
+
    }
    
  }
 
- const InputImageRead=(File)=>{
-
-   setUserData_({...userData_,['photo_profile']:File});
-
- }
 
 
  const stylesDate = StyleSheet.create({
@@ -194,9 +148,7 @@ const placeholder_type_2 = {
 
  const [open, setOpen] = React.useState(false);
  const [open2, setOpen2] = React.useState(false);
- const [open3, setOpen3] = React.useState(false);
  const [open4, setOpen4] = React.useState(false);
- const [open5, setOpen5] = React.useState(false);
 
  /* LIST FORM DATA */
 
@@ -218,8 +170,6 @@ const placeholder_type_2 = {
     {title:"9",data:[{id:22,typeForm:'date',data:[]}]},
     {title:"10",data:[{id:9,type:'phone',placeholder:'Número celular' ,icon:'phone',typeIcon:'font-awesome' ,typeForm:'input',data:[]}]},
     {title:"11",data:[{id:10,type:'department',placeholder:'Departamento' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
-    // {title:"12",data:[{id:11,type:'city',placeholder:'Ciudad' ,icon:'location-city',typeForm:'input',data:[]}]},
-    // {title:"14",data:[{id:13,type:"coverage_city",placeholder:"Ciudad cobertura" ,data:cities,open:open3,setOpen:setOpen3,typeForm:'select_2'} ]},
     {title:"11",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
     {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
       { value: "Masculino", label: "Masculino" },

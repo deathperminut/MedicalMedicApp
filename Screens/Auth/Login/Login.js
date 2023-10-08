@@ -1,11 +1,10 @@
-import { View, Text,Switch,TouchableOpacity,Image} from 'react-native'
+import { View, Text,TouchableOpacity,Image} from 'react-native'
 import React from 'react'
 import styles from './LoginStyle'
 import { Input, Icon } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
 import {LinearGradient} from 'expo-linear-gradient';
 import { initLogin } from '../../../services/Auth/Login/Login';
-import { ConfirmationAlert } from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import { AppContext } from '../../../AppContext/Context';
@@ -16,7 +15,7 @@ export default function Login(props) {
 
   /* APP CONTEXT */
 
-  let { userData, setUserData, token, setToken,currentPosition, setCurrentPosition }=React.useContext(AppContext);
+  let { userData, setUserData, setToken, setCurrentPosition }=React.useContext(AppContext);
 
   React.useEffect(() => {
   //   // Solicitar permisos de ubicación

@@ -2,7 +2,6 @@ import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,TextInput,Style
 import React, { useState } from 'react';
 import {LinearGradient} from 'expo-linear-gradient';
 import { Input } from 'react-native-elements';
-import { Linking } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import styles from './NewServiceFormStyle';
 import Globalstyles from '../../../../Shared/Icons/GlobalStyles';
@@ -13,15 +12,11 @@ import { GetName } from '../../../../services/Auth/Login/Login';
 import { getAge, getDateByHourDate } from '../../../../services/DateManagement/DateManagement';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import CustomModal from '../../../../Shared/Alerts/Alert';
-import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { generateService, getActivities } from '../../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 
 
 export default function NewServiceForm(props) {
-
-  const [open4, setOpen4] = React.useState(false);
-  const [open5, setOpen5] = React.useState(false);
 
   /* PANTALLA */
   const windowHeight = Dimensions.get('window').height;
@@ -46,21 +41,11 @@ export default function NewServiceForm(props) {
     fontFamily:'Montserrat-SemiBold'
   };
 
-  const [texto, setTexto] = useState('');
-
-  const handleTexto = (texto) => {
-    setTexto(texto);
-  };
-
-
-  const [selectedValue, setSelectedValue] = React.useState('');
-
   /* APP CONTEXT */
-  let {userData, setUserData, token, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,patient,setPatient,step,setStep} =React.useContext(AppContext);
+  let {token, setCurrentDate,patient,setStep} =React.useContext(AppContext);
 
   /* DATE PICKER */
  const [date, setDate] = React.useState(new Date())
- const [mode, setMode] = React.useState('time');
  const [show,setShow]  = React.useState(false);
  const [show_time,setShow_time]  = React.useState(false);
 
@@ -112,9 +97,6 @@ export default function NewServiceForm(props) {
    setShowModal(true);
  };
 
- const handleCloseModal = () => {
-   setShowModal(false);
- };
 
 
  /* FUNCTIONS */

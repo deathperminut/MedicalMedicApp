@@ -24,9 +24,6 @@ const styles = StyleSheet.create({
   },
   buttonBack:{
     position: 'relative',
-    // left: 40,
-    // aspectRatio: 1,
-    // top: 100,
   },
   buttonText: {
     fontSize: 12.59,
@@ -42,13 +39,10 @@ const styles = StyleSheet.create({
     paddingTop:20
   },
   iconContainer:{
-    // position: 'absolute', 
-    // top: 10, 
-    // right: 20, 
+
     width: 200, 
     height:100,
-    // aspectRatio: 1,
-    // marginRight: 20,
+
   },
   navBar:{
     width:'100%',

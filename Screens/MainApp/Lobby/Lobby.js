@@ -1,26 +1,21 @@
-import { View, Text ,ImageBackground,Image,Dimensions,FlatList,ScrollView,TouchableOpacity,useWindowDimensions } from 'react-native'
+import { View, Text ,ImageBackground,Image,Dimensions,ScrollView,TouchableOpacity} from 'react-native'
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
-import { Input, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { Linking } from 'react-native';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
-import ContactIcon from '../../../Shared/Icons/ContactIcon';
 import QuestionIcon from '../../../Shared/Icons/QuestionIcon';
 import styles from './LobbyStyle';
 import Carusel from '../Carusel/Carusel';
-import * as Notifications from 'expo-notifications';
-import VerticalStepIndicator from './StepByStep';
 import { styles_shadow } from '../OurServices/OurServicesStyles';
 import { AppContext } from '../../../AppContext/Context';
 import { GetName } from '../../../services/Auth/Login/Login';
-import { formatearFecha, formatearHora, getAge } from '../../../services/DateManagement/DateManagement';
+import {  formatearHora, getAge } from '../../../services/DateManagement/DateManagement';
 import CustomModal from '../../../Shared/Alerts/Alert';
-import CustomModalCancel from '../../../Shared/Alerts/YesNoAlert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
-import { UpdateDate_Arrive, UpdateDate_FINISH, cancelService, getActiveService, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { UpdateDate_Arrive, UpdateDate_FINISH, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
-import { color } from 'react-native-reanimated';
 import { getActiveDates, getNotifications, getNotificationsMaintenance } from '../../../services/MainApp/HistoryDates/HistoryDates';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -50,13 +45,6 @@ const ServicesData=[
     text_2:'Diarios',
     navigate:'OurServices' 
   },
-  //  {
-  //    image:'../../../assets/Home/Tarjeta-Reportar.png',
-  //    id:'2',
-  //    text_1:'Guias',
-  //    text_2:'Practicas',
-  //    navigate:'Reports'
-  // },
   {
     image:'../../../assets/Home/Tarjeta-Solicitar.png',
     id:'4',
@@ -74,18 +62,6 @@ const ServicesData=[
 export default function Lobby(props) {
 
 
-  const speakText = async (text) => {
-    try {
-      await Speech.speak(text, {
-        language: 'es-ES', // Establece el idioma
-        pitch: 1, // Establece el tono de voz
-        rate: 0.8, // Establece la velocidad de reproducción
-      });
-    } catch (error) {
-      console.log('Error al reproducir el texto:', error);
-    }
-  };
-
   /* APP CONTEXT */
   var {Notification_basic_medic,setNotification_basic_medic,
     Notification_Maintenance_medic,setNotification_Maintenance_medic,activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep,currentPosition, setCurrentPosition} =React.useContext(AppContext);
@@ -102,16 +78,6 @@ export default function Lobby(props) {
  var [iconName,setIconName]=React.useState("");
 
 
- const handleSuccess = () => {
-   setMessage('Acción completada con exito');
-   setIconName('check-circle');
-   setShowModal(true);
- };
- const handleCancelWeb = (date) => {
-  setMessage("Cita cancelada por el siguiente motivo: "+date.reason);
-  setIconName('error');
-  setShowModal(true);
-};
 
  const handleError = () => {
    setMessage('Error al completar la acción');
@@ -119,11 +85,6 @@ export default function Lobby(props) {
    setShowModal(true);
  };
 
-const handleCancel = () => {
-  setMessage('Da un motivo para cancelación');
-  setIconName('error');
-  setShowModalCancel(true);
-};
 
 const handleArrive = () => {
   setMessage('Llegada registrada correctamente');
@@ -137,16 +98,6 @@ const handleFinish = () => {
   setShowModal(true);
 };
 
- const handleInfo = () => {
-   setMessage('Solo es posible cancelar mientras no haya sido agendada, en caso distinto comuniquese con la central, en el apartado de contacto.');
-   setIconName('error');
-   setShowModal(true);
- };
-
- const handleCloseModal = () => {
-   setShowModal(false);
- };
- 
 
   /* NEW SERVICE LOGIC */
 
@@ -166,7 +117,6 @@ const handleFinish = () => {
     if (status !== 'granted') {
     } else {
       getData();
-      //getCurrentLocation();
       startUpdatingLocation();
       // Crear el mensaje con la ubicación
       
@@ -317,11 +267,6 @@ const handleFinish = () => {
 
   let [reason,setReason]=React.useState("");
 
-  const readInputReason=(Text)=>{
-
-    setReason(Text);
-
-  }
 
   function filtrarDireccionParaGoogleMaps(direccionCompleta) {
     // Eliminar caracteres especiales y convertir a minúsculas
@@ -330,17 +275,6 @@ const handleFinish = () => {
     // Palabras ignoradas y sus sinónimos (opcional)
     const palabrasIgnoradas = ['calle', 'avenida', 'barrio', 'ciudad', 'número'];
     const sinonimosIgnorados = ['cl', 'av', 'brr', 'urb', 'urb.', 'urb-', 'nro', 'n', '#'];
-    
-    // // Eliminar palabras ignoradas y sinónimos
-    // palabrasIgnoradas.forEach(palabra => {
-    //   const regex = new RegExp(`\\b${palabra}\\b`, 'g');
-    //   direccionCompleta = direccionCompleta.replace(regex, '').trim();
-    // });
-  
-    // sinonimosIgnorados.forEach(sinonimo => {
-    //   const regex = new RegExp(`\\b${sinonimo}\\b`, 'g');
-    //   direccionCompleta = direccionCompleta.replace(regex, '').trim();
-    // });
   
     // Eliminar espacios en blanco adicionales
     direccionCompleta = direccionCompleta.replace(/\s+/g, ' ').trim();
@@ -423,7 +357,7 @@ const handleFinish = () => {
       const pasos = data.routes[0].legs[0].steps;
       
       // Reproduce las instrucciones paso a paso 
-      if( currentDate?.datetime_arrival===null ){
+      if( currentDate?.datetime_arrival!==null ){
         let instruccion = pasos[0].html_instructions.replace(/<[^>]+>/g, ' '); // Elimina las etiquetas HTML de la instrucción
         console.log(instruccion);  
         setIndications(instruccion);

@@ -1,4 +1,4 @@
-import { Button,View, Text,Switch,StyleSheet,TouchableOpacity,ScrollView,Image,Modal, Platform ,FlatList,SectionList} from 'react-native'
+import { View, Text,StyleSheet,TouchableOpacity,Image,Platform,SectionList} from 'react-native'
 import React from 'react'
 import { Input, Icon } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
@@ -6,9 +6,7 @@ import Globalstyles from '../../../../Shared/Icons/GlobalStyles'
 import styles from './RegisterBeneficientsStyle';
 import { AppContext } from '../../../../AppContext/Context';
 import CustomModal from '../../../../Shared/Alerts/Alert';
-import { initRegister } from '../../../../services/Auth/Register/RegisterPatient/RegisterPatient';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ImageInput from '../../../../Shared/Components/imageInput';
 import LoadingScreen from '../../../../Shared/Alerts/Loader';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNPickerSelect from 'react-native-picker-select';
@@ -186,11 +184,6 @@ export default function RegisterBeneficients(props) {
 
   }
 
-  const InputImageRead=(File)=>{
-
-    setUserData({...userData,['photo_profile']:File});
-
-  }
 
   const placeholder_type = {
     label: 'Barrio',
@@ -483,9 +476,6 @@ export default function RegisterBeneficients(props) {
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Orange,...{['marginBottom']:40}}}>Registro Beneficiario</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:10}}}>Llena todos los campos y dale registrar para completar el registro</Text>
-        {/* <View style={{...styles.InputsDesignContainer,...styles.PictureContainer}}>
-                        <ImageInput ReturnFile={InputImageRead}></ImageInput>
-         </View> */}
          <SectionList
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
