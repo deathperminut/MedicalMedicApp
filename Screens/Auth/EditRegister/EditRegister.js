@@ -333,7 +333,6 @@ const UPDATEBeneficient=async()=>{
   if(result){
     setSelectBeneficient(null);
     handleSuccess();
-    console.log("USER DATA: ",result.data,userData);
     setUserData({...result.data,['photo']:result.data['photo_profile'],['name']:result.data.first_name})
     setPreloader(false);
   }
