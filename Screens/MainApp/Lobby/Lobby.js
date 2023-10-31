@@ -14,7 +14,7 @@ import { GetName } from '../../../services/Auth/Login/Login';
 import {  formatearHora, getAge } from '../../../services/DateManagement/DateManagement';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
-import { UpdateDate_Arrive, UpdateDate_FINISH, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { UpdateDate_Arrive, UpdateDate_FINISH, Whatsapp_message_llegada, Whatsapp_message_time, getActivities } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 import AlertComponent from '../../../Shared/Icons/AlertComponent';
 import { getActiveDates, getNotifications, getNotificationsMaintenance } from '../../../services/MainApp/HistoryDates/HistoryDates';
 import MapView, { Marker, Polyline } from 'react-native-maps';
@@ -230,6 +230,11 @@ const handleFinish = () => {
       setPreloader(false);
       handleArrive();
       console.log("Cita actualizada: ",result.data);
+      Whatsapp_message_llegada(result?.data?.cellphone_number,currentPosition?.latitude,currentPosition?.longitude).then((data)=>{
+        console.log("ENVIADO CON EXITO",data);
+      }).catch((error)=>{
+        console.log("ERROR AL ENVIAR",error);
+      });
       setCurrentDate(result.data);
     }
  }
@@ -241,7 +246,7 @@ const handleFinish = () => {
       distanceInterval: 0.5, // Actualiza la posición cada 10 metros
     },
     (location) => {
-      const { latitude, longitude } = location.coords;
+      const { latitude, longitude } = location?.coords;
       setCurrentPosition({ latitude, longitude });
     }
   );
@@ -341,7 +346,7 @@ const handleFinish = () => {
 
   const obtenerRuta = async (coordinatesStart,coordinatesEnd) => {
     const apiKey = 'AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w';
-    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${coordinatesStart.latitude},${coordinatesStart.longitude}&destination=${coordinatesEnd.lat},${coordinatesEnd.lng}&key=${apiKey}&language=es`;
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${coordinatesStart?.latitude},${coordinatesStart?.longitude}&destination=${coordinatesEnd?.lat},${coordinatesEnd?.lng}&key=${apiKey}&language=es`;
   
     try {
       const response = await axios.get(url);
@@ -349,7 +354,18 @@ const handleFinish = () => {
       // Procesa los datos de respuesta para obtener los puntos de latitud y longitud de la ruta
       const ruta = data.routes[0].overview_polyline.points;
       const duration = data.routes[0].legs[0].duration.text; // Duración estimada de la ruta
+      console.log("DATOS DE RUTA : ",duration);
       setTime(duration);
+      if(currentDate?.status === "EN CAMINO"){
+
+        Whatsapp_message_time(currentDate?.cellphone_number,duration).then((data)=>{
+          console.log("MENSAJE ENVIADO CON EXITO",data);
+        }).catch((error)=>{
+          console.log("ERROR AL ENVIAR MENSAJE",error);
+        });
+
+      }
+      console.log("CITA ACEPTADA: ",currentDate);
       // Convierte la codificación de puntos a coordenadas
       const coordenadasRuta = decodePolyline(ruta);
       setPoliLine(coordenadasRuta);
@@ -544,8 +560,8 @@ const openWhatsApp = () => {
                           <MapView
                             style={{ flexDirection:'row', marginBottom:5,width:'90%',maxWidth:450,minHeight:500,backgroundColor:'#FFFFFF',borderRadius:20,padding:10,alignItems:'flex-end',justifyContent:'flex-end'}}
                             initialRegion={{
-                              latitude: currentPosition.latitude, // Latitud inicial del mapa
-                              longitude: currentPosition.longitude, // Longitud inicial del mapa
+                              latitude: currentPosition?.latitude, // Latitud inicial del mapa
+                              longitude: currentPosition?.longitude, // Longitud inicial del mapa
                               latitudeDelta: 0.05,
                               longitudeDelta: 0.05,
                             }}

@@ -152,6 +152,139 @@ const getActivities=async(token)=>{
     
   };
 
+  const Whatsapp_message_salida =async(cellphone,latitude,longitude)=>{
+    // environment.api
+      let path= 'https://graph.facebook.com/v17.0/123796670819506/messages';
+      let  Token_cellphone ='EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH' // TOKEN PERMANENTE
+      /* HEADER */
+      let config = {
+          headers: {
+            Authorization: 'Bearer ' + Token_cellphone,
+          },
+      };
+      let body= {
+        "messaging_product": "whatsapp",
+        "to": "57"+cellphone,
+        "type": "template",
+        "template": {
+            "name": "ubicacion",
+            "language": {
+                "code": "en"
+            }
+            ,
+        "components": [
+            {
+            "type": "header",
+            "parameters": [
+              {
+                "type": "location",
+                "location": {
+                  "longitude": longitude,
+                  "latitude": latitude,
+                  "name":"Doctor location",
+                  "address":"Doctor location"
+                }
+              }
+            ]
+          }
+           
+        ]
+            
+            
+        }
+      }
+      console.log("BODY AGENDADA; ",body)
+      return await axios.post(path, body, config)
+    
+    }
 
 
-  export {getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors,UpdateDate_Arrive,UpdateDate_FINISH};
+    const Whatsapp_message_time =async(cellphone,time)=>{
+      // environment.api
+        let path= 'https://graph.facebook.com/v17.0/123796670819506/messages';
+        let  Token_cellphone ='EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH' // TOKEN PERMANENTE
+        /* HEADER */
+        let config = {
+            headers: {
+              Authorization: 'Bearer ' + Token_cellphone,
+            },
+        };
+        let body= {
+          "messaging_product": "whatsapp",
+          "to": "57"+cellphone,
+          "type": "template",
+          "template": {
+              "name": "time",
+              "language": {
+                  "code": "en"
+              }
+              ,
+          "components": [
+              {
+              "type": "body",
+              "parameters": [
+                {
+                  "type": "text",
+                  "text": time
+                }
+              ]
+            }
+             
+          ]
+              
+              
+          }
+        }
+        console.log("BODY AGENDADA; ",body)
+        return await axios.post(path, body, config)
+      }
+  
+    const Whatsapp_message_llegada =async(cellphone,latitude,longitude)=>{
+      // environment.api
+        let path= 'https://graph.facebook.com/v17.0/123796670819506/messages';
+        let  Token_cellphone ='EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH' // TOKEN PERMANENTE
+        /* HEADER */
+        let config = {
+            headers: {
+              Authorization: 'Bearer ' + Token_cellphone,
+            },
+        };
+        let body= {
+          "messaging_product": "whatsapp",
+          "to": "57"+cellphone,
+          "type": "template",
+          "template": {
+              "name": "llegada_destino",
+              "language": {
+                  "code": "es"
+              }
+              ,
+          "components": [
+              {
+              "type": "header",
+              "parameters": [
+                {
+                  "type": "location",
+                  "location": {
+                    "longitude": longitude,
+                    "latitude": latitude,
+                    "name":"Doctor location",
+                    "address":"Doctor location"
+                  }
+                }
+              ]
+            }
+             
+          ]
+              
+              
+          }
+        }
+        console.log("BODY AGENDADA; ",body)
+        return await axios.post(path, body, config)
+      
+      }
+
+
+
+  export {Whatsapp_message_time,Whatsapp_message_llegada,Whatsapp_message_salida,getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors,UpdateDate_Arrive,UpdateDate_FINISH};

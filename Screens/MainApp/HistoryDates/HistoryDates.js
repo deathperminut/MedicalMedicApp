@@ -11,8 +11,9 @@ import { GetName } from '../../../services/Auth/Login/Login';
 import { AppContext } from '../../../AppContext/Context';
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
+import * as Location from 'expo-location';
 import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
-import { UpdateDate } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { UpdateDate, Whatsapp_message_llegada_destino, Whatsapp_message_salida } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 
 
 export default function HistoryDates(props) {
@@ -50,10 +51,46 @@ export default function HistoryDates(props) {
     setShowModal(true);
   };
 
+  const handleError_3 = () => {
+    setMessage('Debemos poder acceder a tu ubicación para aceptar la cita.');
+    setIconName('error');
+    setShowModal(true);
+  };
+
   const handleAcceptError = () => {
     setMessage('Ya tienes una consulta aceptada');
     setIconName('error');
     setShowModal(true);
+  };
+
+  let [currentPosition, setCurrentPosition] = React.useState(null);
+
+  React.useEffect(()=>{
+    if(currentPosition=== null){
+      requestLocationPermission();
+    }
+  },[])
+
+  const requestLocationPermission = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      return undefined
+    } else {
+      startUpdatingLocation();
+    }
+  };
+
+  const startUpdatingLocation = async () => {
+    Location.watchPositionAsync(
+      {
+        accuracy: Location.Accuracy.High,
+        distanceInterval: 0.5, // Actualiza la posición cada 10 metros
+      },
+      (location) => {
+        const { latitude, longitude } = location?.coords;
+        setCurrentPosition({ latitude, longitude });
+      }
+    );
   };
 
 
@@ -108,19 +145,31 @@ export default function HistoryDates(props) {
 
   const UPDATE_DATE=async(DATE)=>{
 
-     setPreloader(true);
-     let result=undefined;
-     result=await UpdateDate(DATE,token).catch((error)=>{
-      console.log(error);
-      handleError_2();
-      setPreloader(false);
-     })
-     if (result!==undefined){
-       setPreloader(false);
-       setCurrentDate(result.data);
+     // MIRAMOS SI YA ACEPTO LOS PERMISOS DE UBICACIÓN
+     let ubication = requestLocationPermission()
 
-       navigation.navigate('Drawer');
-     }
+      setPreloader(true);
+      let result=undefined;
+      result=await UpdateDate(DATE,token).catch((error)=>{
+        console.log(error);
+        handleError_2();
+        setPreloader(false);
+      })
+      if (result!==undefined){
+        setPreloader(false);
+        // ENVIAMOS UBICACIÓN ACTUAL DEL MÉDICO
+        console.log("RESULTADOS APP: ",currentPosition);
+        Whatsapp_message_salida(result.data.cellphone_number,currentPosition?.latitude,currentPosition?.longitude).then((data)=>{
+          console.log("ENVIADO CON EXITO",data);
+        }).catch((error)=>{
+          console.log("ERROR AL ENVIAR",error);
+        });
+        setCurrentDate(result.data);
+
+        navigation.navigate('Drawer');
+      }
+
+     
 
   }
 
