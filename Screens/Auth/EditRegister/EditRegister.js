@@ -26,7 +26,7 @@ export default function EditRegister(props) {
   // VARIABLE PARA CARGAR LOS BARRIOS REGISTRADOS EN BASE DE DATOS
   let [barrios,setBarrios]=React.useState([]);
 
-  // VARIABLE PARA CARGAR 
+  // VARIABLE PARA NAVEGAR POR LAS DIFERENTES PESTAÑAS
   let {navigation}=props
 
   /* APP CONTEXT */
@@ -41,7 +41,7 @@ export default function EditRegister(props) {
  // VARIABLES PARA CONTROLAR LA VISUALIZACIÓN DEL DATE PICKER
  const [date, setDate] = React.useState(new Date()) // FECHA ACTUAL DEL CALENDARIO
  const [mode, setMode] = React.useState('date'); // MODO DEL CALENDARIO EN ESTE CASO ESTMOAS CON FECHA COMPLETA
- const [show,setShow]  = React.useState(false);
+ const [show,setShow]  = React.useState(false); // VARIABLE PARA MOSTRAR EL DATEPICKER
 
 
  const showMode= (currentMode)=>{
@@ -133,7 +133,7 @@ export default function EditRegister(props) {
  });
 
 
- // variable para controlar la apertura de los selects
+ // variables para controlar la apertura de los selects
  const [open, setOpen] = React.useState(false);
  const [open2, setOpen2] = React.useState(false);
  const [open4, setOpen4] = React.useState(false);
@@ -294,7 +294,7 @@ const renderFormItem = ({ item }) => {
 
 const UPDATEBeneficient=async()=>{
   /*
-  función para actualizar la informació
+  función para actualizar la información del usuario
   */
   setPreloader(true);
   let result=undefined;
