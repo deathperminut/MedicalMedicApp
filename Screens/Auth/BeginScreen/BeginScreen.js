@@ -5,6 +5,11 @@ import LogotipoMedicalColor from '../../../Shared/Icons/Logotipo-Medical-Color';
 
 
 export default function BeginScreen(props){
+  /*
+  Esta pestaña es transitoria para el inicio de la aplicación,
+  donde solo se muestra una imagen, luego con un timeOut pasado un tiempo
+  nos desplazamos a la pestaña de inicio de la aplicación
+  */
   let {navigation}=props
 
   useEffect(() => {

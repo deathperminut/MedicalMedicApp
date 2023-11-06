@@ -12,34 +12,26 @@ import { retrieveMedicalSchedule, DatesDoctors } from '../../../services/MainApp
 import LoadingScreen from '../../../Shared/Alerts/Loader';
 
 export default function OurServices(props) {
+  /* PANTALLA DEL CALENDARIO PERSONAL DEL MÉDICO */
 
   /* USE STATE */
+  // VARIABLE PARA MANEJAR EL COMPONENTE DE LOADIN
   const [preloader,setPreloader] = React.useState(false);
 
   /* APP CONTEXT */
-
-  let {token,userData}=React.useContext(AppContext);
+  
+  let {token, // TOKEN DE ACCESO CON LOS SERVICIOS
+    userData // VARIABLE CON LA INFORMACIÓN DEL USUARIO
+    }=React.useContext(AppContext);
 
   /* CALENDAR */
 
-  const events = [
-    {
-      title: 'Meeting',
-      start: new Date(2020, 1, 11, 10, 0),
-      end: new Date(2020, 1, 11, 10, 30),
-    },
-    {
-      title: 'Coffee break',
-      start: new Date(2020, 1, 11, 15, 45),
-      end: new Date(2020, 1, 11, 16, 30),
-    },
-  ]
-
-  /* PANTALLA */
+  /* PANTALLA DIMENSIONES DEL CALENDARIO */
   const windowHeight = Dimensions.get('window').height;
   const newHeight = windowHeight  - 250;
 
   /* CALENDARIO ESTILOS*/
+  /* ESTILOS PARA LOS EVENTOS QUE SE MUESTRAN EN EL CALENDARIO */
   const eventStyle = {
     backgroundColor: '#F19420',
     borderRadius: 5,
@@ -52,28 +44,23 @@ export default function OurServices(props) {
 
   let {navigation}=props;
 
-  const [texto, setTexto] = useState('');
 
   React.useEffect(()=>{
 
     if(token!==null){
-      getSchedule_Medic();
+      getSchedule_Medic(); // OBTENEMOS EL HORARIO PERSONAL DEL MÉDICO
     }
 
   },[token])
 
   let [schedule,setSchedule]=React.useState([]);
 
-  const renderEvent = ({ event }) => {
-    return (
-      <View style={eventStyle}>
-        <Text style={{ color: 'red' }}>{moment(event.start).format('LT')}</Text>
-        {/* Resto del contenido del evento */}
-      </View>
-    );
-  };
+
 
   const getSchedule_Medic=async()=>{
+    /* función para obtener el calendario personal del médico 
+      es decir su horario de trabajo
+    */
     setPreloader(true);
     let result=undefined;
     result=await retrieveMedicalSchedule(token).catch((error)=>{
@@ -81,7 +68,9 @@ export default function OurServices(props) {
       setPreloader(false);
     })
     if(result){
+      // guardamos los turnos de trabajo
       setSchedule(DatesDoctors(result.data).filter((obj)=>obj.resourceId === userData.id));
+      // cancelamos el preloader.
       setPreloader(false);
     }
   }

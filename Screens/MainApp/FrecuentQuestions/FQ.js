@@ -15,21 +15,33 @@ import LoadingScreen from '../../../Shared/Alerts/Loader';
 
 export default function FQ(props) {
 
+    /*
+    DOCUMENTOS DE GUIAS PRACTICAS 
+    -----------------------------
+    EN ESTA PESTAÑA EL PERSONAL ASISTENCIAL TENDRAN ACCESO A LOS DOCUMENTOS DE GUIAS PRACTICAS
+    GESTIONADOS EN EL APARTADO DE LA WEB EN GESTIÓN HUMANA SUBMODULO DE GUIAS PRACTICAS 
+    */
+
   
     /* USE CONTEXT */
 
-  const {userData,token}=React.useContext(AppContext);
+  const {userData, // VARIABLE DE DATOS DEL USUARIO
+          token // TOKEN DE VALIDACIÓN PARA LOS SERVICIOS
+        }=React.useContext(AppContext);
     /* PANTALLA */
   const windowHeight = Dimensions.get('window').height;
   const newHeight = windowHeight  - 100;
 
   /* NAVIGATION */
-  let { navigation } = props;
+  let { navigation } = props; // OBJETO PARA LA NAVEGACIÓN
 
   /* SEARCH */
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState(''); // VARIABLE PARA FILTRAR LOS DOCUMENTOS SEGUN EL NOMBRE
 
   const handleSearch = (text) => {
+    /*
+    función para filtrar los documentos segun el valor de searchtext como input del buscador
+    */
     setSearchText(text);
     if(text===""){
       setFilterDocuments(documents);
@@ -42,7 +54,7 @@ export default function FQ(props) {
   React.useEffect(() => {
     
     if(token){
-      getData();
+      getData(); // obtenemos los documentos de la base de datos
     }
     
 
@@ -50,13 +62,16 @@ export default function FQ(props) {
 
   /* USE STATE */
 
-  let [preloader,setPreloader]=React.useState(false);
-  let [DocumentsAreas,setDocumentsAreas]=React.useState([]);
-  let [documents,setDocuments]=React.useState([]);
-  let [filterDocuments,setFilterDocuments]=React.useState([]);
+  let [preloader,setPreloader]=React.useState(false); // preloader controller
+  let [DocumentsAreas,setDocumentsAreas]=React.useState([]); // variable para almacenar los ids de las areas en este caso de guias practicas
+  let [documents,setDocuments]=React.useState([]); // variable para almacenar los documentos de guias practicas
+  let [filterDocuments,setFilterDocuments]=React.useState([]); // lista de documentos filtrados
 
   const getData=async()=>{
-
+    
+    /*
+    función para obtener las areas de los documentos registrados en base de datos
+    */
     let result=undefined;
     setPreloader(true);
     result=await getAreas(token).catch((error)=>{
@@ -72,7 +87,10 @@ export default function FQ(props) {
   }
 
   const getDocuments=async(areas)=>{
- 
+  
+    /*
+    función para obtener los documentos del area de guias practicas
+    */
     let result=undefined;
     setPreloader(true);
     let filterArea=areas.filter((obj)=>{
@@ -94,6 +112,9 @@ export default function FQ(props) {
   }
 
   const handleOpenDocument = (dc) => {
+    /*
+    función para abrir los documentos
+    */
     const documentUrl = dc.path; 
 
     Linking.openURL(documentUrl)

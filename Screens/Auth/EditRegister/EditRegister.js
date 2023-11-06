@@ -14,60 +14,48 @@ import RNPickerSelect from 'react-native-picker-select';
 
 export default function EditRegister(props) {
 
-  const handleError_ = () => {
-    setMessage('Error al cargar datos');
-    setIconName('error');
-    setShowModal(true);
-  };
+  /*
+  PESTAÑA DE EDICIÓN DE USUARIOS
+  ----------------------------------------
+  */
+
 
   
   /* REACT USESTATE */
 
+  // VARIABLE PARA CARGAR LOS BARRIOS REGISTRADOS EN BASE DE DATOS
   let [barrios,setBarrios]=React.useState([]);
 
-  React.useEffect(()=>{
-    
-    getData()
-
-  },[])
-
-
-  const getData=()=>{
-     getlocations();
-  }
- 
-  const getlocations=async()=>{
-   setPreloader(true);
-   let result=undefined;
-   result=await getWareLocation().catch((error)=>{
-    console.log(error);
-    setPreloader(false);
-    handleError_();
-   })
-   if (result){
-      setPreloader(false);
-   }
-  }
-
-
-
+  // VARIABLE PARA CARGAR 
   let {navigation}=props
 
   /* APP CONTEXT */
- let {token, userData,setUserData, setToken,currentDate,setCurrentDate,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient} =React.useContext(AppContext);
+ let {token,  //TOKEN DE SEGURIDAD DEL BACKEND
+  userData,setUserData, // DATOS DEL USUARIO
+  setSelectBeneficient // USUARIO SELECCIONADO PARA EDITAR INFORMACIÓN
+  }=React.useContext(AppContext); 
   
 
   
  /* DATE PICKER */
- const [date, setDate] = React.useState(new Date())
- const [mode, setMode] = React.useState('date');
+ // VARIABLES PARA CONTROLAR LA VISUALIZACIÓN DEL DATE PICKER
+ const [date, setDate] = React.useState(new Date()) // FECHA ACTUAL DEL CALENDARIO
+ const [mode, setMode] = React.useState('date'); // MODO DEL CALENDARIO EN ESTE CASO ESTMOAS CON FECHA COMPLETA
  const [show,setShow]  = React.useState(false);
 
+
  const showMode= (currentMode)=>{
-   setShow(true);
+  /*
+  función para mostrar el calendar picker en este caso para seleccionar fechas y horas 
+  */
+   setShow(true); 
    setMode(currentMode);
  }
  const onChangeDate=(event,selectedDate)=>{
+  /*
+  función para registrar el valor de la fecha seleccionada
+  y actualizarla en el objeto del userData_
+  */
    const currentDate=selectedDate || date;
    setShow(Platform.OS === "ios");
    setDate(currentDate);
@@ -77,19 +65,23 @@ export default function EditRegister(props) {
    setUserData_({...userData_,['date_birth']:fDate});
  }
 
+ // variable para controlar el loading screen
  let [preloader,setPreloader]=React.useState(false);
  /* MODAL */
- const [showModal, setShowModal] = React.useState(false);
- const [message,setMessage]= React.useState("");
- const [iconName,setIconName]=React.useState("");
+ // variable para controlar los modals
+ const [showModal, setShowModal] = React.useState(false); // mostrar el modal
+ const [message,setMessage]= React.useState("");// mensaje del modal
+ const [iconName,setIconName]=React.useState(""); // icono del modal
 
  const handleSuccess = () => {
+  /* función para definir los textos, el icono y la aparición del modal*/
    setMessage('Acción completada con exito');
    setIconName('check-circle');
    setShowModal(true);
  };
 
  const handleError = () => {
+  /* función para definir los textos, el icono y la aparición del modal*/
    setMessage('Error al completar la acción');
    setIconName('error');
    setShowModal(true);
@@ -97,6 +89,7 @@ export default function EditRegister(props) {
 
 
  
+ // variables para definir los placeholders de los formulario 
  const placeholder_type = {
   label: userData.neighbourhood!==null || undefined ? userData.neighbourhood:"Barrio",
   value: userData.neighbourhood!==null || undefined ? userData.neighbourhood:"Barrio",
@@ -104,27 +97,20 @@ export default function EditRegister(props) {
   fontFamily:'Montserrat-SemiBold'
 };
 
-const placeholder_type_2 = {
-  label: 'Ciudad de cobertura',
-  value: null,
-  color: '#7E72D1',
-  fontFamily:'Montserrat-SemiBold'
-};
 
  /* USESTATE */
 
- let [userData_,setUserData_]=React.useState({...userData})
+ let [userData_,setUserData_]=React.useState({...userData}) // variable para editar la información del usuario
 
  /* FUNCTIONS */
 
  const InputTextRead=(text,type)=>{
-
+  // función para leer los inputs text del formulario de edición de perfil
    setUserData_({...userData_,[type]:text});
-
  }
 
  const InputSelectRead=(value,type)=>{
-
+   // función para leer los inputs select del formulario de edición de perfil 
    if(value === null){
      setUserData_({...userData,[type]:""});
    }else{
@@ -136,6 +122,7 @@ const placeholder_type_2 = {
 
 
 
+ // estilos del datetime picker
  const stylesDate = StyleSheet.create({
    datePicker: {
      backgroundColor: '#fff',
@@ -146,12 +133,15 @@ const placeholder_type_2 = {
  });
 
 
+ // variable para controlar la apertura de los selects
  const [open, setOpen] = React.useState(false);
  const [open2, setOpen2] = React.useState(false);
  const [open4, setOpen4] = React.useState(false);
 
  /* LIST FORM DATA */
 
+ // en este arreglo construimos el formulario donde definimos 
+ // los placeholders, tipo de campo, opciones de los selects y el estilos de los formularios
  let FormInputs=[
    
    {title:"1",data:[{id:1,type:'email',placeholder:'Email' ,icon:'email' ,typeIcon:'',typeForm:'input',data:[]}]},
@@ -189,6 +179,10 @@ const placeholder_type_2 = {
 
 
 const renderFormItem = ({ item }) => {
+
+  /*
+  metodo para renderizar el formulario generado
+  */
  
   switch (item.typeForm) {
     case 'input':
@@ -290,39 +284,18 @@ const renderFormItem = ({ item }) => {
             />
           </View>
         )
-       
-    case 'delete':
-        return(
-          <View style={{...styles.InputsDesignContainer,...{['flexDirection']:'column',['alignItems']:'center'},...{['marginTop']:5}}}>
-              <TouchableOpacity style={styles.buttonDelete} onPress={()=>DeleteBeneficient()}>
-                    <Text style={{...styles.buttonText,...Globalstyles.Medium,color:'#FF0057'}}>Eliminar</Text>
-              </TouchableOpacity>
-          </View>
-        ); 
+
 
     default:
       return null
   }
 };
 
-const DeleteBeneficient=async()=>{
-  setPreloader(true);
-  let result=undefined;
-  result=await deleteBeneficient(userData_,token).catch((error)=>{
-    console.log(error);
-    setPreloader(false);
-    handleError();
-  })
-  if(result){
-    setPreloader(false);
-    setSelectBeneficient(null);
-    handleSuccess();
-    navigation.navigate('Beneficient');
-  }
-  
-}
 
 const UPDATEBeneficient=async()=>{
+  /*
+  función para actualizar la informació
+  */
   setPreloader(true);
   let result=undefined;
   result=await editUser(userData_,token).catch((error)=>{

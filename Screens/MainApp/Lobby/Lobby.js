@@ -27,7 +27,7 @@ import * as Speech from 'expo-speech';
 
 
 /* DATA */
-
+// IMAGENES PARA MOSTRAR EN LAS TARJEAS QUE PERMITEN ACCEDER A LOS DIFERENTES MODULOS DE LA APLICACIÓN
 const ServicesData=[
   {
 
@@ -61,25 +61,33 @@ const ServicesData=[
 
 export default function Lobby(props) {
 
+  /* lobby */
+  
+
 
   /* APP CONTEXT */
-  var {Notification_basic_medic,setNotification_basic_medic,
-    Notification_Maintenance_medic,setNotification_Maintenance_medic,activities,setActivities,userData, setUserData, token, setToken,currentDate,setCurrentDate,step,setStep,currentPosition, setCurrentPosition} =React.useContext(AppContext);
+  var {Notification_basic_medic,setNotification_basic_medic, // variable para cargar las notificaciones del inventario del médico
+    Notification_Maintenance_medic,setNotification_Maintenance_medic, // variable para cargar las notificaciones de mantenimiento del médico
+    activities,setActivities, // variable para cargar los servicios que maneja MHC
+    userData, setUserData, // variable para manejar la información del usuario
+    token, setToken, // token de acceso a los servicios
+    currentDate,setCurrentDate, // variable para almacenar la cita que este activa en el momento o en su defecto la ultima cita cargada
+    currentPosition, setCurrentPosition // variable para almacenar la posición actual del médico
+    } =React.useContext(AppContext);
 
   /* NAVIGATE */
-  var {navigation}=props.props
+  var {navigation}=props.props // variable para navegar en la app
   const windowHeight = Dimensions.get('window').height;
 
-  let [preloader,setPreloader]=React.useState(false);
+  let [preloader,setPreloader]=React.useState(false); // variable para la acceder al preloader
  /* MODAL */
- var [showModal, setShowModal] = React.useState(false);
- var [showModalCancel, setShowModalCancel] = React.useState(false);
- var [message,setMessage]= React.useState("");
- var [iconName,setIconName]=React.useState("");
-
+  var [showModal, setShowModal] = React.useState(false); // use state para controlar la aparición de los modal
+  var [message,setMessage]= React.useState(""); // variable para controlar los mensajes al momento de cancelar una cita
+  var [iconName,setIconName]=React.useState(""); // variable para controlar los iconos que aparecen en el modal
 
 
  const handleError = () => {
+   /* función para definir los textos, el icono y la aparición del modal*/
    setMessage('Error al completar la acción');
    setIconName('error');
    setShowModal(true);
@@ -87,12 +95,14 @@ export default function Lobby(props) {
 
 
 const handleArrive = () => {
+  /* función para definir los textos, el icono y la aparición del modal*/
   setMessage('Llegada registrada correctamente');
   setIconName('check-circle');
   setShowModal(true);
 };
 
 const handleFinish = () => {
+  /* función para definir los textos, el icono y la aparición del modal*/
   setMessage('Cita finalizada correctamente');
   setIconName('check-circle');
   setShowModal(true);
@@ -102,30 +112,42 @@ const handleFinish = () => {
   /* NEW SERVICE LOGIC */
 
   React.useEffect(()=>{
+    /* 
+    al momento de entrar a la aplicación se solicitan permisos
+    para obtener la ubicación actual nuestra y cargar datos para su funcionamiento
+    como la ultima cita activa,y las actividades que maneja MHC.
+    */
     if(token && currentDate===null && activities.length!==0){
       if(currentPosition===null){
-        requestLocationPermission();
+        requestLocationPermission(); // permisos de gps
       }else{
-        getData();
+        getData(); // carga de datos
       }
     }
   },[userData,activities])
 
 
   const requestLocationPermission = async () => {
+    /*
+    OBTENEMOS LOS PERMISOS PARA ACCEDER AL GPS DEL DISPOSITIVO
+    */
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
     } else {
+      /* EN CASO DE SER ACEPTADA 
+         OBTENEMOS LOS DATOS DEL USUARIOS Y ACTUALIZAMOS LA POSICIÓN ACTUAL DEL USUARIO
+      */
       getData();
       startUpdatingLocation();
-      // Crear el mensaje con la ubicación
-      
     }
   };
 
   //setInterval(getCurrentLocation, 10000);
 
   const getData=async()=>{
+    /*
+    función para obtener la cita activa del médico
+    */
     setPreloader(true);
     let result=undefined
     result= await getActiveDates(token).catch((error)=>{
@@ -136,7 +158,7 @@ const handleFinish = () => {
     if (result!==undefined){
       if(result.data.name){
         let DateActive=result.data;
-        setCurrentDate(DateActive);
+        setCurrentDate(DateActive); // guardamos la cita activa para mostrar la ubicación del usuario
       }
       setPreloader(false);
     }
@@ -147,9 +169,9 @@ const handleFinish = () => {
 
   React.useEffect(()=>{
     if(token){
-      GetActivities();
-      GetNotifications();
-      GetNotificationsMaintenance();
+      GetActivities(); // cargamos los servicios de MHC
+      GetNotifications(); // cargamos las notificaciones de inventario del médico
+      GetNotificationsMaintenance(); // cargamos las notificaciones de mantenimiento del médico
     }
     
   },[])
@@ -157,7 +179,7 @@ const handleFinish = () => {
 
   
   const GetNotifications=async()=>{
-   
+    // cargamos las notificaciones de inventario del médico
     setPreloader(true);
     let result=undefined;
     result=await getNotifications(token).catch((error)=>{
@@ -169,13 +191,17 @@ const handleFinish = () => {
     if (result!==undefined){
       if (Object.keys(result.data).length === 0) {
       } else {
+        /*
+        en caso de tener notificaciones solo se debe mostrar una notificación de aviso no hay
+        que dar detalle de esta información puesto que el usuario debe averiguarlo personalmente
+        */
         setNotification_basic_medic([{info:"Debes acercate al almacén para recargar inventario básico"}])
       }
     }
   }
 
   const GetNotificationsMaintenance=async()=>{
-   
+    // cargamos las notificaciones de mantenimiento del médico
     setPreloader(true);
     let result=undefined;
     result=await getNotificationsMaintenance(token).catch((error)=>{
@@ -190,7 +216,7 @@ const handleFinish = () => {
   }
 
   const GetActivities=async()=>{
-   
+    // CARGAMOS LOS SERVICIOS DE MHC
     setPreloader(true);
     let result=undefined;
     result=await getActivities(token).catch((error)=>{
@@ -210,6 +236,7 @@ const handleFinish = () => {
   }
 
   const GetActividad=(ActivityId)=>{
+  /* OBTENEMOS LA ACTIVIDAD CORRESPONDIENTE SEGUN EL ID*/
    let FilterArray = activities.filter((obj)=>obj.value.toString() === ActivityId.toString());
 
    return FilterArray[0].label
@@ -218,7 +245,12 @@ const handleFinish = () => {
 
 
   const UPDATE_DATE=async()=>{
+    
+    /*
+    función para actualizar el estado de la cita en el momento 
+    en el que el médico ha llegado al lugar o dirección del paciente
 
+    */
     setPreloader(true);
     let result=undefined;
     result=await UpdateDate_Arrive(currentDate,token).catch((error)=>{
@@ -228,22 +260,28 @@ const handleFinish = () => {
     })
     if (result!==undefined){
       setPreloader(false);
-      handleArrive();
-      console.log("Cita actualizada: ",result.data);
+      handleArrive();// mensaje de aviso para la llegada del médico
+      // whatsapp de llegada con la ubicación actual del médico
       Whatsapp_message_llegada(result?.data?.cellphone_number,currentPosition?.latitude,currentPosition?.longitude).then((data)=>{
-        console.log("ENVIADO CON EXITO",data);
+        console.log(data);
       }).catch((error)=>{
-        console.log("ERROR AL ENVIAR",error);
+        console.log(error);
       });
+      // guardamos la cita actualizada con el estado nuevo de la cita
       setCurrentDate(result.data);
     }
  }
 
  const startUpdatingLocation = async () => {
+  /*
+  función para obtener la posición del médico y mediante un async, 
+  definimos una distancia para actualizar la posición del médico
+  cada 0.5 metros en este caso
+  */
   Location.watchPositionAsync(
     {
       accuracy: Location.Accuracy.High,
-      distanceInterval: 0.5, // Actualiza la posición cada 10 metros
+      distanceInterval: 0.5, // distancia para actualizar la posición en el mapa
     },
     (location) => {
       const { latitude, longitude } = location?.coords;
@@ -253,7 +291,11 @@ const handleFinish = () => {
 };
 
  const UPDATE_DATE_FINISH=async()=>{
-
+  
+  /*
+  función para actualizar la cita al estado de finalizado
+  es decir cuando ya se ha registrado la historia clinica
+  */
   setPreloader(true);
   let result=undefined;
   result=await UpdateDate_FINISH(currentDate,token).catch((error)=>{
@@ -268,12 +310,11 @@ const handleFinish = () => {
   }
 }
 
-
-
-  let [reason,setReason]=React.useState("");
-
-
   function filtrarDireccionParaGoogleMaps(direccionCompleta) {
+    /*
+    función para acondicionar la dirección lo mejor posible para ser diligenciada
+    en google maps
+    */
     // Eliminar caracteres especiales y convertir a minúsculas
     direccionCompleta = direccionCompleta.replace(/[^\w\s]/gi, '').toLowerCase();
   
@@ -287,9 +328,18 @@ const handleFinish = () => {
     return direccionCompleta;
   }
 
-  /* OBTENEMOS LAS COORDENADAS */
+  /* useState */
+
+  // variable para almacenar las coordenadas de la dirección del usuario
   const [destinationCoordinates, setDestinationCoordinates] = React.useState(null);
+
+
   const getCoordinates = async (address,neighborhood,city, country) => {
+
+    /*
+    función para obtener la posición de la dirección de destino 
+    mediante la dirección el barrio la ciudad y el pais.
+    */
     try {
       let ADD = filtrarDireccionParaGoogleMaps(address);
       let Address = address.split(' ').join('+');
@@ -303,6 +353,7 @@ const handleFinish = () => {
         
         if (results.length > 0) {
           const firstResult = results[0];
+          // seteamos la latitud y longitud en caso de haber sido posible encontrarla
           const { lat, lng } = firstResult.geometry.location;
           setDestinationCoordinates({ lat: lat, lng: lng });
         } else {
@@ -320,6 +371,7 @@ const handleFinish = () => {
   React.useEffect(()=>{
     if(currentDate!==null){
       if(currentDate.name!==undefined){
+        // en caso de que tengamos una cita activa buscamos las coordenadas de la dirección de destino
         getCoordinates(currentDate?.address,currentDate?.city,'Colombia');
       }
     }
@@ -329,22 +381,37 @@ const handleFinish = () => {
 
 
   React.useEffect(()=>{
+    /*
+    si tenemos la dirección de destino y la posición actual del médico
+    calculamos la ruta mas cercana para trazar por google maps
+    */
     if(currentPosition!==null && destinationCoordinates!==null){
-       obtenerRuta(currentPosition,destinationCoordinates);
+       obtenerRuta(currentPosition,destinationCoordinates); // obtenemos la ruta entre los 2 puntos
     }
     
     
   },[currentPosition,destinationCoordinates])
 
   /* USE STATE */
+
+  // variable para almacenar los vectores de la ruta
   let [poliLine,setPoliLine]=React.useState(null);
+
+  // variable para almacenar las indicaciones suministradas por google maps
   let [Indications,setIndications]=React.useState(null);
+
+  // variable para almacenar el tiempo estimado de llegada calculado por la API de google maps
   let [time,setTime]=React.useState(null);
+  // variable para almacenar la imagen de street view que ofrece la api de google maps
   let [ViewUrl,setViewUrl]=React.useState(null);
 
   /* OBTENER POLI-LINEA */
 
   const obtenerRuta = async (coordinatesStart,coordinatesEnd) => {
+    /*
+    función para obtener los vectores que representan la ruta  entre la posición
+    del médico y la dirección de la casa
+    */
     const apiKey = 'AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w';
     const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${coordinatesStart?.latitude},${coordinatesStart?.longitude}&destination=${coordinatesEnd?.lat},${coordinatesEnd?.lng}&key=${apiKey}&language=es`;
   
@@ -354,28 +421,25 @@ const handleFinish = () => {
       // Procesa los datos de respuesta para obtener los puntos de latitud y longitud de la ruta
       const ruta = data.routes[0].overview_polyline.points;
       const duration = data.routes[0].legs[0].duration.text; // Duración estimada de la ruta
-      console.log("DATOS DE RUTA : ",duration);
       setTime(duration);
       if(currentDate?.status === "EN CAMINO"){
-
+        // enviamos al usuario el tiempo estimado de llegada
         Whatsapp_message_time(currentDate?.cellphone_number,duration).then((data)=>{
-          console.log("MENSAJE ENVIADO CON EXITO",data);
+          console.log(data);
         }).catch((error)=>{
-          console.log("ERROR AL ENVIAR MENSAJE",error);
+          console.log(error);
         });
 
       }
-      console.log("CITA ACEPTADA: ",currentDate);
       // Convierte la codificación de puntos a coordenadas
       const coordenadasRuta = decodePolyline(ruta);
       setPoliLine(coordenadasRuta);
-
+      // obtenemos las indicaciones que ofrece la api de google
       const pasos = data.routes[0].legs[0].steps;
-      
       // Reproduce las instrucciones paso a paso 
-      if( currentDate?.datetime_arrival!==null ){
+      if( currentDate?.datetime_arrival===null ){
+        // en caso de que el médico no haya llegado a la casa reproduce las instrucciones
         let instruccion = pasos[0].html_instructions.replace(/<[^>]+>/g, ' '); // Elimina las etiquetas HTML de la instrucción
-        console.log(instruccion);  
         setIndications(instruccion);
         instruccion=instruccion.replace('Cra.','Carrera');
         instruccion=instruccion.replace('Cl.','Calle');
@@ -400,6 +464,9 @@ const handleFinish = () => {
   // Función para decodificar la codificación de polilínea de Google
 // Función para decodificar la codificación de polilínea de Google
 const decodePolyline = (polyline) => {
+  /*
+  función para decodificar la ruta y retornar algo reconocible para el react map
+  */
   const points = [];
   let index = 0;
   let lat = 0;
@@ -443,6 +510,9 @@ const decodePolyline = (polyline) => {
 
 const openWhatsApp = () => {
 
+  /*
+  función para redireccionar a whatsapp con el número estipulado segun la sede
+  */
   if (userData.coverage_city.toLowerCase().includes("armenia")){
     Linking.openURL('whatsapp://send?text=Hola!&phone=+573118665272');
   }else{

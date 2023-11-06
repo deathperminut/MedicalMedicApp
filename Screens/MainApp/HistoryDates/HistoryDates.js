@@ -17,15 +17,25 @@ import { UpdateDate, Whatsapp_message_llegada_destino, Whatsapp_message_salida }
 
 
 export default function HistoryDates(props) {
+
+  /*
+  CITAS PARA ATENDER DICHO DIA
+  */
     /* NAVIGATE */
   let {navigation}=props
 
   /* EXPAND */
+  // USE STATES PARA CONTROLAR LOS DIVS COLAPSABLES
   const [expanded, setExpanded] = useState({});
+  // USE STATE PARA CONTROLAR EL PRELOADER SCREEN
   const [preloader,setPreloader] = React.useState(false);
 
 
+
   const handleExpand = (index) => {
+    /*
+    función para expandir el contenedor determinado segun el index
+    */
     setExpanded({
       ...expanded,
       [index]: !expanded[index]
@@ -34,53 +44,74 @@ export default function HistoryDates(props) {
 
   
   /* MODAL */
+  // funciones para controlar la visualización del modal
+  // su mensaje 
+  // el icono asociado al modal
   const [showModal, setShowModal] = React.useState(false);
   const [message,setMessage]= React.useState("");
   const [iconName,setIconName]=React.useState("");
 
 
   const handleError = () => {
+    /* función para definir los textos, el icono y la aparición del modal*/
     setMessage('Error al cargar historial de consultas');
     setIconName('error');
     setShowModal(true);
   };
 
   const handleError_2 = () => {
+    /* función para definir los textos, el icono y la aparición del modal*/
     setMessage('Error al aceptar cita');
     setIconName('error');
     setShowModal(true);
   };
 
   const handleError_3 = () => {
+    /* función para definir los textos, el icono y la aparición del modal*/
     setMessage('Debemos poder acceder a tu ubicación para aceptar la cita.');
     setIconName('error');
     setShowModal(true);
   };
 
   const handleAcceptError = () => {
+    /* función para definir los textos, el icono y la aparición del modal*/
     setMessage('Ya tienes una consulta aceptada');
     setIconName('error');
     setShowModal(true);
   };
 
+  /*
+  variable para obtener la posición actual del médico a la hora de aceptar una cita
+  */
   let [currentPosition, setCurrentPosition] = React.useState(null);
 
   React.useEffect(()=>{
     if(currentPosition=== null){
+      //obtenemos la dirección del médico ademas de validar permisos
       requestLocationPermission();
     }
   },[])
 
   const requestLocationPermission = async () => {
+    /*
+    función para definir los permisos de acceso
+    a la ubicación GPS del dispositivo
+    */
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       return undefined
     } else {
+      // buscamos la posición del médico.
       startUpdatingLocation();
     }
   };
 
   const startUpdatingLocation = async () => {
+    /*
+    con los permisos validados
+    definimos un intervalo con una promesa activa
+    para actualizar la posición del médico cada 0.5 metros
+    */
     Location.watchPositionAsync(
       {
         accuracy: Location.Accuracy.High,
@@ -99,7 +130,7 @@ export default function HistoryDates(props) {
 
    React.useEffect(()=>{
      if(token){
-       getData();
+       getData(); // obtenemos los datos necesarios 
      }
    },[])
 
@@ -107,6 +138,11 @@ export default function HistoryDates(props) {
 
 
   const AcceptDate=(DateAccepted)=>{
+    /*
+    función para actualizar el estado de la cita
+    como aceptada definiendo de una vez la posición del médico actual y la dirección
+    del paciente
+    */
     if(currentDate!==null){
       handleAcceptError();
     }else{
@@ -118,6 +154,10 @@ export default function HistoryDates(props) {
 
    const getData=async()=>{
     
+     /*
+     función para obtener las citas del dia de hoy del médico
+     y que no han sido aceptadas
+     */
      setPreloader(true);
      let result=undefined;
      result= await getMedicDates(token).catch((error)=>{
@@ -144,7 +184,12 @@ export default function HistoryDates(props) {
   /* UPDATE DATE */
 
   const UPDATE_DATE=async(DATE)=>{
-
+ 
+    /*
+    función para actualizar el estado de la cita
+    como aceptada definiendo de una vez la posición del médico actual y la dirección
+    del paciente
+    */
      // MIRAMOS SI YA ACEPTO LOS PERMISOS DE UBICACIÓN
      let ubication = requestLocationPermission()
 
@@ -197,7 +242,7 @@ export default function HistoryDates(props) {
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
           <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
             <View style={{width:14,height:14,backgroundColor:'#BDFC97', borderRadius:10 ,marginRight:10}}></View>
-            <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:10}}>Citas asignadas</Text>
+            <Text style={{...Globalstyles.bold,color:'#BDFC97',marginRight:10}}>Citas</Text>
             <View style={{minWidth:20,minHeight:20,backgroundColor:'#867BD8', borderRadius:2 ,marginLeft:1,alignItems:'center',justifyContent:'center',padding:5}}>
               <Text style={{...Globalstyles.Medium,fontSize:10,color:'#FFFF'}}>{historyDates.length}</Text>
             </View>

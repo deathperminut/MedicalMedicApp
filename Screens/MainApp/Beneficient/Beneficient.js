@@ -14,6 +14,14 @@ import AlertComponent from '../../../Shared/Icons/AlertComponent';
 
 
 export default function Beneficient(props) {
+  /*
+  APARTADO DE NOTIFICACIONES
+  --------------------------------------
+   EN LAS VARIABLES Notificacion_basic_medic
+   y Notificacion_Maintenance_medic 
+   TENEMOS CARGADAS DESDE EL LOBBY LAS NOTIFICACIONES DE INVENTARIO Y MANTENIMIENTO
+   EN ESTE APARTADO SOLO VISUALIZAMOS UNA ALERTA COMO REFERENCIA.
+  */
 
   /* APP CONTEXT */
   let {Notification_basic_medic,
