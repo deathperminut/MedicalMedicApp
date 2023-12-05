@@ -23,7 +23,8 @@ export default function Login(props) {
  
   let { userData, setUserData, // VARIABLE PARA ALMACENAR DATOS DEL USUARIO
     setToken,  // VARIABLE PARA ALMACENAR CLAVE DE SEGURIDAD 
-    setCurrentPosition // VARIABLE PARA ALMACENAR LA UBICACIÓN DEL USUARIO
+    setCurrentPosition, // VARIABLE PARA ALMACENAR LA UBICACIÓN DEL USUARIO
+    doctorsList // VARIABLE QUE TIENE LA LISTA DE ROLES QUE PUEDEN INGRESAR A LA PLATAFORMA
   }=React.useContext(AppContext);
 
   React.useEffect(() => {
@@ -152,7 +153,8 @@ export default function Login(props) {
     if (result!==undefined){
        //handleSuccess();
        // SOLO SE ACEPTAR LOS USUARIOS CON ROL DE MÉDICO
-       if(result.data.datos.datos_usuarios['roles'][0] === 'Médico'){
+       let{ data } = result;
+       if(doctorsList.includes(data.datos.datos_usuarios['roles'][0])){
         setUserData(result.data.datos.datos_usuarios);
         setToken(result.data.datos.token);
         setPreloader(false);

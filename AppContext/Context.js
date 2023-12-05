@@ -49,6 +49,8 @@ const AppWrapper = (props) => {
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
+  let doctorsList = ['Médico', 'AUXILIAR DE ENFERMERIA', 'PSICOLOGO', 'NUTRICIONISTA', 'TRABAJADOR SOCIAL', 'TERAPEUTA FISICO', 'TERAPEUTA RESPIRATORIO', 'TERAPEUTA OCUPACIONAL'];
+
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
     <AppContext.Provider value={{ 
@@ -58,7 +60,7 @@ const AppWrapper = (props) => {
       activities,setActivities,
       listNotifications,setListNotifications,
       Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
-    patient,setPatient,step,setStep}}>
+    patient,setPatient,step,setStep, doctorsList}}>
       {props.children}
     </AppContext.Provider>
   );
