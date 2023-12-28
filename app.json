@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MHC Medicos",
-    "slug": "mhc_mobile_app",
+    "slug": "medical-app",
     "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/Icon_app.png",
@@ -23,7 +23,12 @@
         "foregroundImage": "./assets/Icon_app.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.deathperminut.mhc_mobile_app"
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w"
+        }
+      },
+      "package": "app.medical"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,9 +38,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "15737894-0ffe-4258-93de-13f59946d676"
+        "projectId": "c6dd01dc-df22-49b4-af85-81fcce984550"
       }
     },
-    "owner": "deathperminut"
+    "owner": "juan_pablo_loaiza"
   }
 }

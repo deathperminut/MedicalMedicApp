@@ -192,7 +192,7 @@ export default function Login(props) {
       <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={styles.FormContainer}>
         <Image
             style={{ width: 100, height: 100, marginBottom: 15, position:'absolute',top:-50 }}
-            source={require("../../../assets/Ingresar/Icono-Mano-Ingresar.png")}
+            source={require("../../../assets/Ingresar/logo-medical-color.png")}
          />
         <Text style={{...Globalstyles.Semibold,...Globalstyles.Title,...Globalstyles.Purple,...{['marginBottom']:40}}}>Hola!</Text>
         <Text style={{...Globalstyles.Medium,...Globalstyles.Purple,...Globalstyles.text,...{['marginBottom']:40}}}>Ingresa con tu usuario y contraseña</Text>
