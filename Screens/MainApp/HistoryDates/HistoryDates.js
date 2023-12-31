@@ -18,6 +18,8 @@ import { UpdateDate, Whatsapp_message_llegada_destino, Whatsapp_message_salida }
 
 export default function HistoryDates(props) {
 
+  const { dateAcceptedMessage, setDateAcceptedMessage } =React.useContext(AppContext);
+
   /*
   CITAS PARA ATENDER DICHO DIA
   */
@@ -146,7 +148,8 @@ export default function HistoryDates(props) {
     if(currentDate!==null){
       handleAcceptError();
     }else{
-      UPDATE_DATE(DateAccepted)
+      UPDATE_DATE(DateAccepted);
+      setDateAcceptedMessage(true);
     }
     
 

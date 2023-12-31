@@ -72,7 +72,8 @@ export default function Lobby(props) {
     userData, setUserData, // variable para manejar la información del usuario
     token, setToken, // token de acceso a los servicios
     currentDate,setCurrentDate, // variable para almacenar la cita que este activa en el momento o en su defecto la ultima cita cargada
-    currentPosition, setCurrentPosition // variable para almacenar la posición actual del médico
+    currentPosition, setCurrentPosition, // variable para almacenar la posición actual del médico
+    dateAcceptedMessage, setDateAcceptedMessage // variable para saber si le manda el mensaje a whatsapp de que ya está en camino
     } =React.useContext(AppContext);
 
   /* NAVIGATE */
@@ -423,10 +424,12 @@ const handleFinish = () => {
       const ruta = data.routes[0].overview_polyline.points;
       const duration = data.routes[0].legs[0].duration.text; // Duración estimada de la ruta
       setTime(duration);
-      if(currentDate?.status === "EN CAMINO"){
+      if(currentDate?.status === "EN CAMINO" && dateAcceptedMessage){
+        console.log('pasa por acá');
         // enviamos al usuario el tiempo estimado de llegada
         Whatsapp_message_time(currentDate?.cellphone_number,duration,currentDate.datetime_start).then((data)=>{
           console.log(data);
+          setDateAcceptedMessage(false);
         }).catch((error)=>{
           console.log(error);
         });

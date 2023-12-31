@@ -13,6 +13,7 @@ const AppWrapper = (props) => {
 
   var [currentDate,setCurrentDate]=useState(null);
   var [historyDates,setHistoryDates]=useState([]);
+  const [dateAcceptedMessage, setDateAcceptedMessage] = useState(false);
 
   //BENEFICIENT
 
@@ -60,7 +61,7 @@ const AppWrapper = (props) => {
       activities,setActivities,
       listNotifications,setListNotifications,
       Logout,userData, setUserData, token, setToken , currentDate, setCurrentDate,historyDates,setHistoryDates,listBeneficient,setListBeneficient,selectBeneficient,setSelectBeneficient,
-    patient,setPatient,step,setStep, doctorsList}}>
+    patient,setPatient,step,setStep, doctorsList, dateAcceptedMessage, setDateAcceptedMessage}}>
       {props.children}
     </AppContext.Provider>
   );
