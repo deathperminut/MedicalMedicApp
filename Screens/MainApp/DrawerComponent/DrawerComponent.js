@@ -2,7 +2,7 @@ import { View, Text ,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Drawer } from 'react-native-drawer-layout';
 import Lobby from '../Lobby/Lobby';
-import { Icon } from 'react-native-elements';
+import { Icon, Image } from 'react-native-elements';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 import LogoMedicalWhite from '../../../Shared/Icons/LogoMedicalWhite';
 import { AppContext } from '../../../AppContext/Context';
@@ -21,11 +21,28 @@ export default function DrawerComponent(props) {
     return(
       <View>
               <View style={{alignItems:'center'}}>
-                <View style={{backgroundColor:'#6149cd',width:100,height:100,borderRadius:50,marginTop:20}}>
-                   <LogoMedicalWhite style={{width:150,height:100}}></LogoMedicalWhite>
+                <View style={{
+                  width: 85,
+                  height: 85,
+                  marginTop: 20,
+                  backgroundColor: '#FFF',
+                  borderRadius: 50,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center'
+                }}>
+                  <Image
+                    style={{   
+                      width: 55,
+                      height: 55             
+                    }}
+                    source={require("../../../assets/Home/logo_minimalista.png")}
+                  />
                 </View>
                 
-                <View style={{width:'100%',marginTop:70,height:'90%',alignItems:'center',paddingTop:20}}>
+                <View style={{width:'100%',marginTop:40,height:'90%',alignItems:'center',paddingTop:20}}>
                   
                   <TouchableOpacity style={{marginBottom:40,flexDirection:'row'}} onPress={()=>navigation.navigate('EditPerfil')}>
                   <Icon

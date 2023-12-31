@@ -2,6 +2,16 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+  logoContainer: {
+    alignItems: 'center',
+  },
+  logoBackground: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#FFF',
+    borderRadius: 50,
+    overflow: 'hidden', // Asegura que el fondo blanco no se extienda más allá del límite del contenedor
+  },
   container: {
     width:'100%',
     height:'100%',

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { View, ImageBackground} from 'react-native';
 import styles from './BeginScreenStyle';
 import LogotipoMedicalColor from '../../../Shared/Icons/Logotipo-Medical-Color';
+import { Image } from 'react-native-elements';
 
 
 export default function BeginScreen(props){
@@ -30,7 +31,23 @@ export default function BeginScreen(props){
         style={styles.imageBackground}>
       </ImageBackground>
       <View style={styles.MainContainer}>
-        <LogotipoMedicalColor style={styles.iconContainer}></LogotipoMedicalColor>
+        <View style={{
+          width: 300,
+          height: 97,
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          alignSelf: 'center'
+        }}>
+          <Image
+            style={{   
+              width: 280,
+              height: 90             
+            }}
+            source={require("../../../assets/Ingresar/logo_medical.png")}
+          />
+        </View>
       </View>
     </View>
   )

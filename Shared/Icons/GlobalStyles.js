@@ -55,6 +55,9 @@ const Globalstyles = StyleSheet.create({
   text:{
     fontSize:13
   },
+  text_2:{
+    fontSize: 15
+  },
   iconInput:{
     position:'absolute'
   }

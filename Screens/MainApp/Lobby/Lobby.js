@@ -386,6 +386,7 @@ const handleFinish = () => {
     calculamos la ruta mas cercana para trazar por google maps
     */
     if(currentPosition!==null && destinationCoordinates!==null){
+      console.log('Llega hasta este punto', currentDate);
        obtenerRuta(currentPosition,destinationCoordinates); // obtenemos la ruta entre los 2 puntos
     }
     
@@ -424,7 +425,7 @@ const handleFinish = () => {
       setTime(duration);
       if(currentDate?.status === "EN CAMINO"){
         // enviamos al usuario el tiempo estimado de llegada
-        Whatsapp_message_time(currentDate?.cellphone_number,duration).then((data)=>{
+        Whatsapp_message_time(currentDate?.cellphone_number,duration,currentDate.datetime_start).then((data)=>{
           console.log(data);
         }).catch((error)=>{
           console.log(error);
@@ -538,7 +539,25 @@ const openWhatsApp = () => {
                   <View style={{borderRadius:60,maxWidth:70,maxHeight:70,overflow:'hidden'}}>
                     <Image source={{uri:userData?.photo}} style={{resizeMode:'cover',width:70,height:70}}></Image>
                   </View>
-                  <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
+                  <View style={{
+                    width: 160,
+                    height: 51,
+                    backgroundColor: '#FFF',
+                    borderRadius: 10,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center'
+                  }}>
+                    <Image
+                      style={{   
+                        width: 120,
+                        height: 38             
+                      }}
+                      source={require("../../../assets/Ingresar/logo_medical.png")}
+                    />
+                  </View>
                 </View>
                 <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
