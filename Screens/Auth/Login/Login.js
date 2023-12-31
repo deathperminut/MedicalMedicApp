@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./LoginStyle";
 import { Input, Icon } from "react-native-elements";
 import Globalstyles from "../../../Shared/Icons/GlobalStyles";
@@ -8,6 +8,7 @@ import { initLogin } from "../../../services/Auth/Login/Login";
 import LoadingScreen from "../../../Shared/Alerts/Loader";
 import CustomModal from "../../../Shared/Alerts/Alert";
 import { AppContext } from "../../../AppContext/Context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from "expo-location";
 
 export default function Login(props) {
@@ -105,6 +106,25 @@ export default function Login(props) {
     }
   }, []);
 
+  useEffect(() => {
+    recoverInformation();
+  }, []);
+
+  const recoverInformation = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user');
+      let userInformation = JSON.parse(value);
+      if (userInformation !== null) {
+        setUser({
+          identification: userInformation.identification,
+          password: userInformation.password
+        })
+      } else {
+      }
+    } catch (error) {
+    }
+  };
+
   const [valid, setValid] = React.useState(false); // VALIDACIÓN DE LAS CREDENCIALES
 
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -153,6 +173,7 @@ export default function Login(props) {
           setToken(result.data.datos.token);
           setPreloader(false);
           navigation.navigate("Drawer");
+          saveInformation();
         } else {
           setPreloader(false);
           handleError_2();
@@ -160,6 +181,17 @@ export default function Login(props) {
       }
     } else {
       handleInfo();
+    }
+  };
+
+  const saveInformation = async () => {
+    try {
+      let value = {
+        identification: user.identification,
+        password: user.password
+      };
+      await AsyncStorage.setItem('user', JSON.stringify(value));
+    } catch (error) {
     }
   };
 
@@ -225,6 +257,7 @@ export default function Login(props) {
               }}
               containerStyle={{ marginVertical: 10 }}
               placeholder="Identificación"
+              defaultValue={user.identification}
               onChangeText={(text) => ReadInput(text, "identification")}
               leftIcon={
                 <Icon
@@ -257,6 +290,7 @@ export default function Login(props) {
               }}
               containerStyle={{ marginVertical: 10 }}
               placeholder="Contraseña"
+              defaultValue={user.password}
               onChangeText={(text) => ReadInput(text, "password")}
               leftIcon={
                 <Icon
