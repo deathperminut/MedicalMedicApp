@@ -1,5 +1,5 @@
-import React from "react";
 import axios from "axios";
+import moment from 'moment-timezone';
 import { environment } from "../../../../environments/environments";
 
 const getActivities=async(token)=>{
@@ -101,7 +101,7 @@ const getActivities=async(token)=>{
       },
     };
     /* SOLO ACTUALIZAMOS EL STATUS */
-    DATE['datetime_arrival']=new Date();
+    DATE['datetime_arrival'] = moment().tz(moment.tz.guess()).format();
     return await axios.post(path,DATE,config);
   }
 
@@ -113,7 +113,7 @@ const getActivities=async(token)=>{
       },
     };
     /* SOLO ACTUALIZAMOS EL STATUS */
-    DATE['datetime_output']=new Date();
+    DATE['datetime_output'] = moment().tz(moment.tz.guess()).format();
     DATE['status']='FINALIZADO';
     return await axios.post(path,DATE,config);
   }
@@ -199,7 +199,7 @@ const getActivities=async(token)=>{
     }
 
 
-    const Whatsapp_message_time =async(cellphone,time)=>{
+    const Whatsapp_message_time =async(cellphone,time, timeStart)=>{
       // environment.api
         let path= 'https://graph.facebook.com/v17.0/123796670819506/messages';
         let  Token_cellphone ='EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH' // TOKEN PERMANENTE
@@ -209,6 +209,12 @@ const getActivities=async(token)=>{
               Authorization: 'Bearer ' + Token_cellphone,
             },
         };
+        const dateObject = new Date(timeStart);
+
+        // Obtener la hora, los minutos y los segundos
+        const horas = dateObject.getHours();
+        const minutos = dateObject.getMinutes();
+        let date = `${horas}:${minutos < 10 ? `0${minutos}` : minutos}`;
         let body= {
           "messaging_product": "whatsapp",
           "to": "57"+cellphone,
@@ -225,7 +231,7 @@ const getActivities=async(token)=>{
               "parameters": [
                 {
                   "type": "text",
-                  "text": time
+                  "text": date
                 }
               ]
             }
