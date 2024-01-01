@@ -264,10 +264,13 @@ const handleFinish = () => {
       handleArrive();// mensaje de aviso para la llegada del médico
       // whatsapp de llegada con la ubicación actual del médico
       Whatsapp_message_llegada(result?.data?.cellphone_number,currentPosition?.latitude,currentPosition?.longitude).then((data)=>{
+        console.log('Mensaje de whatsapp mandado');
         console.log(data);
       }).catch((error)=>{
+        console.log('error en el mensaje de whatsapp');
         console.log(error);
       });
+      console.log('Antes del result data');
       // guardamos la cita actualizada con el estado nuevo de la cita
       setCurrentDate(result.data);
     }
@@ -425,7 +428,6 @@ const handleFinish = () => {
       const duration = data.routes[0].legs[0].duration.text; // Duración estimada de la ruta
       setTime(duration);
       if(currentDate?.status === "EN CAMINO" && dateAcceptedMessage){
-        console.log('pasa por acá');
         // enviamos al usuario el tiempo estimado de llegada
         Whatsapp_message_time(currentDate?.cellphone_number,duration,currentDate.datetime_start).then((data)=>{
           console.log(data);

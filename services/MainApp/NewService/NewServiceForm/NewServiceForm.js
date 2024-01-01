@@ -152,7 +152,7 @@ const getActivities=async(token)=>{
     
   };
 
-  const Whatsapp_message_salida =async(cellphone,latitude,longitude)=>{
+  const Whatsapp_message_salida =async(cellphone, latitude, longitude)=>{
     // environment.api
       let path= 'https://graph.facebook.com/v17.0/123796670819506/messages';
       let  Token_cellphone ='EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH' // TOKEN PERMANENTE
@@ -162,6 +162,7 @@ const getActivities=async(token)=>{
             Authorization: 'Bearer ' + Token_cellphone,
           },
       };
+      let location = await getLocationNow(latitude, longitude);
       let body= {
         "messaging_product": "whatsapp",
         "to": "57"+cellphone,
@@ -181,8 +182,8 @@ const getActivities=async(token)=>{
                 "location": {
                   "longitude": longitude,
                   "latitude": latitude,
-                  "name":"Doctor location",
-                  "address":"Doctor location"
+                  "name": location.data.results[0].formatted_address,
+                  "address": location.data.results[0].formatted_address
                 }
               }
             ]
@@ -196,8 +197,13 @@ const getActivities=async(token)=>{
       console.log("BODY AGENDADA; ",body)
       return await axios.post(path, body, config)
     
-    }
+    };
 
+    const getLocationNow = async (latitude, longitude) => {
+      const apiKey = 'AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w';
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&language=es`
+      return await axios.get(url);
+    };
 
     const Whatsapp_message_time =async(cellphone,time, timeStart)=>{
       // environment.api
@@ -255,6 +261,7 @@ const getActivities=async(token)=>{
               Authorization: 'Bearer ' + Token_cellphone,
             },
         };
+        let location = await getLocationNow(latitude, longitude);
         let body= {
           "messaging_product": "whatsapp",
           "to": "57"+cellphone,
@@ -274,8 +281,8 @@ const getActivities=async(token)=>{
                   "location": {
                     "longitude": longitude,
                     "latitude": latitude,
-                    "name":"Doctor location",
-                    "address":"Doctor location"
+                    "name": location.data.results[0].formatted_address,
+                    "address": location.data.results[0].formatted_address
                   }
                 }
               ]

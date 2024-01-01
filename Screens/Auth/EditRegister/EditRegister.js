@@ -163,7 +163,8 @@ export default function EditRegister(props) {
     {title:"11",data:[{id:12,type:'neighbourhood',placeholder:'Barrio' ,icon:'location-city' ,typeIcon:'',typeForm:'input',data:[]}]},
     {title:"15",data:[{id:14,type:"genre",placeholder:"Género" ,data:[
       { value: "Masculino", label: "Masculino" },
-      { value: "Femenino", label: "Femenino" }
+      { value: "Femenino", label: "Femenino" },
+      { value: "Otro", label: "Otro" }
     ],open:open4,setOpen:setOpen4 ,typeForm:'dropdown'}]},
 
     {title:"16",data:[{id:15,type:'address',placeholder:'Dirección' ,icon:'directions' ,typeIcon:'',typeForm:'input',data:[]}]},

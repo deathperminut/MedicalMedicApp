@@ -164,7 +164,6 @@ export default function HistoryDates(props) {
      setPreloader(true);
      let result=undefined;
      result= await getMedicDates(token).catch((error)=>{
-       console.log(error.response);
        setPreloader(false);
        handleError();
      })
@@ -208,9 +207,7 @@ export default function HistoryDates(props) {
         // ENVIAMOS UBICACIÓN ACTUAL DEL MÉDICO
         console.log("RESULTADOS APP: ",currentPosition);
         Whatsapp_message_salida(result.data.cellphone_number,currentPosition?.latitude,currentPosition?.longitude).then((data)=>{
-          console.log("ENVIADO CON EXITO",data);
         }).catch((error)=>{
-          console.log("ERROR AL ENVIAR",error);
         });
         setCurrentDate(result.data);
 
