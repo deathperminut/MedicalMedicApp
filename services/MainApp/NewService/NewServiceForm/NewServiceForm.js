@@ -101,7 +101,17 @@ const getActivities=async(token)=>{
       },
     };
     /* SOLO ACTUALIZAMOS EL STATUS */
-    DATE['datetime_arrival'] = moment().tz(moment.tz.guess()).format();
+    let date = moment();
+    //console.log(date);
+    let newd = new Date()
+    console.log(newd.toISOString());
+    const year = date.year();
+    const month = date.month() + 1;
+    const day = date.date();
+    const hour = date.hours();
+    const minutes = date.minutes();
+    let dateArrival = `${year}-${month}-${day}T${hour}:${minutes}`;
+    DATE['datetime_arrival'] = dateArrival;
     return await axios.post(path,DATE,config);
   }
 
@@ -113,7 +123,14 @@ const getActivities=async(token)=>{
       },
     };
     /* SOLO ACTUALIZAMOS EL STATUS */
-    DATE['datetime_output'] = moment().tz(moment.tz.guess()).format();
+    let date = moment();
+    const year = date.year();
+    const month = date.month() + 1;
+    const day = date.date();
+    const hour = date.hours();
+    const minutes = date.minutes();
+    let dateOutput = `${year}-${month}-${day}T${hour}:${minutes}`;
+    DATE['datetime_output'] = dateOutput;
     DATE['status']='FINALIZADO';
     return await axios.post(path,DATE,config);
   }

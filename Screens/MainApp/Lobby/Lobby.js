@@ -261,6 +261,7 @@ const handleFinish = () => {
     })
     if (result!==undefined){
       setPreloader(false);
+      console.log(result.data);
       handleArrive();// mensaje de aviso para la llegada del médico
       // whatsapp de llegada con la ubicación actual del médico
       Whatsapp_message_llegada(result?.data?.cellphone_number,currentPosition?.latitude,currentPosition?.longitude).then((data)=>{
@@ -308,6 +309,7 @@ const handleFinish = () => {
    setPreloader(false);
   })
   if (result!==undefined){
+    console.log(result.data);
     setPreloader(false);
     handleFinish();
     setCurrentDate(null);
