@@ -2,7 +2,7 @@ import { View, Text,ImageBackground,ScrollView,TouchableOpacity ,Dimensions } fr
 import React, { useState } from 'react';
 import styles from './OurServicesStyles';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
-import { Icon } from 'react-native-elements';
+import { Icon, Image } from 'react-native-elements';
 import {LinearGradient} from 'expo-linear-gradient';
 import Globalstyles from '../../../Shared/Icons/GlobalStyles';
 
@@ -93,9 +93,27 @@ export default function OurServices(props) {
             <TouchableOpacity>
               <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
             </TouchableOpacity>
-            <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
+            <View style={{
+              width: 160,
+              height: 51,
+              backgroundColor: '#FFF',
+              borderRadius: 10,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center'
+            }}>
+              <Image
+                style={{   
+                  width: 120,
+                  height: 38             
+                }}
+                source={require("../../../assets/Ingresar/logo_medical.png")}
+              />
+              </View>
           </View>
-          <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.SubTitle_2,marginTop:40}}>Turnos diarios</Text>
+          <Text style={{...Globalstyles.Medium,...Globalstyles.white,...Globalstyles.SubTitle_2,marginTop:50}}>Turnos diarios</Text>
         </View>
         <LinearGradient colors={['#FFFFFF', '#F6F4FF']} style={{...styles.FormContainer,alignItems:'center',minHeight:newHeight}}>
           <View style={{ width:'100%',height:'100%'}}>

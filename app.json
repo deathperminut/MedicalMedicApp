@@ -4,7 +4,7 @@
     "slug": "medical-app",
     "version": "2.0.1",
     "orientation": "portrait",
-    "icon": "./assets/Icon_app.png",
+    "icon": "./assets/logo-medical-color.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",

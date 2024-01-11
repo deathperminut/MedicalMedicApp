@@ -1,7 +1,7 @@
 import { View, Text ,ImageBackground,ScrollView,TouchableOpacity } from 'react-native'
 import React from 'react'
 import {LinearGradient} from 'expo-linear-gradient';
-import { Icon } from 'react-native-elements';
+import { Icon, Image } from 'react-native-elements';
 import LogoMedicalComplete from '../../../Shared/Icons/LogoMedicalComplete';
 import styles from './BeneficientStyles'
 import Globalstyles from '../../../Shared/Icons/GlobalStyles'
@@ -55,9 +55,28 @@ export default function Beneficient(props) {
             <TouchableOpacity>
               <Icon name="chevron-left" color={'#FFF'} size={40} onPress={()=>navigation.navigate('Drawer')}></Icon>
             </TouchableOpacity>
-            <LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>
+            {/*<LogoMedicalComplete style={{width:160,height:100}}></LogoMedicalComplete>*/}
+            <View style={{
+              width: 160,
+              height: 51,
+              backgroundColor: '#FFF',
+              borderRadius: 10,
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignSelf: 'center'
+            }}>
+              <Image
+                style={{   
+                  width: 120,
+                  height: 38             
+                }}
+                source={require("../../../assets/Ingresar/logo_medical.png")}
+              />
+              </View>
           </View>
-          <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
+          <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2, marginTop: 50}}>{GetName(userData)}</Text>
           <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
         </View>
         <LinearGradient colors={['#FFFFFF', '#695F9766']} style={{...styles.FormContainer,alignItems:'center'}}>

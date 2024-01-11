@@ -48,8 +48,8 @@ const ServicesData=[
   {
     image:'../../../assets/Home/Tarjeta-Solicitar.png',
     id:'4',
-    text_1:'Guias',
-    text_2:'Practicas', 
+    text_1:'Guías de',
+    text_2:'Práctica clínica', 
     navigate:'FrecuentQuestions'
   },
 
@@ -567,7 +567,6 @@ const openWhatsApp = () => {
                   </View>
                 </View>
                 <Text style={{...Globalstyles.bold,...Globalstyles.white,...Globalstyles.SubTitle_2}}>{GetName(userData)}</Text>
-                <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{getAge(userData?.date_birth)+" Años"}</Text>
                 <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.bold}}>{userData?.coverage_city} | <Text style={{...Globalstyles.Medium,...Globalstyles.PurpleWhite2,...Globalstyles.text}}>{userData.address}</Text></Text>
                 {currentDate!==null ? 
                 <View style={{width:'100%',flexDirection:'row',alignItems:'center',marginTop:5}}>
