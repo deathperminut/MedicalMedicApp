@@ -428,10 +428,11 @@ const handleFinish = () => {
       // Procesa los datos de respuesta para obtener los puntos de latitud y longitud de la ruta
       const ruta = data.routes[0].overview_polyline.points;
       const duration = data.routes[0].legs[0].duration.text; // Duración estimada de la ruta
+      let timeEstimated = data.routes[0].legs[0].duration.value;
       setTime(duration);
       if(currentDate?.status === "EN CAMINO" && dateAcceptedMessage){
         // enviamos al usuario el tiempo estimado de llegada
-        Whatsapp_message_time(currentDate?.cellphone_number,duration,currentDate.datetime_start).then((data)=>{
+        Whatsapp_message_time(currentDate?.cellphone_number,timeEstimated,currentDate.datetime_start).then((data)=>{
           console.log(data);
           setDateAcceptedMessage(false);
         }).catch((error)=>{
@@ -595,16 +596,6 @@ const openWhatsApp = () => {
                               }
                               <View style={{maxWidth:250,alignItems:'center',justifyContent:'center',backgroundColor:'#FFFFFF'}}>
                                 <View style={{width:'100%'}}>
-                                  <View style={{flexDirection:'row',alignItems:'center',width:'100%',justifyContent:'center'}}>
-                                    <Icon
-                                      name='calendar'
-                                      type='font-awesome'
-                                      color='#FFA500'
-                                      size={14}
-                                      style={{marginRight:10}}
-                                    />
-                                    <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearHora(currentDate?.datetime_start) + ' - ' + formatearHora(currentDate?.datetime_end)}</Text>
-                                  </View>
                                   <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(currentDate)}</Text>
                                   <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{currentDate.identification_type + ' ' +currentDate.identification}</Text>
                                 </View>

@@ -232,12 +232,13 @@ const getActivities=async(token)=>{
               Authorization: 'Bearer ' + Token_cellphone,
             },
         };
-        const dateObject = new Date(timeStart);
+        const durationInMinutes = time / 60;
+        const now = new Date();
 
-        // Obtener la hora, los minutos y los segundos
-        const horas = dateObject.getHours();
-        const minutos = dateObject.getMinutes();
-        let date = `${horas}:${minutos < 10 ? `0${minutos}` : minutos}`;
+        const arrivalTime = new Date(now.getTime() + durationInMinutes * 60000);
+        const hours = arrivalTime.getHours();
+        const minutes = arrivalTime.getMinutes();
+        const formattedArrivalTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
         let body= {
           "messaging_product": "whatsapp",
           "to": "57"+cellphone,
@@ -254,7 +255,7 @@ const getActivities=async(token)=>{
               "parameters": [
                 {
                   "type": "text",
-                  "text": date
+                  "text": formattedArrivalTime
                 }
               ]
             }

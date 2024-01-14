@@ -291,16 +291,6 @@ export default function HistoryDates(props) {
                       }
                     <View style={{width:'70%',alignItems:'flex-start',justifyContent:'flex-start',marginLeft:20}}>
                     <View>
-                      <View style={{flexDirection:'row',alignItems:'center'}}>
-                        <Icon
-                          name='calendar'
-                          type='font-awesome'
-                          color='#FFA500'
-                          size={14}
-                          style={{marginRight:10}}
-                        />
-                        <Text style={{...Globalstyles.BlackPurple,...Globalstyles.bold}}>{formatearHora(faq.datetime_start) + ' - ' + formatearHora(faq.datetime_end)}</Text>
-                      </View>
                       <Text style={{...Globalstyles.Medium,...Globalstyles.BlackPurple,fontSize:13,textAlign:'center'}}>{GetName(faq)}</Text>
                       <Text style={{...Globalstyles.Medium,...Globalstyles.gray,...Globalstyles.text,textAlign:'center'}}>{faq.identification_type + ' ' +faq.identification}</Text>
                     </View>
