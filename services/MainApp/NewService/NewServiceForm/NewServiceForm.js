@@ -102,9 +102,6 @@ const getActivities=async(token)=>{
     };
     /* SOLO ACTUALIZAMOS EL STATUS */
     let date = moment();
-    //console.log(date);
-    let newd = new Date()
-    console.log(newd.toISOString());
     const year = date.year();
     const month = date.month() + 1;
     const day = date.date();
@@ -112,6 +109,9 @@ const getActivities=async(token)=>{
     const minutes = date.minutes();
     let dateArrival = `${year}-${month}-${day}T${hour}:${minutes}`;
     DATE['datetime_arrival'] = dateArrival;
+    if (DATE.activity === 2) {
+      DATE['status']='EN CAMINO';
+    }
     return await axios.post(path,DATE,config);
   }
 

@@ -13,7 +13,7 @@ import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import * as Location from 'expo-location';
 import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
-import { UpdateDate, Whatsapp_message_llegada_destino, Whatsapp_message_salida } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { UpdateDate, UpdateDate_Arrive, Whatsapp_message_llegada_destino, Whatsapp_message_salida } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 
 
 export default function HistoryDates(props) {
@@ -82,6 +82,13 @@ export default function HistoryDates(props) {
     setShowModal(true);
   };
 
+  const handleAcceptedAppointment = () => {
+    /* función para definir los textos, el icono y la aparición del modal*/
+    setMessage('Cita aceptada. Debe esperar mímimo 20 minutos para poder finalizar la consulta');
+    setIconName("check-circle");
+    setShowModal(true);
+  };
+
   /*
   variable para obtener la posición actual del médico a la hora de aceptar una cita
   */
@@ -145,15 +152,38 @@ export default function HistoryDates(props) {
     como aceptada definiendo de una vez la posición del médico actual y la dirección
     del paciente
     */
-    if(currentDate!==null){
-      handleAcceptError();
-    }else{
-      UPDATE_DATE(DateAccepted);
-      setDateAcceptedMessage(true);
-    }
-    
+   if (DateAccepted?.activity !== 2) {
+     if(currentDate!==null){
+       handleAcceptError();
+     }else{
+       UPDATE_DATE(DateAccepted);
+       setDateAcceptedMessage(true);
+     }
+   } else {
+    if(currentDate !== null){
+       handleAcceptError();
+     } else{
+       updateDatePhone(DateAccepted);
+     }
+   }
+    console.log(DateAccepted);
+  };
 
-  }
+  const updateDatePhone = async (date) => {
+    setPreloader(true);
+    let result=undefined;
+    result=await UpdateDate_Arrive(date, token).catch((error)=>{
+     console.log(error);
+     handleError();
+     setPreloader(false);
+    })
+    if (result!==undefined){
+      setPreloader(false);
+      handleAcceptedAppointment();
+      setCurrentDate(result.data);
+      navigation.navigate('Drawer');
+    }
+  };
 
    const getData=async()=>{
     
