@@ -216,6 +216,79 @@ const getActivities=async(token)=>{
     
     };
 
+  const whatsAppMessagePhoneCallPatient = async (cellphone) => {
+    // environment.api
+    let path = "https://graph.facebook.com/v17.0/123796670819506/messages";
+    let tokenCellphone =
+      "EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH"; // TOKEN PERMANENTE
+    /* HEADER */
+    let config = {
+      headers: {
+        Authorization: "Bearer " + tokenCellphone,
+      },
+    };
+    let body = {
+      messaging_product: "whatsapp",
+      to: "57" + cellphone,
+      type: "template",
+      template: {
+        name: "appointment_phone_patient",
+        language: {
+          code: "en",
+        },
+        components: [
+          {
+            type: "header",
+          },
+        ],
+      },
+    };
+    return await axios.post(path, body, config);    
+  };
+
+  const whatsAppMessagePhoneCallDoctor = async (cellphone, user) => {
+    // environment.api
+    let path = "https://graph.facebook.com/v17.0/123796670819506/messages";
+    let tokenCellphone =
+      "EAAEGaX3qVSoBO3DYSMwxsHBv4Lr644U5Jf9DZBbH1q6vMmRqvZCEq92NOtDo7ZCGmoJXZCZAZCt81nzvLkSFRBUuf2reTXkmZBabn3uXeLiVgT4dJZCZAhLdahn7SJwZCmfArSZC5pFAz9WhwgilsLG4mqsZCrg8XXJnXHFvgPPdA12dm54JC42GrH2R3B4kZBBZCH"; // TOKEN PERMANENTE
+    /* HEADER */
+    let config = {
+      headers: {
+        Authorization: "Bearer " + tokenCellphone,
+      },
+    };
+    let name = user.second_name ? `${user.name} ${user.second_name} ${user.last_name}` : `${user.name} ${user.last_name}`;
+    let body = {
+      messaging_product: "whatsapp",
+      //to: "57" + cellphone,
+      to: "573206640327",
+      type: "template",
+      template: {
+        name: "appointment_phone_doctor",
+        language: {
+          code: "en",
+        },
+        components: [
+          {
+            type: "body",
+            "parameters": [
+              {
+                "type": "text",
+                "text": name
+              },
+              {
+                "type": "text",
+                "text": user.cellphone_number
+              }
+            ]
+          },
+        ],
+      },
+
+    };
+    return await axios.post(path, body, config);    
+  };
+
     const getLocationNow = async (latitude, longitude) => {
       const apiKey = 'AIzaSyCw4GK9llNdu3RvbmsW25xp1P3b8WghL6w';
       const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}&language=es`
@@ -318,4 +391,4 @@ const getActivities=async(token)=>{
 
 
 
-  export {Whatsapp_message_time,Whatsapp_message_llegada,Whatsapp_message_salida,getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors,UpdateDate_Arrive,UpdateDate_FINISH};
+  export {Whatsapp_message_time,Whatsapp_message_llegada,Whatsapp_message_salida,getActivities,generateService,cancelService,getActiveService,UpdateDate,retrieveMedicalSchedule,DatesDoctors,UpdateDate_Arrive,UpdateDate_FINISH, whatsAppMessagePhoneCallPatient, whatsAppMessagePhoneCallDoctor};

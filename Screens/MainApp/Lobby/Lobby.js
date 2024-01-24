@@ -114,7 +114,7 @@ export default function Lobby(props) {
 
   const handleArrive = () => {
     /* función para definir los textos, el icono y la aparición del modal*/
-    setMessage("Llegada registrada correctamente");
+    setMessage("Llegada registrada correctamente. Debe esperar mímimo 20 minutos para poder finalizar la consulta");
     setIconName("check-circle");
     setShowModal(true);
   };
@@ -329,7 +329,7 @@ export default function Lobby(props) {
     if (minutosTranscurridos < 20) {
       handleMinutesError();
     } else {
-      /*setPreloader(true);
+      setPreloader(true);
       let result = undefined;
       result = await UpdateDate_FINISH(currentDate, token).catch((error) => {
         console.log(error);
@@ -341,8 +341,7 @@ export default function Lobby(props) {
         setPreloader(false);
         handleFinish();
         setCurrentDate(null);
-      }*/
-      console.log('Finalizó')
+      }
     }
   };
 

@@ -13,7 +13,7 @@ import LoadingScreen from '../../../Shared/Alerts/Loader';
 import CustomModal from '../../../Shared/Alerts/Alert';
 import * as Location from 'expo-location';
 import { getMedicDates } from '../../../services/MainApp/HistoryDates/HistoryDates';
-import { UpdateDate, UpdateDate_Arrive, Whatsapp_message_llegada_destino, Whatsapp_message_salida } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
+import { UpdateDate, UpdateDate_Arrive, Whatsapp_message_llegada_destino, Whatsapp_message_salida, whatsAppMessagePhoneCallDoctor, whatsAppMessagePhoneCallPatient } from '../../../services/MainApp/NewService/NewServiceForm/NewServiceForm';
 
 
 export default function HistoryDates(props) {
@@ -153,33 +153,33 @@ export default function HistoryDates(props) {
     del paciente
     */
    if (DateAccepted?.activity !== 2) {
-     if(currentDate!==null){
-       handleAcceptError();
-     }else{
-       UPDATE_DATE(DateAccepted);
-       setDateAcceptedMessage(true);
-     }
-   } else {
-    if(currentDate !== null){
-       handleAcceptError();
-     } else{
-       updateDatePhone(DateAccepted);
-     }
-   }
-    console.log(DateAccepted);
+      if (currentDate!==null) {
+        handleAcceptError();
+      } else{
+        UPDATE_DATE(DateAccepted);
+        setDateAcceptedMessage(true);
+      }
+    } else {
+      if(currentDate !== null){
+        handleAcceptError();
+      } else{
+        updateDatePhone(DateAccepted);
+      }
+    }
   };
 
   const updateDatePhone = async (date) => {
     setPreloader(true);
-    let result=undefined;
-    result=await UpdateDate_Arrive(date, token).catch((error)=>{
-     console.log(error);
-     handleError();
-     setPreloader(false);
+    let result = await UpdateDate_Arrive(date, token).catch((error)=>{
+      console.log(error);
+      handleError();
+      setPreloader(false);
     })
     if (result!==undefined){
       setPreloader(false);
       handleAcceptedAppointment();
+      whatsAppMessagePhoneCallPatient(date.cellphone_number);
+      whatsAppMessagePhoneCallDoctor(userData.phone, date);
       setCurrentDate(result.data);
       navigation.navigate('Drawer');
     }
@@ -198,10 +198,12 @@ export default function HistoryDates(props) {
        handleError();
      })
      if(result!==undefined){
+      let { data } = result;
+      let orderedArray = data.sort(compareDates);
       if(result.data.length!==0){
-        setHistoryDates(result.data);
+        setHistoryDates(orderedArray);
       }else{
-        setHistoryDates(result.data);
+        setHistoryDates(orderedArray);
       }
 
       //socket_control(userData,token);
@@ -210,7 +212,17 @@ export default function HistoryDates(props) {
 
      }
     
-   }
+   };
+
+  const compareDates = (a, b) => {
+    const fechaA = new Date(a.datetime_start);
+    const fechaB = new Date(b.datetime_start);
+  
+    // Compara las fechas
+    if (fechaA < fechaB) return -1;
+    if (fechaA > fechaB) return 1;
+    return 0;
+  };
 
 
   /* UPDATE DATE */
