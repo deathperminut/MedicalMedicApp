@@ -260,8 +260,7 @@ const getActivities=async(token)=>{
     let name = user.second_name ? `${user.name} ${user.second_name} ${user.last_name}` : `${user.name} ${user.last_name}`;
     let body = {
       messaging_product: "whatsapp",
-      //to: "57" + cellphone,
-      to: "573206640327",
+      to: "57" + cellphone,
       type: "template",
       template: {
         name: "appointment_phone_doctor",
