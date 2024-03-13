@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "single-will-404715",
+  "private_key_id": "824e0820b4358deacb3a13cea64bc715c3608e7b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCtKoSwbpSw6okp\n3DXPZdXX7MnzPS2axrLP/d8h1Y8+jsrBbqufODeCHCL+eHmhT1imNaEG9XIRe6zz\nYy9/nHWKzEfbqWoooAsLNMCtOfh7tNe+O4GQjakatGaHX68HKH1dyGB9CDgfM7Oc\nWnIsoic53gTG26d2ROQl3eCbg44rNYI8OgNElIdQCGOfv65VXEod/ZQTkMvEDIaw\nedttXwnni3k2/xDxV/SOZF/sIysUmXgsm4JcQjt8HEN6xHhtcOqa4fTVihaL8B0r\nDZWBNPxm95JNstYgvDzhtmbyxbeN8T/0HBnUKxWsvSakTThGxdY4y67iAp6eUXLe\nClYUUqifAgMBAAECggEACTICGsmJQ5db69xum3h8ywfSNerqC/Dm/n/fxFDhV7Qt\nOxyD24myLn2mmnaBfiatZLuugdgw+itKZO0MhCbyrO/dFWKHj+gaJG2xzGEQ+1mA\nJvD+l9NiuleZcpdxPwMpteJ8Ksq8pDEfWNTXgQ9y35h7dQ3YwVrpXJA0Kz3oo9p2\nJt/Z5sXIO+kRaz/Km9BDOGtznqR3tq4qVXyu7ndKt1xfcZUSDg8+tgbp6CVxvYqK\ndVeuSVWNLvFdT7i4gxa/EughQMhaOOvn6LgO9zmhAiVDUd2eiqaQzozT9Xxc5rAy\nr7PmWz6aQn6TJe0knUObBFWsQm8dNRb2ksc2EO79SQKBgQDrXDQvZhNKuqvg3VO/\n9ZPJ9R8zqnF7eSNKW2mcDEAhm/Bcb7jc1OmuJCorHkDY5XkDvkrAzc9HzK4QUjsM\nR56liSdF7cFk4q5bgpOye1GXGl2gAOv3zs6A5uUY1WeAmqPt4a6YCWuOiIoo+Z0i\nGtw1jsmsjpkYZo01aW2PFSG/uQKBgQC8WhFZW9bl6C0ioOgKCGMq7txFFUc+75+Q\nLGIGKtLU8eQ/HNjJOXzGr32dfBDOJnwXBFNjLw1c2yMPfzgGTTspz5rZU8GtB1qp\negv3L/Nt93L58rpRgRSuQIlH4hGdzp/hTYF1s9+ouOaBmxnT5Hf2Xf923F7GIoJz\nIUiVWN9nFwKBgQC7DsovDcqxbxGiI2Ynv8+ZCKem0YVmJA4nT+Xs71OdIqnzXZwo\nb1PWYsndASt6906p6fjRqgFfSE7ji+eAR//QAuTi0CcPvpXjBzHJ/fcHyB23SGRC\nzOwVSO22Qg4ECWPWcbLpBTulyeE81b7MV1rDelvROHh3CzKZy9QWjy4GiQKBgHwc\n2YvJgbzzljJYVy6tQjN7PDhlghINslY9eMZZl53sWxvfdVZ7hCYkY6DPrP86ytAb\n8JrN2X9TgzHmAdPdNlwhygblMx1CWFKO8q2KslzHDsN3V6D3bto3+n4ckMEs85ty\nCBm4UmwKkxHaU1WWGhqE7B61rdnfyZf12a9X5bY3AoGAfCb9kNeb2/uAVBEtwjGA\nNHR7JLIJAnaHohr2FuQE04AXu+Kksq/aLlp4LhVSjZSXRZLrIpE77Omwkd2tOfkG\nco13Ji6W7Pb96V/uYcjmRziZWDcFJZH/Xc6itCzCapFQX0OhuB5H94JEeDQsFOqP\nqEMkgw6y9I761HVWVWf3ZGU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "medical-app-medicos@single-will-404715.iam.gserviceaccount.com",
+  "client_id": "104499970916417447466",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/medical-app-medicos%40single-will-404715.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
