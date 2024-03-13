@@ -50,7 +50,7 @@ const AppWrapper = (props) => {
 
   const [currentPosition, setCurrentPosition] = useState(null);
 
-  let doctorsList = ['Médico', 'AUXILIAR DE ENFERMERIA', 'PSICOLOGO', 'NUTRICIONISTA', 'TRABAJADOR SOCIAL', 'TERAPEUTA FISICO', 'TERAPEUTA RESPIRATORIO', 'TERAPEUTA OCUPACIONAL'];
+  let doctorsList = ['Médico', 'AUXILIAR DE ENFERMERIA', 'PSICOLOGO', 'NUTRICIONISTA', 'TRABAJADOR SOCIAL', 'TERAPEUTA FISICO', 'TERAPEUTA RESPIRATORIO', 'TERAPEUTA OCUPACIONAL', 'ENFERMERO PROFESIONAL ASISTENCIAL'];
 
   return (
     // Usamos el AppContext.Provider para proveer el valor del contexto
